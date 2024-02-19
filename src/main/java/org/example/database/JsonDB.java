@@ -7,8 +7,6 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.example.collection.MusicBand;
 
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.LinkedList;
 
@@ -20,14 +18,9 @@ public class JsonDB implements InterfaceDataBase<MusicBand>{
     @Override
     public void SaveData(LinkedList<MusicBand> collection) throws IOException {
         File file = new File(fileName);
-        FileWriter writer = new FileWriter(fileName);
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
-        String data = objectMapper.writeValueAsString(collection);
-        writer.write(data);
-        writer.flush();
-        writer.close();
-
+        objectMapper.writeValue(file, collection);
     }
 
     @Override
