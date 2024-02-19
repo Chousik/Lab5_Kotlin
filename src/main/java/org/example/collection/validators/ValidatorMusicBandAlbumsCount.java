@@ -1,15 +1,15 @@
 package org.example.collection.validators;
 
-import org.example.exception.NotValidData;
+import org.example.exception.InvalidDataError;
 
 public class ValidatorMusicBandAlbumsCount implements Validator<Long>{
     @Override
-    public void valide(Long along) throws NotValidData {
+    public void valide(Long along) throws InvalidDataError {
         if (along == null){
             throw new NullPointerException();
         }
         if (along <= 0){
-            throw new NotValidData();
+            throw new InvalidDataError();
         }
     }
 }

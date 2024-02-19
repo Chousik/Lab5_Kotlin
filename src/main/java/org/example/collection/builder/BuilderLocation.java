@@ -4,143 +4,156 @@ import org.example.collection.Location;
 import org.example.collection.validators.ValidatorLocationName;
 import org.example.collection.validators.ValidatorLocationX;
 import org.example.collection.validators.ValidatorLocationYZ;
-import org.example.exception.NotValidData;
-import org.example.exception.ScriptRunErorr;
+import org.example.exception.InvalidDataError;
+import org.example.exception.ScriptExecutionError;
 import org.example.handlers.RunHandler;
 
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-public class BuilderLocation implements BuilderInterface<Location>{
+public class BuilderLocation implements IBuilder<Location> {
     private Boolean isScript;
-    private Scanner Scaner;
-    private ValidatorLocationName ValidatorLocationName;
-    private ValidatorLocationX ValidatorLocationX;
-    private ValidatorLocationYZ ValidatorLocationYZ;
+    private Scanner scanner;
+    private ValidatorLocationName validatorLocationName = new ValidatorLocationName();
+    private ValidatorLocationX validatorLocationX = new ValidatorLocationX();
+    private ValidatorLocationYZ validatorLocationYZ = new ValidatorLocationYZ();
     public BuilderLocation(){
-        this.isScript = RunHandler.Mode();
-        this.Scaner = RunHandler.getMainScaner();
-        this.ValidatorLocationName = new ValidatorLocationName();
-        this.ValidatorLocationX = new ValidatorLocationX();
-        this.ValidatorLocationYZ = new ValidatorLocationYZ();
+        this.isScript = RunHandler.mode();
+        this.scanner = RunHandler.getMainScaner();
     }
 
     @Override
-    public Location build() throws ScriptRunErorr {
+    public Location build() throws ScriptExecutionError {
         return new Location(getX(), getY(), getZ(), getName());
     }
-    private Double getX() throws ScriptRunErorr{
+    private Double getX() throws ScriptExecutionError {
         while (true){
             try {
                 if (!isScript){
                     System.out.println("Введите координату X");
                 }
-                Double ValueX = Double.parseDouble(Scaner.nextLine().trim());
-                ValidatorLocationX.valide(ValueX);
-                return ValueX;
+                Double valueX = Double.parseDouble(scanner.nextLine().trim());
+                validatorLocationX.valide(valueX);
+                return valueX;
             } catch (NumberFormatException e){
                 if (isScript){
-                    throw new ScriptRunErorr("Координата X должна быть числом");
+                    throw new ScriptExecutionError("Координата X должна быть числом");
                 }
                 System.out.println("Координата X должна быть числом");
             }catch (NullPointerException e){
                 if (isScript){
-                    throw new ScriptRunErorr("Координата X не может быть null");
+                    throw new ScriptExecutionError("Координата X не может быть null");
                 }
                 System.out.println("Координата X не может быть null");
             }catch (NoSuchElementException e){
                 if (isScript) {
-                    throw new ScriptRunErorr("Ошибка во время ввода данных коллекции из файла.");
+                    throw new ScriptExecutionError("Ошибка во время ввода данных коллекции из файла. Конец файла.");
                 }
                 System.out.println("Не нажимай Ctrl+D((((");
+                System.exit(0);
             }catch (Exception e){
+                if (isScript){
+                    throw new ScriptExecutionError("Непридвиденная ошибка");
+                }
                 System.out.println("Непридвиденная ошибка");
                 System.exit(0);
             }
 
         }
     }
-    private Integer getY() throws ScriptRunErorr{
+    private Integer getY() throws ScriptExecutionError {
         while (true){
             try {
                 if (!isScript){
                     System.out.println("Введите координату Y");
                 }
-                Integer ValueY = Integer.parseInt(Scaner.nextLine().trim());
-                ValidatorLocationYZ.valide(ValueY);
-                return ValueY;
+                Integer valueY = Integer.parseInt(scanner.nextLine().trim());
+                validatorLocationYZ.valide(valueY);
+                return valueY;
             } catch (NumberFormatException e){
                 if (isScript){
-                    throw new ScriptRunErorr("Координата Y должна быть числом");
+                    throw new ScriptExecutionError("Координата Y должна быть числом");
                 }
                 System.out.println("Координата Y должна быть числом");
             }catch (NullPointerException e){
                 if (isScript){
-                    throw new ScriptRunErorr("Координата Y не может быть null");
+                    throw new ScriptExecutionError("Координата Y не может быть null");
                 }
                 System.out.println("Координата Y не может быть null");
             }catch (NoSuchElementException e){
                 if (isScript) {
-                    throw new ScriptRunErorr("Ошибка во время ввода данных коллекции из файла.");
+                    throw new ScriptExecutionError("Ошибка во время ввода данных коллекции из файла. Конец файла.");
                 }
                 System.out.println("Не нажимай Ctrl+D((((");
+                System.exit(0);
             }catch (Exception e){
+                if (isScript){
+                    throw new ScriptExecutionError("Непридвиденная ошибка");
+                }
                 System.out.println("Непридвиденная ошибка");
                 System.exit(0);
             }
         }
     }
-    private int getZ() throws ScriptRunErorr{
+    private int getZ() throws ScriptExecutionError {
         while (true){
             try {
                 if (!isScript){
                     System.out.println("Введите координату Z");
                 }
-                Integer ValueZ = Integer.parseInt(Scaner.nextLine().trim());
-                ValidatorLocationYZ.valide(ValueZ);
-                return ValueZ;
+                Integer valueZ = Integer.parseInt(scanner.nextLine().trim());
+                validatorLocationYZ.valide(valueZ);
+                return valueZ;
             } catch (NumberFormatException e){
                 if (isScript){
-                    throw new ScriptRunErorr("Координата Z должна быть числом");
+                    throw new ScriptExecutionError("Координата Z должна быть числом");
                 }
                 System.out.println("Координата Z должна быть числом");
             }catch (NullPointerException e){
                 if (isScript){
-                    throw new ScriptRunErorr("Координата Z не может быть null");
+                    throw new ScriptExecutionError("Координата Z не может быть null");
                 }
                 System.out.println("Координата Z не может быть null");
             }catch (NoSuchElementException e){
                 if (isScript) {
-                    throw new ScriptRunErorr("Ошибка во время ввода данных коллекции из файла.");
+                    throw new ScriptExecutionError("Ошибка во время ввода данных коллекции из файла. Конец файла.");
                 }
                 System.out.println("Не нажимай Ctrl+D((((");
+                System.exit(0);
             }catch (Exception e){
+                if (isScript){
+                    throw new ScriptExecutionError("Непридвиденная ошибка");
+                }
                 System.out.println("Непридвиденная ошибка");
                 System.exit(0);
             }
         }
     }
-    private String getName() throws ScriptRunErorr{
+    private String getName() throws ScriptExecutionError {
         while (true){
             try {
                 if (!isScript){
                     System.out.println("Введите имя локации");
                 }
-                String nameLocation = Scaner.nextLine().trim();
+                String nameLocation = scanner.nextLine().trim();
                 if (nameLocation.equals("")){nameLocation = null;}
-                ValidatorLocationName.valide(nameLocation);
+                validatorLocationName.valide(nameLocation);
                 return nameLocation;
-            } catch (NotValidData e){
+            } catch (InvalidDataError e){
                 if (isScript){
-                    throw new ScriptRunErorr("Полe имя локации не может быть пустым.");
+                    throw new ScriptExecutionError("Полe имя локации не может быть пустым.");
                 }
                 System.out.println("Полe имя локации не может быть пустым.");
             }catch (NoSuchElementException e){
                 if (isScript) {
-                    throw new ScriptRunErorr("Ошибка во время ввода данных коллекции из файла.");
+                    throw new ScriptExecutionError("Ошибка во время ввода данных коллекции из файла. Конец файла.");
                 }
                 System.out.println("Не нажимай Ctrl+D((((");
+                System.exit(0);
             } catch (Exception e){
+                if (isScript){
+                    throw new ScriptExecutionError("Непридвиденная ошибка");
+                }
                 System.out.println("Непридвиденная ошибка");
                 System.exit(0);
             }

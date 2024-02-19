@@ -1,8 +1,10 @@
 package org.example.commands;
 
-import org.example.exception.IncorrectArguments;
-import org.example.exception.InvalidCountArgument;
-import org.example.exception.ScriptRunErorr;
+import org.example.exception.ArgumentError;
+import org.example.exception.ArgumentCountError;
+import org.example.exception.ScriptExecutionError;
+
+import java.io.FileNotFoundException;
 
 public abstract class AbstractCommand {
     private String name;
@@ -13,7 +15,7 @@ public abstract class AbstractCommand {
         this.info = info;
     }
 
-    public abstract void execute(String[] args) throws InvalidCountArgument, ScriptRunErorr, IncorrectArguments;
+    public abstract void execute(String[] args) throws ArgumentCountError, ScriptExecutionError, ArgumentError, FileNotFoundException;
 
     @Override
     public String toString() {

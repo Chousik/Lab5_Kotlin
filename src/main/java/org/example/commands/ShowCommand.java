@@ -1,18 +1,18 @@
 package org.example.commands;
 
-import org.example.exception.InvalidCountArgument;
-import org.example.handlers.CollectionHandlerIntefrace;
+import org.example.exception.ArgumentCountError;
+import org.example.handlers.ICollectionController;
 
 public class ShowCommand extends AbstractCommand{
-    private CollectionHandlerIntefrace CollectionH;
-    public ShowCommand(CollectionHandlerIntefrace CH){
+    private ICollectionController collectionHandler;
+    public ShowCommand(ICollectionController CH){
         super("show", " команда позволяет вывести коллекцию.");
-        this.CollectionH = CH;
+        this.collectionHandler = CH;
     }
 
     @Override
-    public void execute(String[] args) throws InvalidCountArgument {
-        if (args.length!=0) {throw new InvalidCountArgument(0,args.length);}
-        System.out.println(CollectionH.getElements());
+    public void execute(String[] args) throws ArgumentCountError {
+        if (args.length!=0) {throw new ArgumentCountError(0,args.length);}
+        System.out.println(collectionHandler.getElements());
     }
 }

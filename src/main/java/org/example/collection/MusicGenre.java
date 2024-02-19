@@ -7,10 +7,10 @@ public enum MusicGenre{
     SOUL,
     POP;
     public static String getValue() {
-        LinkedList<String> EnumValues = new LinkedList<>();
+        LinkedList<String> enumValues = new LinkedList<>();
         for (MusicGenre genre :  MusicGenre.values()){
-            EnumValues.add(genre.toString());
+            enumValues.add(genre.toString());
         }
-        return String.join(", ", EnumValues);
+        return String.join(", ", enumValues);
     }
 }

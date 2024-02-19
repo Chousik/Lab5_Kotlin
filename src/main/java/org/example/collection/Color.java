@@ -10,10 +10,10 @@ public enum Color{
     BROWN;
 
     public static String getValue() {
-        LinkedList<String> EnumValues = new LinkedList<>();
+        LinkedList<String> enumValues = new LinkedList<>();
         for (Color color : Color.values()){
-            EnumValues.add(color.toString());
+            enumValues.add(color.toString());
         }
-        return String.join(", ", EnumValues);
+        return String.join(", ", enumValues);
     }
 }

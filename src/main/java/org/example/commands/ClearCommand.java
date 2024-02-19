@@ -1,22 +1,22 @@
 package org.example.commands;
 
-import org.example.exception.IncorrectArguments;
-import org.example.exception.InvalidCountArgument;
-import org.example.exception.ScriptRunErorr;
-import org.example.handlers.CollectionHandlerIntefrace;
+import org.example.exception.ArgumentError;
+import org.example.exception.ArgumentCountError;
+import org.example.exception.ScriptExecutionError;
+import org.example.handlers.ICollectionController;
 import org.example.handlers.RunHandler;
 
 public class ClearCommand extends AbstractCommand{
-    private CollectionHandlerIntefrace CollectionHandler;
-    public ClearCommand(CollectionHandlerIntefrace CH) {
+    private ICollectionController collectionHandler;
+    public ClearCommand(ICollectionController CH) {
         super("clear", "команда позволяет очистить коллекцию.");
-        this.CollectionHandler = CH;
+        this.collectionHandler = CH;
     }
 
     @Override
-    public void execute(String[] args) throws InvalidCountArgument, ScriptRunErorr, IncorrectArguments {
-        if (args.length!=0) {throw new InvalidCountArgument(0,args.length);}
-        CollectionHandler.Clear();
-        if (!RunHandler.Mode()){System.out.println("Коллекция успешно очищена");}
+    public void execute(String[] args) throws ArgumentCountError, ScriptExecutionError, ArgumentError {
+        if (args.length!=0) {throw new ArgumentCountError(0,args.length);}
+        collectionHandler.clear();
+        if (!RunHandler.mode()){System.out.println("Коллекция успешно очищена");}
     }
 }

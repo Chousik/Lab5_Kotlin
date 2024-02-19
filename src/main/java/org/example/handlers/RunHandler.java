@@ -1,67 +1,75 @@
 package org.example.handlers;
 
 import org.example.commands.AbstractCommand;
-import org.example.exception.IncorrectArguments;
-import org.example.exception.InvalidCountArgument;
-import org.example.exception.InvalidСommand;
-import org.example.exception.ScriptRunErorr;
-import org.example.handlers.validators.ScriptValidor;
+import org.example.exception.ArgumentError;
+import org.example.exception.ArgumentCountError;
+import org.example.exception.InvalidCommandError;
+import org.example.exception.ScriptExecutionError;
+import org.example.commands.validators.ScriptValidor;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class RunHandler {
-    private CollectionHandlerIntefrace CollectionM;
-    private CommandHandler CommandM;
-    private static Scanner MainScaner = new Scanner(System.in);
+    private ICollectionController CollectionM;
+    private CommandHandler commandHandler;
+    private static Scanner mainScaner = new Scanner(System.in);
     private static boolean isScript = false;
-    public RunHandler(CollectionHandlerIntefrace CollectionM, CommandHandler CommandM){
+    public RunHandler(ICollectionController CollectionM, CommandHandler CommandM){
         this.CollectionM = CollectionM;
-        this.CommandM = CommandM;
+        this.commandHandler = CommandM;
     }
     public static Scanner getMainScaner() {
-        return MainScaner;
+        return mainScaner;
     }
-
-    public static void setMainScaner(Scanner mainScaner) {
-        MainScaner = mainScaner;
-    }
-    public static void SetScriptMode(){
-        isScript = true;
-    }
-    public static void SetUserMode(){
-        isScript = false;
-    }
-    public static boolean Mode(){
+    public static boolean mode(){
         return isScript;
     }
 
-    public void ConsoleRun(){
+    public void consoleRun(){
         while (true){
        try {
-               String Messages = MainScaner.nextLine();
-               RunCommand(Messages);
-       }catch (InvalidСommand | InvalidCountArgument | ScriptRunErorr| IncorrectArguments e){
-           System.out.println(e.toString());
+               String Messages = mainScaner.nextLine();
+               runCommand(Messages);
+       }catch (InvalidCommandError | ArgumentCountError | ScriptExecutionError | ArgumentError e){
+           System.out.println(e);
        }
        catch (Exception e){
-           System.out.println(e.toString());
+           System.out.println(e);
            System.out.println("Бочек потик");
            System.exit(1488);
        }
     }}
-    public void ScriptsRun() throws ScriptRunErorr{
-        new ScriptValidor().valid();
-    }
-    public void RunCommand(String UserMessges) throws InvalidСommand, InvalidCountArgument, ScriptRunErorr, IncorrectArguments {
-        String[] Messages = UserMessges.split("\\s+");
-        String CommandString = Messages[0];
-        String[] Argument = (Messages.length > 1)? Arrays.copyOfRange(Messages, 1, Messages.length) : new String[]{};
-        AbstractCommand Command = CommandM.getCommands().get(CommandString);
-        if (Command == null){
-            throw new InvalidСommand(CommandString);
+    public void scriptsRun(String fileName) throws ScriptExecutionError, FileNotFoundException {
+        Scanner lastScraner = getMainScaner();
+        isScript = true;
+        try {
+            mainScaner = new Scanner(new File(fileName));
+            while (mainScaner.hasNext()){
+                try {
+                    String messages = mainScaner.nextLine();
+                    runCommand(messages);
+                }catch (InvalidCommandError | ArgumentCountError | ArgumentError e){
+                    System.out.println(e);
+                }}
+        } catch (ScriptExecutionError e){
+            System.out.println("Невалидный скрипт: " + e);
+        } finally {
+            mainScaner = lastScraner;
+            isScript = false;
         }
-        Command.execute(Argument);
+    }
+    public void runCommand(String userMessges) throws InvalidCommandError, ArgumentCountError, ScriptExecutionError, ArgumentError, FileNotFoundException {
+        String[] messages = userMessges.split("\\s+");
+        String commandString = messages[0];
+        String[] argument = (messages.length > 1)? Arrays.copyOfRange(messages, 1, messages.length) : new String[]{};
+        AbstractCommand command = commandHandler.getCommands().get(commandString);
+        if (command == null){
+            throw new InvalidCommandError(commandString);
+        }
+        command.execute(argument);
     }
 }
 

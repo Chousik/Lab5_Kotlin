@@ -3,21 +3,21 @@ package org.example.handlers;
 import org.example.collection.MusicBand;
 import org.example.collection.Person;
 import org.example.collection.builder.BuilderMusicBand;
-import org.example.database.InterfaceDataBase;
-import org.example.exception.IncorrectArguments;
-import org.example.exception.ScriptRunErorr;
+import org.example.database.IDataBase;
+import org.example.exception.ArgumentError;
+import org.example.exception.ScriptExecutionError;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
-public class CollectionHandlerPerson implements CollectionHandlerIntefrace<MusicBand> {
+public class CollectionControllerPerson implements ICollectionController<MusicBand> {
     private LinkedList<MusicBand> collection = new LinkedList<>();
-    private InterfaceDataBase DataBase;
+    private IDataBase dataBase;
     private LocalDateTime lastInitTime = LocalDateTime.now();
-    public CollectionHandlerPerson(InterfaceDataBase DB){
-        this.DataBase = DB;
+    public CollectionControllerPerson(IDataBase DB){
+        this.dataBase = DB;
     }
 
     @Override
@@ -47,7 +47,11 @@ public class CollectionHandlerPerson implements CollectionHandlerIntefrace<Music
     @Override
     public String getElementsByAlbomCount(Integer integer) {
         if (collection.isEmpty()){return "Пустая колеекция!";}
-        return String.join("\n", collection.stream().filter(x -> x.getAlbumsCount() == integer).map(MusicBand::toString).toList());
+        String result = String.join("\n", collection.stream().filter(x -> x.getAlbumsCount() == integer).map(MusicBand::toString).toList());
+        if (result.isEmpty()){
+            return "Нет таких групп";
+        }
+        return result;
     }
 
     @Override
@@ -58,79 +62,79 @@ public class CollectionHandlerPerson implements CollectionHandlerIntefrace<Music
         return String.join("\n", collection.stream().map(MusicBand::toString).toList());
     }
     @Override
-    public void updateElements(Integer id) throws IncorrectArguments, ScriptRunErorr {
+    public void updateElements(Integer id) throws ArgumentError, ScriptExecutionError {
         try {
             MusicBand musicBand = collection.stream().filter(x -> x.getId() == id).findFirst().get();
-            musicBand.update(new BuilderMusicBand().build());
+            new BuilderMusicBand().reBuild(musicBand);
         } catch (NoSuchElementException e){
-            throw new IncorrectArguments("Группы с таким айди не сущетсвует.");
+            throw new ArgumentError("Группы с таким айди не сущетсвует.");
         }
     }
 
     @Override
-    public void RemoveElements(Integer index) throws IncorrectArguments {
+    public void removeElements(Integer index) throws ArgumentError {
         if (index > collection.size()-1 || index<0){
-            throw new IncorrectArguments("Неверное id: " + index + ". Длина коллекции: " + collection.size());
+            throw new ArgumentError("Неверное id: " + index + ". Длина коллекции: " + collection.size());
         }
-        System.out.println(index);
-        System.out.println(collection.remove(index));
+        MusicBand musicBand = collection.get(index);
+        collection.remove(musicBand);
     }
 
     @Override
-    public void Clear() {
+    public void clear() {
         collection.clear();
         lastInitTime = LocalDateTime.now();
     }
 
     @Override
-    public void Shuffle() {
+    public void shuffle() {
         Collections.shuffle(collection);
     }
     /**
      * Переворачивает коллекцию
      */
     @Override
-    public void Reorder() {
+    public void reorder() {
         java.util.Collections.reverse(collection);
     }
     /**
      * Удаляет элементы коллекции по переданному айди
      * @param id
-     * @throws IncorrectArguments
+     * @throws ArgumentError
      */
     @Override
-    public void RemoveElementByID(Integer id) throws IncorrectArguments{
+    public void removeElementByID(Integer id) throws ArgumentError {
         try {
             MusicBand musicBand = collection.stream().filter(x -> x.getId() == id).findFirst().get();
             collection.remove(musicBand);
         } catch (NoSuchElementException e){
-            throw new IncorrectArguments("Группы с таким айди не сущетсвует.");
+            throw new ArgumentError("Группы с таким айди не сущетсвует.");
         }
     }
     /**
      * Удаляет элементы коллекции по переданному лидеру
      * @param person
-     * @throws IncorrectArguments
+     * @throws ArgumentError
      */
     @Override
-    public void RemoveByFrontMan(Person person) throws IncorrectArguments{
+    public void removeByFrontMan(Person person) throws ArgumentError {
         try {
-            MusicBand musicBand = collection.stream().filter(x -> x.getFrontMan() == person).findFirst().get();
+            MusicBand musicBand = collection.stream().filter(x -> x.getFrontMan().equals(person)).findFirst().get();
             collection.remove(musicBand);
         } catch (NoSuchElementException e){
-            throw new IncorrectArguments("Группы с таким лидером не сущетсвует.");
+            throw new ArgumentError("Группы с таким лидером не сущетсвует.");
         }
     }
 
     @Override
-    public int CountNumberOfParticipants(Long longs) {
+    public int countNumberOfParticipants(Long longs) {
         return collection.stream().filter(x -> x.getNumberOfParticipants() == longs).toList().size();
     }
 
     @Override
-    public void LoadData()  {
+    public void loadData()  {
         try {
-            collection = DataBase.LoadData();
+            collection = dataBase.loadData();
         } catch (Exception e){
             System.out.println(e);
             System.out.println("Хуйня");
@@ -138,9 +142,9 @@ public class CollectionHandlerPerson implements CollectionHandlerIntefrace<Music
     }
 
     @Override
-    public void SaveData() {
+    public void saveData() {
         try {
-            DataBase.SaveData(collection);
+            dataBase.saveData(collection);
         } catch (Exception e ){
             System.out.println(e);
             System.out.println("Хуйня");

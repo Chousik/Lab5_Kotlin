@@ -1,91 +1,99 @@
 package org.example.collection.builder;
 
-import org.example.collection.Coordinates;
+import org.example.collection.Сoordinates;
 import org.example.collection.validators.ValidatorCoordinatesX;
 import org.example.collection.validators.ValidatorCoordinatesY;
-import org.example.exception.NotValidData;
-import org.example.exception.ScriptRunErorr;
+import org.example.exception.InvalidDataError;
+import org.example.exception.ScriptExecutionError;
 import org.example.handlers.RunHandler;
 
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-public class BuilderCoordinates implements BuilderInterface<Coordinates>{
-    private Scanner Scaner;
+public class BuilderCoordinates implements IBuilder<Сoordinates> {
+    private Scanner scanner;
     private boolean isScript;
-    private ValidatorCoordinatesX ValidatorCoordinatesX;
-    private ValidatorCoordinatesY ValidatorCoordinatesY;
+    private ValidatorCoordinatesX validatorCoordinatesX = new ValidatorCoordinatesX();
+    private ValidatorCoordinatesY validatorCoordinatesY = new ValidatorCoordinatesY();
     public BuilderCoordinates(){
-        this.Scaner = RunHandler.getMainScaner();
-        this.isScript = RunHandler.Mode();
-        this.ValidatorCoordinatesX = new ValidatorCoordinatesX();
-        this.ValidatorCoordinatesY = new ValidatorCoordinatesY();
+        this.scanner = RunHandler.getMainScaner();
+        this.isScript = RunHandler.mode();
     }
 
     @Override
-    public Coordinates build() throws ScriptRunErorr {
-        return new Coordinates(getX(), getY());
+    public Сoordinates build() throws ScriptExecutionError {
+        return new Сoordinates(getX(), getY());
     }
-    private Float getX() throws ScriptRunErorr {
+    private Float getX() throws ScriptExecutionError {
         while (true){
             try {
                 if (!isScript){
                     System.out.println("Введите координату X, больше -645");
                 }
-                Float ValueX = Float.parseFloat(Scaner.nextLine().trim());
-                ValidatorCoordinatesX.valide(ValueX);
-                return ValueX;
-            } catch (NotValidData e){
+                Float valueX = Float.parseFloat(scanner.nextLine().trim());
+                validatorCoordinatesX.valide(valueX);
+                return valueX;
+            } catch (InvalidDataError e){
                 if (isScript){
-                    throw new ScriptRunErorr("Координата X меньше -645");
+                    throw new ScriptExecutionError("Координата X меньше -645");
                 }
                 System.out.println("Координата X меньше -645");
             } catch (NumberFormatException e){
                 if (isScript){
-                    throw new ScriptRunErorr("Координата X должна быть числом");
+                    throw new ScriptExecutionError("Координата X должна быть числом");
                 }
                 System.out.println("Координата X должна быть числом");
             }catch (NullPointerException e){
                 if (isScript){
-                    throw new ScriptRunErorr("Координата X не может быть null");
+                    throw new ScriptExecutionError("Координата X не может быть null");
                 }
                 System.out.println("Координата X не может быть null");
             }catch (NoSuchElementException e){
                 if (isScript) {
-                    throw new ScriptRunErorr("Ошибка во время ввода данных коллекции из файла.");
+                    throw new ScriptExecutionError("Ошибка во время ввода данных коллекции из файла. Конец файла.");
                 }
+                System.out.println("Не нажимай Ctrl+D((((");
+                System.exit(0);
             }
             catch (Exception e){
+                if (isScript){
+                    throw new ScriptExecutionError("Непридвиденная ошибка");
+                }
                 System.out.println("Непридвиденная ошибка");
                 System.exit(0);
             }
 
         }
     }
-    private float getY() throws ScriptRunErorr{
+    private float getY() throws ScriptExecutionError {
         while (true){
             try {
                 if (!isScript){
                     System.out.println("Введите координату Y");
                 }
-                Float ValueY = Float.parseFloat(Scaner.nextLine().trim());
-                ValidatorCoordinatesX.valide(ValueY);
-                return ValueY;
+                Float valueY = Float.parseFloat(scanner.nextLine().trim());
+                validatorCoordinatesX.valide(valueY);
+                return valueY;
             } catch (NumberFormatException e){
                 if (isScript){
-                    throw new ScriptRunErorr("Координата Y должна быть числом");
+                    throw new ScriptExecutionError("Координата Y должна быть числом");
                 }
                 System.out.println("Координата Y должна быть числом");
             }catch (NullPointerException e){
                 if (isScript){
-                    throw new ScriptRunErorr("Координата Y не может быть null");
+                    throw new ScriptExecutionError("Координата Y не может быть null");
                 }
                 System.out.println("Координата Y не может быть null");
             }catch (NoSuchElementException e){
                 if (isScript) {
-                    throw new ScriptRunErorr("Ошибка во время ввода данных коллекции из файла.");
+                    throw new ScriptExecutionError("Ошибка во время ввода данных коллекции из файла. Конец файла.");
                 }
+                System.out.println("Не нажимай Ctrl+D((((");
+                System.exit(0);
             }catch (Exception e){
+                if (isScript){
+                    throw new ScriptExecutionError("Непридвиденная ошибка");
+                }
                 System.out.println("Непридвиденная ошибка");
                 System.exit(0);
             }

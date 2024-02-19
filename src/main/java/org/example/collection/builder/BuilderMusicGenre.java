@@ -2,25 +2,25 @@ package org.example.collection.builder;
 
 import org.example.collection.MusicGenre;
 import org.example.collection.validators.ValidatorMusicGenre;
-import org.example.exception.NotValidData;
-import org.example.exception.ScriptRunErorr;
+import org.example.exception.InvalidDataError;
+import org.example.exception.ScriptExecutionError;
 import org.example.handlers.RunHandler;
 
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-public class BuilderMusicGenre implements BuilderInterface<MusicGenre>{
+public class BuilderMusicGenre implements IBuilder<MusicGenre> {
     private Boolean isScript;
     private Scanner scanner;
     private ValidatorMusicGenre validatorMusicGenre;
     public BuilderMusicGenre() {
-        this.isScript = RunHandler.Mode();
+        this.isScript = RunHandler.mode();
         this.scanner = RunHandler.getMainScaner();
         this.validatorMusicGenre = new ValidatorMusicGenre();
     }
 
     @Override
-    public MusicGenre build() throws ScriptRunErorr {
+    public MusicGenre build() throws ScriptExecutionError {
         while (true){
             try {
                 if (!isScript) {
@@ -31,22 +31,26 @@ public class BuilderMusicGenre implements BuilderInterface<MusicGenre>{
                 validatorMusicGenre.valide(strValue);
                 return MusicGenre.valueOf(strValue);
             }
-            catch (NotValidData e){
+            catch (InvalidDataError e){
                 if (isScript){
-                    throw new ScriptRunErorr("Введено неккоретное значение из списка.");
+                    throw new ScriptExecutionError("Введено неккоретное значение из списка.");
                 }
                 System.out.println("Введено неккоретное значение из списка.");
             }catch (NullPointerException e){
                 if (isScript) {
-                    throw new ScriptRunErorr("Значение не может быть null");
+                    throw new ScriptExecutionError("Значение не может быть null");
                 }
                 System.out.println("Значение не может быть null");
             }catch (NoSuchElementException e){
                 if (isScript) {
-                    throw new ScriptRunErorr("Ошибка во время ввода данных коллекции из файла.");
+                    throw new ScriptExecutionError("Ошибка во время ввода данных коллекции из файла. Конец файла.");
                 }
                 System.out.println("Не нажимай Ctrl+D((((");
+                System.exit(0);
             }catch (Exception e){
+                if (isScript){
+                    throw new ScriptExecutionError("Непридвиденная ошибка");
+                }
                 System.out.println("Непридвиденная ошибка");
                 System.exit(0);
             }

@@ -37,6 +37,27 @@ public class Person implements Comparable<Person>{
     public String getPassportID() {
         return passportID;
     }
+
+    public void setHairColor(Color hairColor) {
+        this.hairColor = hairColor;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setNationality(Country nationality) {
+        this.nationality = nationality;
+    }
+
+    public void setPassportID(String passportID) {
+        this.passportID = passportID;
+    }
+
     @Override
     public int compareTo(Person o) {
         return this.nationality.ordinal() - o.nationality.ordinal();

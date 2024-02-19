@@ -1,6 +1,5 @@
 package org.example.database;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -10,13 +9,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
 
-public class JsonDB implements InterfaceDataBase<MusicBand>{
+public class JsonDB implements IDataBase<MusicBand> {
     String fileName;
-    public JsonDB(String FileName){
-        this.fileName = FileName;
+    public JsonDB(String fileName){
+        this.fileName = fileName;
     }
     @Override
-    public void SaveData(LinkedList<MusicBand> collection) throws IOException {
+    public void saveData(LinkedList<MusicBand> collection) throws IOException {
         File file = new File(fileName);
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
@@ -24,7 +23,7 @@ public class JsonDB implements InterfaceDataBase<MusicBand>{
     }
 
     @Override
-    public LinkedList<MusicBand> LoadData() throws IOException {
+    public LinkedList<MusicBand> loadData() throws IOException {
         File file = new File(fileName);
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
