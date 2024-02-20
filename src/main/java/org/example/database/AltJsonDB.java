@@ -12,13 +12,16 @@ import java.util.Scanner;
 /**
  * Класс для работы с базой данных в формате json
  */
-public class AltJsonDB implements IDataBase<MusicBand>{
+public class AltJsonDB implements IDataBase<MusicBand> {
     private String fileName;
-    public AltJsonDB(String fileName){
+
+    public AltJsonDB(String fileName) {
         this.fileName = fileName;
     }
+
     /**
      * Метод для сохранения данных через FileWriter
+     *
      * @param collection коллекция
      * @throws IOException если произошла ошибка ввода/вывода
      */
@@ -33,8 +36,10 @@ public class AltJsonDB implements IDataBase<MusicBand>{
         writer.flush();
         writer.close();
     }
+
     /**
      * Метод для загрузки данных через InputStreamReader
+     *
      * @return коллекция
      * @throws IOException если произошла ошибка ввода/вывода
      */

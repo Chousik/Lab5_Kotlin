@@ -1,6 +1,7 @@
 package org.example.collection;
 
 import java.util.Objects;
+
 /**
  * Класс координаты
  */
@@ -9,8 +10,11 @@ public class Location {
     private Integer y; //Поле не может быть null
     private int z;
     private String name; //Поле может быть null
-    public Location(){};
-    public Location(Double x, Integer y, int z, String name){
+
+    public Location() {
+    }
+
+    public Location(Double x, Integer y, int z, String name) {
         this.x = x;
         this.y = y;
         this.z = z;

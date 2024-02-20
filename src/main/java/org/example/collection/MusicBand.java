@@ -1,10 +1,11 @@
 package org.example.collection;
 
 import java.time.ZonedDateTime;
+
 /**
  * Класс музыкальная группа
  */
-public class MusicBand implements Comparable<MusicBand>{
+public class MusicBand implements Comparable<MusicBand> {
     private int id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
     private Сoordinates coordinates; //Поле не может быть null
@@ -13,7 +14,10 @@ public class MusicBand implements Comparable<MusicBand>{
     private long albumsCount; //Значение поля должно быть больше 0
     private MusicGenre genre; //Поле не может быть null
     private Person frontMan; //Поле может быть null
-    public MusicBand(){}
+
+    public MusicBand() {
+    }
+
     public MusicBand(String name, Сoordinates coordinates, long l1, long l2, MusicGenre genre, Person person) {
         this.id = (int) (Math.random() * 666666);
         this.name = name;
@@ -24,6 +28,7 @@ public class MusicBand implements Comparable<MusicBand>{
         this.frontMan = person;
 
     }
+
     public int getId() {
         return id;
     }
@@ -87,6 +92,7 @@ public class MusicBand implements Comparable<MusicBand>{
     public void setNumberOfParticipants(long numberOfParticipants) {
         this.numberOfParticipants = numberOfParticipants;
     }
+
     @Override
     public String toString() {
         return "MusicBand{" +
@@ -103,6 +109,6 @@ public class MusicBand implements Comparable<MusicBand>{
 
     @Override
     public int compareTo(MusicBand o) {
-        return (this.id-o.getId());
+        return (this.id - o.getId());
     }
 }

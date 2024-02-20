@@ -9,16 +9,20 @@ import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Scanner;
+
 /**
  * Класс для работы с базой данных в формате json
  */
 public class JsonDB implements IDataBase<MusicBand> {
     private String fileName;
-    public JsonDB(String fileName){
+
+    public JsonDB(String fileName) {
         this.fileName = fileName;
     }
+
     /**
      * Метод для сохранения данных
+     *
      * @param collection коллекция
      * @throws IOException если произошла ошибка ввода/вывода
      */
@@ -29,8 +33,10 @@ public class JsonDB implements IDataBase<MusicBand> {
         objectMapper.registerModule(new JavaTimeModule());
         objectMapper.writeValue(file, collection);
     }
+
     /**
      * Метод для загрузки данных
+     *
      * @return коллекция
      * @throws IOException если произошла ошибка ввода/вывода
      */
@@ -43,7 +49,8 @@ public class JsonDB implements IDataBase<MusicBand> {
             LinkedList<MusicBand> data = objectMapper.readValue(file, new TypeReference<>() {
             });
             return data;
-        } return new LinkedList<>();
+        }
+        return new LinkedList<>();
     }
 }
 

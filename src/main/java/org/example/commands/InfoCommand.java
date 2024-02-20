@@ -2,17 +2,21 @@ package org.example.commands;
 
 import org.example.exception.ArgumentCountError;
 import org.example.handlers.ICollectionController;
+
 /**
  * Команда info. Позволяет увидеть информацию о коллекции.
  */
 public class InfoCommand extends ACommand {
     private ICollectionController collectionController;
-    public InfoCommand(ICollectionController collectionController){
+
+    public InfoCommand(ICollectionController collectionController) {
         super("info", "команда позволяет увидеть информацию о коллекции.", 0);
         this.collectionController = collectionController;
     }
+
     /**
      * Метод для вывода информации о коллекции
+     *
      * @param args аргументы
      * @throws ArgumentCountError если количество аргументов не совпадает
      */

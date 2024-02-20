@@ -1,12 +1,14 @@
 package org.example.collection.validators;
 
 import org.example.exception.InvalidDataError;
+
 /**
  * Валидатор названия локации
  */
-public class ValidatorLocationName implements Validator<String>{
+public class ValidatorLocationName implements Validator<String> {
     /**
      * Проверяет строку на пустоту
+     *
      * @param s строка
      * @throws InvalidDataError если строка пуста
      */
@@ -15,7 +17,7 @@ public class ValidatorLocationName implements Validator<String>{
         if (s == null) {
             return;
         }
-        if (s.isBlank()|s.isEmpty()){
+        if (s.isBlank() | s.isEmpty()) {
             throw new InvalidDataError();
         }
     }
