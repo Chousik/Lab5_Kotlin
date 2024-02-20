@@ -1,5 +1,7 @@
 package org.example.exception;
-
+/**
+ * Класс ошибки неверного кол-ва аргументов
+ */
 public class ArgumentCountError extends Exception{
     Integer сountCorrect;
     Integer сount;

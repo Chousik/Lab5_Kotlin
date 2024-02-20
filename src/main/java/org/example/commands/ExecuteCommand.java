@@ -1,24 +1,32 @@
 package org.example.commands;
 
+import org.example.commands.validators.ScriptRecursionValidor;
 import org.example.exception.ArgumentError;
 import org.example.exception.ArgumentCountError;
 import org.example.exception.ScriptExecutionError;
 import org.example.handlers.RunHandler;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-
-public class ExecuteCommand extends AbstractCommand{
+/**
+ * Команда execute. Позволяет выполнить указанный скрипт
+ */
+public class ExecuteCommand extends ACommand {
     RunHandler runHandler;
     public ExecuteCommand(RunHandler runHandler){
-        super("execute {sctipt_file}", "Команда позволяет выполнить указанный скрипт");
+        super("execute {sctipt_file}", "команда позволяет выполнить указанный скрипт", 1);
         this.runHandler = runHandler;
     }
-
+    /**
+     * Метод для выполнения скрипта
+     * @param args аргументы
+     * @throws ArgumentCountError если количество аргументов не совпадает
+     * @throws ScriptExecutionError если произошла ошибка во время выполнения скрипта
+     * @throws ArgumentError если аргументы не корректны
+     */
     @Override
-    public void execute(String[] args) throws ArgumentCountError, ScriptExecutionError, ArgumentError, FileNotFoundException {
-        if (args.length!=1) {throw new ArgumentCountError(1,args.length);}
-        if (!new File(args[0]).exists()){throw new ArgumentError("Неверное имя файла");}
+    public void execute(String[] args) throws ArgumentCountError, ScriptExecutionError, ArgumentError{
+        valideCountsArgument(args);
+        new ScriptRecursionValidor().valid(args[0]);
         runHandler.scriptsRun(args[0]);
     }
 }

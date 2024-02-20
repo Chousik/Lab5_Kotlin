@@ -1,7 +1,9 @@
 package org.example.collection;
 
 import java.util.Objects;
-
+/**
+ * Класс координаты
+ */
 public class Location {
     private Double x; //Поле не может быть null
     private Integer y; //Поле не может быть null

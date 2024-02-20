@@ -10,7 +10,9 @@ import org.example.handlers.RunHandler;
 
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-
+/**
+ * Класс строитель для создания объекта класса Location
+ */
 public class BuilderLocation implements IBuilder<Location> {
     private Boolean isScript;
     private Scanner scanner;
@@ -21,11 +23,18 @@ public class BuilderLocation implements IBuilder<Location> {
         this.isScript = RunHandler.mode();
         this.scanner = RunHandler.getMainScaner();
     }
-
+    /**
+     * Метод для создания объекта класса Location
+     * @return возвращает объект класса Location
+     */
     @Override
     public Location build() throws ScriptExecutionError {
         return new Location(getX(), getY(), getZ(), getName());
     }
+    /**
+     * Метод для получения координаты X
+     * @return возвращает координату X
+     */
     private Double getX() throws ScriptExecutionError {
         while (true){
             try {
@@ -61,6 +70,10 @@ public class BuilderLocation implements IBuilder<Location> {
 
         }
     }
+    /**
+     * Метод для получения координаты Y
+     * @return возвращает координату Y
+     */
     private Integer getY() throws ScriptExecutionError {
         while (true){
             try {
@@ -95,6 +108,10 @@ public class BuilderLocation implements IBuilder<Location> {
             }
         }
     }
+    /**
+     * Метод для получения координаты Z
+     * @return возвращает координату Z
+     */
     private int getZ() throws ScriptExecutionError {
         while (true){
             try {
@@ -129,6 +146,10 @@ public class BuilderLocation implements IBuilder<Location> {
             }
         }
     }
+    /**
+     * Метод для получения имени локации
+     * @return возвращает имя локации
+     */
     private String getName() throws ScriptExecutionError {
         while (true){
             try {

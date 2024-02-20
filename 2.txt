@@ -1,1 +1,1 @@
-help
+execute 3.txt

@@ -1,5 +1,7 @@
 package org.example.exception;
-
+/**
+ * Класс ошибки неверной команды
+ */
 public class InvalidCommandError extends Exception {
     private String command;
     public InvalidCommandError(String command){

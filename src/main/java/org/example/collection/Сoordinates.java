@@ -1,7 +1,9 @@
 package org.example.collection;
 
 import java.util.Objects;
-
+/**
+ * Класс координат
+ */
 public class Сoordinates {
     private Float x; //Значение поля должно быть больше -645, Поле не может быть null
     private float y;

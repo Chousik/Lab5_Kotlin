@@ -8,18 +8,27 @@ import org.example.exception.ScriptExecutionError;
 import org.example.handlers.ICollectionController;
 import org.example.handlers.RunHandler;
 
-public class RemoveAnyByFrontManCommand extends AbstractCommand{
-    ICollectionController collectionHandler;
-    public RemoveAnyByFrontManCommand(ICollectionController CH){
-        super("remove_any_by_front_man", "С помощью этой команды вы можете удалить группы с введеным лидером.");
-        this.collectionHandler = CH;
+/**
+ * Команда remove_any_by_front. Позволяет удалить группы с введеным лидером.
+ */
+public class RemoveAnyByFrontManCommand extends ACommand {
+    ICollectionController collectionController;
+    public RemoveAnyByFrontManCommand(ICollectionController collectionController){
+        super("remove_any_by_front_man", "команда позволяет удалить группы с введеным лидером.", 0);
+        this.collectionController = collectionController;
     }
-
+    /**
+     * Метод для удаления групп с введеным лидером
+     * @param args аргументы
+     * @throws ArgumentCountError если количество аргументов не совпадает
+     * @throws ScriptExecutionError если произошла ошибка во время выполнения скрипта
+     * @throws ArgumentError если аргументы не корректны
+     */
     @Override
     public void execute(String[] args) throws ArgumentCountError, ScriptExecutionError, ArgumentError {
-        if (args.length!=0) {throw new ArgumentCountError(0,args.length);}
+        valideCountsArgument(args);
         Person person = new BuilderPerson().build();
-        collectionHandler.removeByFrontMan(person);
+        collectionController.removeByFrontMan(person);
         if (!RunHandler.mode()){System.out.println("Элемент успешно удален");}
     }
 }

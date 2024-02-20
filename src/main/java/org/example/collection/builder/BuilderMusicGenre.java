@@ -8,7 +8,9 @@ import org.example.handlers.RunHandler;
 
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-
+/**
+ * Класс строитель для создания объекта класса MusicGenre
+ */
 public class BuilderMusicGenre implements IBuilder<MusicGenre> {
     private Boolean isScript;
     private Scanner scanner;
@@ -18,7 +20,10 @@ public class BuilderMusicGenre implements IBuilder<MusicGenre> {
         this.scanner = RunHandler.getMainScaner();
         this.validatorMusicGenre = new ValidatorMusicGenre();
     }
-
+    /**
+     * Метод для создания объекта класса MusicGenre
+     * @return возвращает объект класса MusicGenre
+     */
     @Override
     public MusicGenre build() throws ScriptExecutionError {
         while (true){
@@ -28,6 +33,7 @@ public class BuilderMusicGenre implements IBuilder<MusicGenre> {
                     System.out.println("Выберите один из жанров");
                 }
                 String strValue = scanner.nextLine().trim().toUpperCase();
+                if (strValue.equals("")){strValue = null;}
                 validatorMusicGenre.valide(strValue);
                 return MusicGenre.valueOf(strValue);
             }

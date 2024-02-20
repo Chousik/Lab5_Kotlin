@@ -2,17 +2,23 @@ package org.example.commands;
 
 import org.example.exception.ArgumentCountError;
 import org.example.handlers.ICollectionController;
-
-public class ShowCommand extends AbstractCommand{
-    private ICollectionController collectionHandler;
-    public ShowCommand(ICollectionController CH){
-        super("show", " команда позволяет вывести коллекцию.");
-        this.collectionHandler = CH;
+/**
+ * Команда show. Позволяет вывести коллекцию.
+ */
+public class ShowCommand extends ACommand {
+    private ICollectionController collectionController;
+    public ShowCommand(ICollectionController collectionController){
+        super("show", " команда позволяет вывести коллекцию.", 0);
+        this.collectionController = collectionController;
     }
-
+    /**
+     * Метод для вывода коллекции
+     * @param args аргументы
+     * @throws ArgumentCountError если количество аргументов не совпадает
+     */
     @Override
     public void execute(String[] args) throws ArgumentCountError {
-        if (args.length!=0) {throw new ArgumentCountError(0,args.length);}
-        System.out.println(collectionHandler.getElements());
+        valideCountsArgument(args);
+        System.out.println(collectionController.getElements());
     }
 }

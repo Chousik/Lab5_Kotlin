@@ -9,7 +9,9 @@ import org.example.handlers.RunHandler;
 
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-
+/**
+ * Класс строитель для создания объекта класса Person
+ */
 public class BuilderPerson implements IBuilder<Person> {
     private Boolean isScript;
     private Scanner Scaner;
@@ -27,13 +29,18 @@ public class BuilderPerson implements IBuilder<Person> {
         this.BuilderColor = new BuilderColor();
         this.BuilderLocation = new BuilderLocation();
     }
-
+    /**
+     * Метод для создания объекта класса Person
+     * @return возвращает объект класса Person
+     */
     @Override
     public Person build() throws ScriptExecutionError {
         return new Person(getName(), getPassportID(), BuilderColor.build(), BuilderCountry.build(),BuilderLocation.build());
     }
-
-
+/**
+     * Метод для получения имени
+     * @return возвращает имя
+     */
     private String getName() throws ScriptExecutionError {
         while (true){
             try {
@@ -63,7 +70,10 @@ public class BuilderPerson implements IBuilder<Person> {
             }
         }
     }
-
+    /**
+     * Метод для получения паспорт айди
+     * @return возвращает паспорт айди
+     */
     private String getPassportID() throws ScriptExecutionError {
         while (true){
             try {

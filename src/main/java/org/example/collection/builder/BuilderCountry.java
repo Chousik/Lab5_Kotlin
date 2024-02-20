@@ -8,7 +8,9 @@ import org.example.collection.validators.ValidatorCountry;
 import org.example.exception.InvalidDataError;
 import org.example.exception.ScriptExecutionError;
 import org.example.handlers.RunHandler;
-
+/**
+ * Класс строитель для создания объекта класса Country
+ */
 public class BuilderCountry implements IBuilder<Country> {
     private Boolean isScript;
     private ValidatorCountry validatorCountry = new ValidatorCountry();
@@ -17,7 +19,10 @@ public class BuilderCountry implements IBuilder<Country> {
         this.isScript = RunHandler.mode();
         this.scanner = RunHandler.getMainScaner();
     }
-
+    /**
+     * Метод для создания объекта класса Country
+     * @return возвращает объект класса Country
+     */
     @Override
     public Country build() throws ScriptExecutionError {
         while (true){
@@ -27,6 +32,7 @@ public class BuilderCountry implements IBuilder<Country> {
                     System.out.println("Выберите одну из стран");
                 }
                 String strValue = scanner.nextLine().trim().toUpperCase();
+                if (strValue.equals("")){strValue = null;}
                 validatorCountry.valide(strValue);
                 return Country.valueOf(strValue);
             }

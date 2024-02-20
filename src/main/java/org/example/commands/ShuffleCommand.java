@@ -3,17 +3,24 @@ package org.example.commands;
 import org.example.exception.ArgumentCountError;
 import org.example.handlers.ICollectionController;
 import org.example.handlers.RunHandler;
-
-public class ShuffleCommand extends AbstractCommand{
-    private ICollectionController collectionHandler;
-    public ShuffleCommand(ICollectionController CH){
-        super("shuffle", "команда позволяет перемешать элементы коллекции");
-        collectionHandler = CH;
+/**
+ * Команда shuffle. Позволяет перемешать элементы коллекции.
+ */
+public class ShuffleCommand extends ACommand {
+    private ICollectionController collectionController;
+    public ShuffleCommand(ICollectionController collectionController){
+        super("shuffle", "команда позволяет перемешать элементы коллекции", 0);
+        this.collectionController = collectionController;
     }
+    /**
+     * Метод для перемешивания элементов коллекции
+     * @param args аргументы
+     * @throws ArgumentCountError если количество аргументов не совпадает
+     */
     @Override
     public void execute(String[] args) throws ArgumentCountError {
-        if (args.length!=0) {throw new ArgumentCountError(0,args.length);}
-        collectionHandler.shuffle();
+        valideCountsArgument(args);
+        collectionController.shuffle();
         if (!RunHandler.mode()){System.out.println("Коллекция успешно перемешана");}
     }
 }

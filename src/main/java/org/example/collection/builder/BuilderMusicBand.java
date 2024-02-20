@@ -10,7 +10,9 @@ import org.example.handlers.RunHandler;
 
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-
+/**
+ * Класс строитель для создания объекта класса MusicBand
+ */
 public class BuilderMusicBand implements IBuilder<MusicBand> {
     private Boolean isScript;
     private Scanner scanner;
@@ -24,11 +26,18 @@ public class BuilderMusicBand implements IBuilder<MusicBand> {
         this.isScript = RunHandler.mode();
         this.scanner = RunHandler.getMainScaner();
     }
-
+    /**
+     * Метод для создания объекта класса MusicBand
+     * @return возвращает объект класса MusicBand
+     */
     @Override
     public MusicBand build() throws ScriptExecutionError {
         return new MusicBand(getName(), builderCoordinates.build(), getNumbersOfParticipants(), getAlbumsCount(), builderMusicGenre.build(), builderPerson.build());
     }
+    /**
+     * Метод для пересоздания объекта класса MusicBand
+     * @param musicBand - объект класса MusicBand
+     */
     public void reBuild(MusicBand musicBand) throws ScriptExecutionError{
         MusicBand newMusicBand = new MusicBand(getName(), builderCoordinates.build(), getNumbersOfParticipants(), getAlbumsCount(), builderMusicGenre.build(), builderPerson.build());
         musicBand.setName(newMusicBand.getName());
@@ -38,6 +47,10 @@ public class BuilderMusicBand implements IBuilder<MusicBand> {
         musicBand.setGenre(newMusicBand.getGenre());
         musicBand.setFrontMan(newMusicBand.getFrontMan());
     }
+    /**
+     * Метод для получения имени группы
+     * @return возвращает имя группы
+     */
     private String getName() throws ScriptExecutionError {
         while (true){
             try {
@@ -72,6 +85,10 @@ public class BuilderMusicBand implements IBuilder<MusicBand> {
             }
         }
     }
+    /**
+     * Метод для получения количества альбомов
+     * @return возвращает количество альбомов
+     */
     private Long getAlbumsCount() throws ScriptExecutionError {
         while (true){
             try {
@@ -113,6 +130,10 @@ public class BuilderMusicBand implements IBuilder<MusicBand> {
 
         }
     }
+    /**
+     * Метод для получения количества участников
+     * @return возвращает количество участников
+     */
     private Long getNumbersOfParticipants() throws ScriptExecutionError {
         while (true){
             try {

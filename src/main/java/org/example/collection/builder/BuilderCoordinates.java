@@ -9,7 +9,9 @@ import org.example.handlers.RunHandler;
 
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-
+/**
+ * Класс строитель для создания объекта класса Coordinates
+ */
 public class BuilderCoordinates implements IBuilder<Сoordinates> {
     private Scanner scanner;
     private boolean isScript;
@@ -19,11 +21,18 @@ public class BuilderCoordinates implements IBuilder<Сoordinates> {
         this.scanner = RunHandler.getMainScaner();
         this.isScript = RunHandler.mode();
     }
-
+    /**
+     * Метод для создания объекта класса Coordinates
+     * @return возвращает объект класса Coordinates
+     */
     @Override
     public Сoordinates build() throws ScriptExecutionError {
         return new Сoordinates(getX(), getY());
     }
+    /**
+     * Метод для получения координаты X
+     * @return возвращает координату X
+     */
     private Float getX() throws ScriptExecutionError {
         while (true){
             try {
@@ -65,6 +74,10 @@ public class BuilderCoordinates implements IBuilder<Сoordinates> {
 
         }
     }
+    /**
+     * Метод для получения координаты Y
+     * @return возвращает координату Y
+     */
     private float getY() throws ScriptExecutionError {
         while (true){
             try {

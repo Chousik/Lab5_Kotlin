@@ -5,20 +5,20 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.example.collection.MusicBand;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.LinkedList;
 import java.util.Scanner;
+
 /**
  * Класс для работы с базой данных в формате json
  */
-public class JsonDB implements IDataBase<MusicBand> {
+public class AltJsonDB implements IDataBase<MusicBand>{
     private String fileName;
-    public JsonDB(String fileName){
+    public AltJsonDB(String fileName){
         this.fileName = fileName;
     }
     /**
-     * Метод для сохранения данных
+     * Метод для сохранения данных через FileWriter
      * @param collection коллекция
      * @throws IOException если произошла ошибка ввода/вывода
      */
@@ -27,10 +27,14 @@ public class JsonDB implements IDataBase<MusicBand> {
         File file = new File(fileName);
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
-        objectMapper.writeValue(file, collection);
+        String jsonData = objectMapper.writeValueAsString(collection);
+        FileWriter writer = new FileWriter(file);
+        writer.write(jsonData);
+        writer.flush();
+        writer.close();
     }
     /**
-     * Метод для загрузки данных
+     * Метод для загрузки данных через InputStreamReader
      * @return коллекция
      * @throws IOException если произошла ошибка ввода/вывода
      */
@@ -40,10 +44,15 @@ public class JsonDB implements IDataBase<MusicBand> {
         if (new Scanner(file).hasNext()) {
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.registerModule(new JavaTimeModule());
-            LinkedList<MusicBand> data = objectMapper.readValue(file, new TypeReference<>() {
+            String jsonData = "";
+            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+            jsonData = reader.readLine();
+            reader.close();
+            LinkedList<MusicBand> data = objectMapper.readValue(jsonData, new TypeReference<>() {
             });
             return data;
-        } return new LinkedList<>();
+        }
+        return new LinkedList<>();
     }
-}
 
+}

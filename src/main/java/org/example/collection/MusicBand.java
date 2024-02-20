@@ -1,7 +1,9 @@
 package org.example.collection;
 
 import java.time.ZonedDateTime;
-
+/**
+ * Класс музыкальная группа
+ */
 public class MusicBand implements Comparable<MusicBand>{
     private int id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
@@ -13,7 +15,7 @@ public class MusicBand implements Comparable<MusicBand>{
     private Person frontMan; //Поле может быть null
     public MusicBand(){}
     public MusicBand(String name, Сoordinates coordinates, long l1, long l2, MusicGenre genre, Person person) {
-        this.id = (int) (Math.random() * 30000);
+        this.id = (int) (Math.random() * 666666);
         this.name = name;
         this.coordinates = coordinates;
         this.numberOfParticipants = l1;

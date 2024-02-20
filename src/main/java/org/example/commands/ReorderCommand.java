@@ -3,18 +3,24 @@ package org.example.commands;
 import org.example.exception.ArgumentCountError;
 import org.example.handlers.ICollectionController;
 import org.example.handlers.RunHandler;
-
-public class ReorderCommand extends AbstractCommand {
-    private ICollectionController collectionHandler;
-    public ReorderCommand(ICollectionController CH){
-        super("reorder", "Метод позволяет отсортирова коллекцию в обратном порядке.");
-        this.collectionHandler = CH;
+/**
+ * Команда reorder. Позволяет отсортировать коллекцию в обратном порядке.
+ */
+public class ReorderCommand extends ACommand {
+    private ICollectionController collectionController;
+    public ReorderCommand(ICollectionController collectionController){
+        super("reorder", "команда позволяет отсортирова коллекцию в обратном порядке.", 0);
+        this.collectionController = collectionController;
     }
-
+    /**
+     * Метод для отсортировки коллекции в обратном порядке
+     * @param args аргументы
+     * @throws ArgumentCountError если количество аргументов не совпадает
+     */
     @Override
     public void execute(String[] args) throws ArgumentCountError {
-        if (args.length!=0) {throw new ArgumentCountError(0,args.length);}
-        collectionHandler.reorder();
+        valideCountsArgument(args);
+        collectionController.reorder();
         if (!RunHandler.mode()){System.out.println("Коллекция успешно реверснута");}
     }
 }

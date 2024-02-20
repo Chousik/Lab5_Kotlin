@@ -1,14 +1,14 @@
 package org.example.handlers;
 
-import org.example.commands.AbstractCommand;
+import org.example.commands.ACommand;
 import org.example.exception.ArgumentError;
 import org.example.exception.ArgumentCountError;
 import org.example.exception.InvalidCommandError;
 import org.example.exception.ScriptExecutionError;
-import org.example.commands.validators.ScriptValidor;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -27,6 +27,9 @@ public class RunHandler {
     public static boolean mode(){
         return isScript;
     }
+    /**
+     * Метод для запуска прогрммы в режиме консольной работы
+     */
 
     public void consoleRun(){
         while (true){
@@ -42,7 +45,12 @@ public class RunHandler {
            System.exit(1488);
        }
     }}
-    public void scriptsRun(String fileName) throws ScriptExecutionError, FileNotFoundException {
+    /**
+     * Метод для запуска программы в режиме скрипта
+     * @param fileName имя файла
+     * @throws ScriptExecutionError если произошла ошибка выполнения скрипта
+     */
+    public void scriptsRun(String fileName) throws ScriptExecutionError {
         Scanner lastScraner = getMainScaner();
         isScript = true;
         try {
@@ -52,20 +60,27 @@ public class RunHandler {
                     String messages = mainScaner.nextLine();
                     runCommand(messages);
                 }catch (InvalidCommandError | ArgumentCountError | ArgumentError e){
-                    System.out.println(e);
+                    throw new ScriptExecutionError(e.toString());
                 }}
-        } catch (ScriptExecutionError e){
-            System.out.println("Невалидный скрипт: " + e);
-        } finally {
+        }catch (FileNotFoundException e){}
+        finally {
             mainScaner = lastScraner;
             isScript = false;
         }
     }
-    public void runCommand(String userMessges) throws InvalidCommandError, ArgumentCountError, ScriptExecutionError, ArgumentError, FileNotFoundException {
+    /**
+     * Метод для поиска и выполнения команды
+     * @param userMessges сообщение пользователя
+     * @throws InvalidCommandError если команда неверная
+     * @throws ArgumentCountError если неверное количество аргументов
+     * @throws ScriptExecutionError если произошла ошибка выполнения скрипта
+     * @throws ArgumentError если аргумент неверный
+     */
+    public void runCommand(String userMessges) throws InvalidCommandError, ArgumentCountError, ScriptExecutionError, ArgumentError {
         String[] messages = userMessges.split("\\s+");
         String commandString = messages[0];
         String[] argument = (messages.length > 1)? Arrays.copyOfRange(messages, 1, messages.length) : new String[]{};
-        AbstractCommand command = commandHandler.getCommands().get(commandString);
+        ACommand command = commandHandler.getCommands().get(commandString);
         if (command == null){
             throw new InvalidCommandError(commandString);
         }

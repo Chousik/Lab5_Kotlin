@@ -8,7 +8,9 @@ import org.example.handlers.RunHandler;
 
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-
+/**
+ * Класс строитель для создания объекта класса Color
+ */
 public class BuilderColor implements IBuilder<Color> {
     private Boolean isScript;
     private ValidatorColor validatorColor = new ValidatorColor();
@@ -17,7 +19,10 @@ public class BuilderColor implements IBuilder<Color> {
         this.isScript = RunHandler.mode();
         this.scanner = RunHandler.getMainScaner();
     }
-
+    /**
+     * Метод для создания объекта класса Color
+     * @return возвращает объект класса Color
+     */
     @Override
     public Color build() throws ScriptExecutionError {
         while (true){
@@ -27,6 +32,7 @@ public class BuilderColor implements IBuilder<Color> {
                     System.out.println("Выберите один из цветов");
                 }
                 String strValue = scanner.nextLine().trim().toUpperCase();
+                if (strValue.equals("")){strValue = null;}
                 validatorColor.valide(strValue);
                 return Color.valueOf(strValue);
             }
