@@ -1,4 +1,4 @@
-package org.chousik.database;
+﻿package org.chousik.database;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

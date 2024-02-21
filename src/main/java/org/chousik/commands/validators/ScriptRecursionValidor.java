@@ -25,6 +25,9 @@ public class ScriptRecursionValidor {
         if (!scriptFile.exists()) {
             throw new ArgumentError("Неверное имя файла");
         }
+        if (!scriptFile.canRead()){
+            throw new ArgumentError("Файл недоступен к чтению");
+        }
         LinkedList<String> urlList = new LinkedList<>();
         Queue<String> nextFiles = new PriorityQueue<>();
         nextFiles.add(fileName);

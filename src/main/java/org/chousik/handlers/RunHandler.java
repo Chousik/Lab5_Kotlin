@@ -63,7 +63,7 @@ public class RunHandler {
         } catch (InvalidCommandError | ArgumentCountError | ArgumentError e) {
             throw new ScriptExecutionError(e.toString());
         } catch (FileNotFoundException e) {
-            System.out.println("Ошибка доступа к файлуmvn");
+            System.out.println(e);
         } finally {
             mainScaner = lastScraner;
             isScript = false;
