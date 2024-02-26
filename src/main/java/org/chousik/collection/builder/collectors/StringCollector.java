@@ -21,7 +21,7 @@ public class StringCollector implements ICollector<String>{
         while (true) {
             try {
                 if (!isScript) {
-                    System.out.println("Введите имя человека");
+                    System.out.println("Введите " + name);
                 }
                 String namePerson = scanner.nextLine().trim();
                 validator.valide(namePerson);
@@ -35,7 +35,7 @@ public class StringCollector implements ICollector<String>{
                 if (isScript) {
                     throw new ScriptExecutionError("Поле " + name + " не может быть null.");
                 }
-                System.out.println("Имя группы не может быть null.");
+                System.out.println("Поле " + name + " не может быть null.");
             } catch (NoSuchElementException e) {
                 if (isScript) {
                     throw new ScriptExecutionError("Ошибка во время ввода данных коллекции из файла. Конец файла.");
