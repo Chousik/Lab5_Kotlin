@@ -9,7 +9,7 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.function.*;
 
-public abstract class NumberCollector<T extends Number>{
+public abstract class NumberCollector<T extends Number> implements ICollector<T>{
     private Boolean isScript;
     private Scanner scanner;
     public void NumberCollector() {

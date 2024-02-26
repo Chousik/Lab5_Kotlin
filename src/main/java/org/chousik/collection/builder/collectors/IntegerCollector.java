@@ -5,7 +5,7 @@ import org.chousik.exception.ScriptExecutionError;
 
 import java.util.function.Function;
 
-public class IntegerCollector extends NumberCollector<Integer> implements ICollector<Integer>{
+public class IntegerCollector extends NumberCollector<Integer>{
 
     @Override
     public Integer ask(String name, IValidator validator) throws ScriptExecutionError {
