@@ -4,6 +4,5 @@ import org.chousik.collection.validators.IValidator;
 import org.chousik.exception.ScriptExecutionError;
 
 public interface ICollector<T> {
-
-    T get(String name, IValidator validator) throws ScriptExecutionError;
+    T ask(String name, IValidator validator) throws ScriptExecutionError;
 }

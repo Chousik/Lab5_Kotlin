@@ -85,7 +85,8 @@ public class RunHandler {
         String[] argument = (messages.length > 1) ? Arrays.copyOfRange(messages, 1, messages.length) : new String[]{};
         ACommand command = commandHandler.getCommands().get(commandString);
         if (command == null) {
-            throw new InvalidCommandError(commandString);
+            System.err.println("Команда не может быть пустой");
+            return;
         }
         command.execute(argument);
     }

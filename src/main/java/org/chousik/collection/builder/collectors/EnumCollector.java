@@ -8,6 +8,7 @@
 //
 //import java.util.NoSuchElementException;
 //import java.util.Scanner;
+//import java.lang.Enum;
 //
 //public class EnumCollector<T extends Enum> implements ICollector<T>{
 //    private Boolean isScript;
@@ -21,7 +22,7 @@
 //        while (true) {
 //            try {
 //                if (!isScript) {
-//                    System.out.println("Доступные цвета: " + Color.getValue());
+//                    System.out.println("Доступные цвета: " +);
 //                    System.out.println("Выберите один из цветов");
 //                }
 //                String strValue = scanner.nextLine().trim().toUpperCase();
@@ -29,7 +30,7 @@
 //                    strValue = null;
 //                }
 //                validator.valide(strValue);
-//                return (T) T.valueOf(strValue);
+//                return T.valueOf(strValue)
 //            } catch (InvalidDataError e) {
 //                if (isScript) {
 //                    throw new ScriptExecutionError("Введено неккоретное значение из списка.");

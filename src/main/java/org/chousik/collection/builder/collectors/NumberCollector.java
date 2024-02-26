@@ -4,25 +4,28 @@ import org.chousik.collection.validators.IValidator;
 import org.chousik.exception.ScriptExecutionError;
 import org.chousik.handlers.RunHandler;
 
+import java.lang.reflect.Method;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-public class NumberCollector<T extends Number> implements ICollector<T>{
+import java.util.function.*;
+
+public abstract class NumberCollector<T extends Number>{
     private Boolean isScript;
     private Scanner scanner;
-    public void NumberCollecto() {
+    public void NumberCollector() {
         this.isScript = RunHandler.mode();
         this.scanner = RunHandler.getMainScaner();
     }
-    @Override
-    public T get(String name, IValidator validator) throws ScriptExecutionError {
+    public T askNumer(String name, IValidator validator, Function<String, T> method) throws ScriptExecutionError {
         while (true) {
             try {
                 if (!isScript) {
                     System.out.println("Введите " + name);
                 }
-                Double valueX = Double.parseDouble(scanner.nextLine().trim());
-                validator.valide(valueX);
-                return (T) valueX;
+                String string = scanner.nextLine().trim();
+                T t = method.apply(string);
+                validator.valide(t);
+                return t;
             } catch (NumberFormatException e) {
                 if (isScript) {
                     throw new ScriptExecutionError("Поле " + name + " должо быть числом");
