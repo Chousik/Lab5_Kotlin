@@ -1,5 +1,6 @@
 package org.chousik;
 
+import org.chousik.collection.MusicBand;
 import org.chousik.commands.*;
 import org.chousik.database.AltJsonDB;
 import org.chousik.database.IDataBase;
@@ -12,10 +13,6 @@ import java.io.File;
 
 public class Main {
     public static void main(String[] args) {
-        if (args.length == 0) {
-            System.out.println("Необходимо ввести имя файла");
-            return;
-        }
         run(args[0]);
     }
 
@@ -58,29 +55,29 @@ public class Main {
             System.out.println("Введенного файла не существует, создан новый");
             try {
                 file.createNewFile();
-            }catch (Exception e){}
+            }catch (Exception ignored){}
         }
-        IDataBase jsonDB = new AltJsonDB(fileName);
-        ICollectionController collectionControllerPerson = new CollectionControllerPerson(jsonDB);
+        IDataBase<MusicBand> jsonDB = new AltJsonDB(fileName);
+        ICollectionController<MusicBand> collectionControllerPerson = new CollectionControllerPerson(jsonDB);
         collectionControllerPerson.loadData();
         CommandHandler commandHandler = new CommandHandler();
-        commandHandler.AddCommand("add", new AddCommand(collectionControllerPerson));
-        commandHandler.AddCommand("help", new HelpCommand(commandHandler));
-        commandHandler.AddCommand("info", new InfoCommand(collectionControllerPerson));
-        commandHandler.AddCommand("show", new ShowCommand(collectionControllerPerson));
-        commandHandler.AddCommand("update", new UpdateCommand(collectionControllerPerson));
-        commandHandler.AddCommand("remove_by_id", new RemoveByIdCommand(collectionControllerPerson));
-        commandHandler.AddCommand("clear", new ClearCommand(collectionControllerPerson));
-        commandHandler.AddCommand("remove_at", new RemoveAtCommand(collectionControllerPerson));
-        commandHandler.AddCommand("shuffle", new ShuffleCommand(collectionControllerPerson));
-        commandHandler.AddCommand("reorder", new ReorderCommand(collectionControllerPerson));
-        commandHandler.AddCommand("remove_any_by_front_man", new RemoveAnyByFrontManCommand(collectionControllerPerson));
-        commandHandler.AddCommand("count_by_number_of_participants", new CountByNumbersOfParticipantsCommand(collectionControllerPerson));
-        commandHandler.AddCommand("filter_by_albums_count", new FilterByAlbumsCountCommand(collectionControllerPerson));
-        commandHandler.AddCommand("save", new SaveCommand(collectionControllerPerson));
-        commandHandler.AddCommand("exit", new ExitCommand());
+        commandHandler.addCommand("add", new AddCommand(collectionControllerPerson));
+        commandHandler.addCommand("help", new HelpCommand(commandHandler));
+        commandHandler.addCommand("info", new InfoCommand(collectionControllerPerson));
+        commandHandler.addCommand("show", new ShowCommand(collectionControllerPerson));
+        commandHandler.addCommand("update", new UpdateCommand(collectionControllerPerson));
+        commandHandler.addCommand("remove_by_id", new RemoveByIdCommand(collectionControllerPerson));
+        commandHandler.addCommand("clear", new ClearCommand(collectionControllerPerson));
+        commandHandler.addCommand("remove_at", new RemoveAtCommand(collectionControllerPerson));
+        commandHandler.addCommand("shuffle", new ShuffleCommand(collectionControllerPerson));
+        commandHandler.addCommand("reorder", new ReorderCommand(collectionControllerPerson));
+        commandHandler.addCommand("remove_any_by_front_man", new RemoveAnyByFrontManCommand(collectionControllerPerson));
+        commandHandler.addCommand("count_by_number_of_participants", new CountByNumbersOfParticipantsCommand(collectionControllerPerson));
+        commandHandler.addCommand("filter_by_albums_count", new FilterByAlbumsCountCommand(collectionControllerPerson));
+        commandHandler.addCommand("save", new SaveCommand(collectionControllerPerson));
+        commandHandler.addCommand("exit", new ExitCommand());
         RunHandler runHandlerMain = new RunHandler(collectionControllerPerson, commandHandler);
-        commandHandler.AddCommand("execute", new ExecuteCommand(runHandlerMain));
+        commandHandler.addCommand("execute", new ExecuteCommand(runHandlerMain));
         System.out.println("Начала работы! Для вывода списка комманд используйте help.");
         runHandlerMain.consoleRun();
     }

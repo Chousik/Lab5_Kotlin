@@ -2,18 +2,25 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
-
+/out/artifacts/Lab5_jar/Lab5.jar
+src/main/resources/META-INF/MANIFEST.MF
 ### IntelliJ IDEA ###
 .idea/modules.xml
 .idea/jarRepositories.xml
 .idea/compiler.xml
 .idea/libraries/
+.idea/.gitignore
+.idea/artifacts/Lab5_jar.xml
+.idea/encodings.xml
+.idea/misc.xml
+.idea/uiDesigner.xml
+.idea/vcs.xml
 *.iws
 *.iml
 *.ipr
 *.txt
 *.json
-
+.idea/**
 ### Eclipse ###
 .apt_generated
 .classpath

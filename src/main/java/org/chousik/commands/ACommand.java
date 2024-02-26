@@ -8,9 +8,9 @@ import org.chousik.exception.ScriptExecutionError;
  * Абстрактный класс для команд
  */
 public abstract class ACommand {
-    private String name;
-    private String info;
-    private Integer countsArgument;
+    final private String name;
+    final private String info;
+    final private Integer countsArgument;
 
     public ACommand(String name, String info, Integer countsArgument) {
         this.name = name;

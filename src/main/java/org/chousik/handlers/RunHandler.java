@@ -1,5 +1,6 @@
 package org.chousik.handlers;
 
+import org.chousik.collection.MusicBand;
 import org.chousik.commands.ACommand;
 import org.chousik.exception.ArgumentError;
 import org.chousik.exception.ArgumentCountError;
@@ -12,12 +13,12 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class RunHandler {
-    private ICollectionController CollectionM;
-    private CommandHandler commandHandler;
+    private final ICollectionController<MusicBand> CollectionM;
+    private final CommandHandler commandHandler;
     private static Scanner mainScaner = new Scanner(System.in);
     private static boolean isScript = false;
 
-    public RunHandler(ICollectionController CollectionM, CommandHandler CommandM) {
+    public RunHandler(ICollectionController<MusicBand> CollectionM, CommandHandler CommandM) {
         this.CollectionM = CollectionM;
         this.commandHandler = CommandM;
     }
@@ -35,13 +36,12 @@ public class RunHandler {
      */
 
     public void consoleRun() {
-        while (true) {
-            try {
-                String Messages = mainScaner.nextLine();
-                runCommand(Messages);
-            } catch (InvalidCommandError | ArgumentCountError | ScriptExecutionError | ArgumentError e) {
-                System.out.println(e);
-            }
+        while (true) try {
+            System.out.print(System.getProperty("user.name")+"> ");
+            String Messages = mainScaner.nextLine();
+            runCommand(Messages);
+        } catch (InvalidCommandError | ArgumentCountError | ScriptExecutionError | ArgumentError e) {
+            System.err.println(e);
         }
     }
 
@@ -63,7 +63,7 @@ public class RunHandler {
         } catch (InvalidCommandError | ArgumentCountError | ArgumentError e) {
             throw new ScriptExecutionError(e.toString());
         } catch (FileNotFoundException e) {
-            System.out.println(e);
+            System.err.println(e);
         } finally {
             mainScaner = lastScraner;
             isScript = false;
@@ -88,6 +88,10 @@ public class RunHandler {
             throw new InvalidCommandError(commandString);
         }
         command.execute(argument);
+    }
+
+    public ICollectionController<MusicBand> getCollectionM() {
+        return CollectionM;
     }
 }
 

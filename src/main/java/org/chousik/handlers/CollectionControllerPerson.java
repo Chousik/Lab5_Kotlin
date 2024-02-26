@@ -15,7 +15,7 @@ import java.util.NoSuchElementException;
 
 public class CollectionControllerPerson implements ICollectionController<MusicBand> {
     private LinkedList<MusicBand> collection = new LinkedList<>();
-    private IDataBase dataBase;
+    final private IDataBase dataBase;
     private LocalDateTime lastInitTime = LocalDateTime.now();
 
     public CollectionControllerPerson(IDataBase dataBase) {

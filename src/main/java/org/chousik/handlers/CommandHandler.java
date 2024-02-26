@@ -16,7 +16,7 @@ public class CommandHandler {
      * @param commandName - имя команды
      * @param Command     - команда
      */
-    public void AddCommand(String commandName, ACommand Command) {
+    public void addCommand(String commandName, ACommand Command) {
         commands.put(commandName, Command);
     }
 
