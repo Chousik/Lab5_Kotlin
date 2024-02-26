@@ -5,7 +5,7 @@ import org.chousik.exception.InvalidDataError;
 /**
  * Валидатор координаты X
  */
-public class ValidatorCoordinatesX implements Validator<Float> {
+public class ValidatorCoordinatesX implements IValidator<Float> {
 
     /**
      * Проверяет число на соответствие диапазону

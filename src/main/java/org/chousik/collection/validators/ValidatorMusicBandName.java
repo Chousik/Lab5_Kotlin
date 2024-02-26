@@ -5,7 +5,7 @@ import org.chousik.exception.InvalidDataError;
 /**
  * Валидатор названия музыкальной группы
  */
-public class ValidatorMusicBandName implements Validator<String> {
+public class ValidatorMusicBandName implements IValidator<String> {
     /**
      * Проверяет строку на пустоту
      *

@@ -3,7 +3,7 @@ package org.chousik.collection.validators;
 /**
  * Валидатор координаты X
  */
-public class ValidatorLocationX implements Validator<Double> {
+public class ValidatorLocationX implements IValidator<Double> {
     /**
      * Проверяет число на соответствие диапазону
      *

@@ -6,7 +6,7 @@ import org.chousik.exception.InvalidDataError;
 /**
  * Валидатор страны
  */
-public class ValidatorCountry implements Validator<String> {
+public class ValidatorCountry implements IValidator<String> {
     /**
      * Проверяет строку на соответствие стране
      *

@@ -7,6 +7,6 @@ import org.chousik.exception.InvalidDataError;
  *
  * @param <T> тип валидируемого объекта
  */
-public interface Validator<T> {
+public interface IValidator<T> {
     public void valide(T t) throws InvalidDataError;
 }

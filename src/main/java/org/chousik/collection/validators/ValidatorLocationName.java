@@ -5,7 +5,7 @@ import org.chousik.exception.InvalidDataError;
 /**
  * Валидатор названия локации
  */
-public class ValidatorLocationName implements Validator<String> {
+public class ValidatorLocationName implements IValidator<String> {
     /**
      * Проверяет строку на пустоту
      *

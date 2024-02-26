@@ -6,7 +6,7 @@ import org.chousik.exception.InvalidDataError;
  * Валидатор номера паспорта человека
  */
 
-public class ValidatorPersonPasportID implements Validator<String> {
+public class ValidatorPersonPasportID implements IValidator<String> {
     /**
      * Проверяет строку на пустоту
      *

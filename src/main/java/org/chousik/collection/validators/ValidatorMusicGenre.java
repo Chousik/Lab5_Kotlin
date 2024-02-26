@@ -6,7 +6,7 @@ import org.chousik.exception.InvalidDataError;
 /**
  * Валидатор жанра музыки
  */
-public class ValidatorMusicGenre implements Validator<String> {
+public class ValidatorMusicGenre implements IValidator<String> {
     /**
      * Проверяет строку на соответствие жанру музыки
      *

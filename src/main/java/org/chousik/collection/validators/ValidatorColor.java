@@ -6,7 +6,7 @@ import org.chousik.exception.InvalidDataError;
 /**
  * Валидатор цвета
  */
-public class ValidatorColor implements Validator<String> {
+public class ValidatorColor implements IValidator<String> {
     /**
      * Проверяет строку на соответствие цвету
      *

@@ -5,7 +5,7 @@ import org.chousik.exception.InvalidDataError;
 /**
  * Валидатор количества участников музыкальной группы
  */
-public class ValidatorMusicBandNumberOfParticipants implements Validator<Long> {
+public class ValidatorMusicBandNumberOfParticipants implements IValidator<Long> {
     /**
      * Проверяет число на соответствие диапазону
      *
