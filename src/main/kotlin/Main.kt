@@ -3,8 +3,6 @@ package org.chousik
 import org.chousik.collection.MusicBand
 import org.chousik.commands.*
 import org.chousik.database.AltJsonDB
-import org.chousik.database.IDataBase
-import org.chousik.handlers.ICollectionController
 import org.chousik.handlers.CollectionControllerMusicBand
 import org.chousik.handlers.CommandHandler
 import org.chousik.handlers.RunHandler
@@ -31,8 +29,8 @@ object Main {
             } catch (ignored: java.lang.Exception) {
             }
         }
-        val jsonDB: IDataBase<MusicBand> = AltJsonDB(fileName)
-        val collectionControllerPerson: ICollectionController<MusicBand> =
+        val jsonDB: AltJsonDB = AltJsonDB(fileName!!)
+        val collectionControllerPerson: CollectionControllerMusicBand =
             CollectionControllerMusicBand(jsonDB, LinkedList<MusicBand>())
         collectionControllerPerson.loadData()
         val commandHandler: CommandHandler = CommandHandler()

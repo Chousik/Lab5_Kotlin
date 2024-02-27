@@ -17,10 +17,10 @@ class Location {
 
     constructor()
 
-    constructor(x: Double?, y: Int?, z: Int, name: String?) {
+    constructor(x: Double?, y: Int?, z: Int?, name: String?) {
         this.x = x
         this.y = y
-        this.z = z
+        this.z = z!!
         this.name = name
     }
 

@@ -7,7 +7,7 @@ import org.chousik.exception.InvalidDataError
  *
  * @param <T> тип валидируемого объекта
 </T> */
-interface IValidator<T> : IValidator<String?>, IValidator<String?> {
+interface IValidator<T> {
     @Throws(InvalidDataError::class)
     fun valide(t: T)
 }

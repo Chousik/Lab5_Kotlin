@@ -3,18 +3,19 @@ package org.chousik.handlers
 import org.chousik.collection.MusicBand
 import org.chousik.collection.Person
 import org.chousik.collection.builder.BuilderMusicBand
-import org.chousik.database.IDataBase
+import org.chousik.database.AltJsonDB
 import org.chousik.exception.ArgumentError
 import org.chousik.exception.ScriptExecutionError
 import java.io.IOException
 import java.time.LocalDateTime
 import java.util.*
 import java.util.function.Predicate
+import java.util.function.Function
 
-class CollectionControllerMusicBand(dataBase: IDataBase<MusicBand?>, linkedList: LinkedList<MusicBand?>) :
+class CollectionControllerMusicBand(dataBase: AltJsonDB, linkedList: LinkedList<MusicBand>) :
     ICollectionController<MusicBand?> {
     override var collection: LinkedList<MusicBand?>
-    private val dataBase: IDataBase<MusicBand?> = dataBase
+    private val dataBase: AltJsonDB = dataBase
 
     /**
      * Метод для получения времени инициализации коллекции
@@ -25,7 +26,7 @@ class CollectionControllerMusicBand(dataBase: IDataBase<MusicBand?>, linkedList:
         private set
 
     init {
-        this.collection = linkedList
+        collection = linkedList.filterNotNullTo(LinkedList())
     }
 
     /**
@@ -50,9 +51,6 @@ class CollectionControllerMusicBand(dataBase: IDataBase<MusicBand?>, linkedList:
      *
      * @return коллекция
      */
-    fun getCollection(): LinkedList<MusicBand?> {
-        return collection
-    }
 
     /**
      * Метод для получения размера коллекции
@@ -73,11 +71,8 @@ class CollectionControllerMusicBand(dataBase: IDataBase<MusicBand?>, linkedList:
         if (collection.isEmpty()) {
             return "Пустая колеекция!"
         }
-        val result: String = java.lang.String.join(
-            "\n",
-            collection.stream().filter(Predicate<MusicBand?> { x: MusicBand? -> x!!.getAlbumsCount() == integer?.toLong() })
-                .map<Any>(MusicBand::toString).toList()
-        )
+        val result: String = collection.stream().filter(Predicate<MusicBand?> { x: MusicBand? -> x!!.getAlbumsCount() == integer?.toLong() })
+                .map<Any>(Function { value: MusicBand? -> value.toString() }).toList().joinToString("\n")
         if (result.isEmpty()) {
             return "Нет таких групп"
         }
@@ -94,7 +89,7 @@ class CollectionControllerMusicBand(dataBase: IDataBase<MusicBand?>, linkedList:
             if (collection.isEmpty()) {
                 return "Пустая колеекция!"
             }
-            return java.lang.String.join("\n", collection.stream().map<Any>(MusicBand::toString).toList())
+            return collection.stream().map<Any>(Function { value: MusicBand? -> value.toString() }).toList().joinToString("\n")
         }
 
     /**
@@ -105,7 +100,7 @@ class CollectionControllerMusicBand(dataBase: IDataBase<MusicBand?>, linkedList:
      * @throws ScriptExecutionError если произошла ошибка выполнения скрипта
      */
     @Throws(ArgumentError::class, ScriptExecutionError::class)
-    fun updateElements(id: Int) {
+    override fun updateElements(id: Int?) {
         try {
             val musicBand: MusicBand =
                 collection.stream().filter(Predicate<MusicBand?> { x: MusicBand? -> x!!.getId() == id }).findFirst()
@@ -123,8 +118,8 @@ class CollectionControllerMusicBand(dataBase: IDataBase<MusicBand?>, linkedList:
      * @throws ArgumentError если аргумент неверный
      */
     @Throws(ArgumentError::class)
-    fun removeElements(index: Int) {
-        if (index > collection.size - 1 || index < 0) {
+    override fun removeElements(index: Int?) {
+        if (index!! > collection.size - 1 || index < 0) {
             throw ArgumentError("Неверное id: " + index + ". Длина коллекции: " + collection.size)
         }
         val musicBand: MusicBand? = collection[index]
@@ -195,7 +190,7 @@ class CollectionControllerMusicBand(dataBase: IDataBase<MusicBand?>, linkedList:
      * @param longs
      * @return
      */
-    fun countNumberOfParticipants(longs: Long): Int {
+    override fun countNumberOfParticipants(longs: Long?): Int {
         return collection.stream()
             .filter(Predicate<MusicBand?> { x: MusicBand? -> x!!.getNumberOfParticipants() == longs }).toList().size
     }
@@ -205,7 +200,7 @@ class CollectionControllerMusicBand(dataBase: IDataBase<MusicBand?>, linkedList:
      */
     override fun loadData() {
         try {
-            collection = dataBase.loadData()!!
+            collection = dataBase.loadData().filterNotNullTo(LinkedList())
             lastInitTime = LocalDateTime.now()
         } catch (e: IOException) {
             if (dataBase.checkFileExist()) {

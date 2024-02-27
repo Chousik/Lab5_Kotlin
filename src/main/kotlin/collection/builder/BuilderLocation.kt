@@ -4,7 +4,6 @@ import org.chousik.collection.Location
 import org.chousik.collection.builder.collectors.DoubleCollector
 import org.chousik.collection.builder.collectors.IntegerCollector
 import org.chousik.collection.builder.collectors.StringCollector
-import org.chousik.collection.validators.IValidator
 import org.chousik.collection.validators.ValidatorLocationName
 import org.chousik.collection.validators.ValidatorLocationX
 import org.chousik.collection.validators.ValidatorLocationYZ

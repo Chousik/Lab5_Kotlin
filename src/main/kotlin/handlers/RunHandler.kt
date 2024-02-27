@@ -1,6 +1,5 @@
 package org.chousik.handlers
 
-import lombok.Getter
 import org.chousik.collection.MusicBand
 import org.chousik.commands.ACommand
 import org.chousik.exception.ArgumentCountError
@@ -11,8 +10,8 @@ import java.io.File
 import java.io.FileNotFoundException
 import java.util.*
 
-class RunHandler(collectionM: ICollectionController<MusicBand>, commandM: CommandHandler) {
-    private val collectionM: ICollectionController<MusicBand> = collectionM
+class RunHandler(collectionM: CollectionControllerMusicBand, commandM: CommandHandler) {
+    private val collectionM: CollectionControllerMusicBand = collectionM
     private val commandHandler = commandM
 
     /**
@@ -79,7 +78,7 @@ class RunHandler(collectionM: ICollectionController<MusicBand>, commandM: Comman
         val argument = if ((messages.size > 1)) Arrays.copyOfRange(messages, 1, messages.size) else arrayOf()
         val command: ACommand? = commandHandler.getCommands()[commandString]
         if (command == null) {
-            System.err.println("Команда не может быть пустой")
+            System.err.println("Неверная команда! Введите help для получения списка команд.")
             return
         }
         command.execute(argument)

@@ -34,12 +34,12 @@ class MusicBand : Comparable<MusicBand> {
     fun getGenre(): MusicGenre? {
         return genre;
     }
-    constructor(name: String?, coordinates: Сoordinates?, l1: Long, l2: Long, genre: MusicGenre?, person: Person?) {
+    constructor(name: String?, coordinates: Сoordinates?, l1: Long?, l2: Long?, genre: MusicGenre?, person: Person?) {
         this.id = (Math.random() * 666666).toInt()
         this.name = name
         this.coordinates = coordinates
-        this.numberOfParticipants = l1
-        this.albumsCount = l2
+        this.numberOfParticipants = l1!!
+        this.albumsCount = l2!!
         this.genre = genre
         this.frontMan = person
     }

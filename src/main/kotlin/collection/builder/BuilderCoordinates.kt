@@ -23,7 +23,7 @@ class BuilderCoordinates : IBuilder<Сoordinates?> {
     override fun build(): Сoordinates {
         return Сoordinates(
             FloatCollector().ask("Координата X", validatorCoordinatesX),
-            FloatCollector().ask("Координата Y", validatorCoordinatesY)
+            FloatCollector().ask("Координата Y", validatorCoordinatesY)!!
         )
     }
 }

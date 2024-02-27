@@ -42,8 +42,7 @@ class AltJsonDB(private val fileName: String) : IDataBase<MusicBand?> {
             val reader = BufferedReader(InputStreamReader(FileInputStream(file)))
             jsonData = reader.readLine()
             reader.close()
-            val data: LinkedList<MusicBand> = objectMapper.readValue(jsonData, object : TypeReference() {
-            })
+            val data = objectMapper.readValue(jsonData, object : TypeReference<LinkedList<MusicBand>>() {})
             return data
         }
         return LinkedList<MusicBand>()

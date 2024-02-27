@@ -11,8 +11,8 @@ import org.chousik.exception.ScriptExecutionError
  * Класс строитель для создания объекта класса Person
  */
 class BuilderPerson : IBuilder<Person?> {
-    private val validatorPersonName: IValidator<String> = ValidatorPersonName()
-    private val validatorPersonPasportID: IValidator<String> = ValidatorPersonPasportID()
+    private val validatorPersonName: ValidatorPersonName = ValidatorPersonName()
+    private val validatorPersonPasportID: ValidatorPersonPasportID = ValidatorPersonPasportID()
     private val BuilderColor: BuilderColor = BuilderColor()
     private val BuilderLocation: BuilderLocation = BuilderLocation()
     private val BuilderCountry: BuilderCountry = BuilderCountry()

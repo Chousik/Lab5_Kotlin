@@ -3,7 +3,6 @@ package org.chousik.collection.builder
 import org.chousik.collection.MusicBand
 import org.chousik.collection.builder.collectors.LongCollector
 import org.chousik.collection.builder.collectors.StringCollector
-import org.chousik.collection.validators.IValidator
 import org.chousik.collection.validators.ValidatorMusicBandAlbumsCount
 import org.chousik.collection.validators.ValidatorMusicBandName
 import org.chousik.collection.validators.ValidatorMusicBandNumberOfParticipants
