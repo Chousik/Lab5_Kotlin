@@ -1,10 +1,15 @@
 package org.chousik.collection;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Objects;
 
 /**
  * Класс координат
  */
+@Getter
+@Setter
 public class Сoordinates {
     private Float x; //Значение поля должно быть больше -645, Поле не может быть null
     private float y;
@@ -16,23 +21,6 @@ public class Сoordinates {
 
     public Сoordinates() {
     }
-
-    public Float getX() {
-        return x;
-    }
-
-    public float getY() {
-        return y;
-    }
-
-    public void setX(Float x) {
-        this.x = x;
-    }
-
-    public void setY(float y) {
-        this.y = y;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

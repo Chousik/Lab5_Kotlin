@@ -13,12 +13,12 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
-public class CollectionControllerPerson implements ICollectionController<MusicBand> {
+public class CollectionControllerMusicBand implements ICollectionController<MusicBand> {
     private LinkedList<MusicBand> collection;
     final private IDataBase<MusicBand> dataBase;
     private LocalDateTime lastInitTime = LocalDateTime.now();
 
-    public CollectionControllerPerson(IDataBase<MusicBand> dataBase, LinkedList<MusicBand> linkedList) {
+    public CollectionControllerMusicBand(IDataBase<MusicBand> dataBase, LinkedList<MusicBand> linkedList) {
         this.dataBase = dataBase;
         this.collection = linkedList;
     }

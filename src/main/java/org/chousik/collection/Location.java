@@ -1,10 +1,15 @@
 package org.chousik.collection;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Objects;
 
 /**
  * Класс координаты
  */
+@Getter
+@Setter
 public class Location {
     private Double x; //Поле не может быть null
     private Integer y; //Поле не может быть null
@@ -19,38 +24,6 @@ public class Location {
         this.y = y;
         this.z = z;
         this.name = name;
-    }
-
-    public Double getX() {
-        return x;
-    }
-
-    public Integer getY() {
-        return y;
-    }
-
-    public int getZ() {
-        return z;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setY(Integer y) {
-        this.y = y;
-    }
-
-    public void setX(Double x) {
-        this.x = x;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setZ(int z) {
-        this.z = z;
     }
 
     @Override

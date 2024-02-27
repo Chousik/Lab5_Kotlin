@@ -1,10 +1,15 @@
 package org.chousik.collection;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.ZonedDateTime;
 
 /**
  * Класс музыкальная группа
  */
+@Getter
+@Setter
 public class MusicBand implements Comparable<MusicBand> {
     private int id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
@@ -28,71 +33,6 @@ public class MusicBand implements Comparable<MusicBand> {
         this.frontMan = person;
 
     }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Сoordinates getCoordinates() {
-        return coordinates;
-    }
-
-    public long getAlbumsCount() {
-        return albumsCount;
-    }
-
-    public long getNumberOfParticipants() {
-        return numberOfParticipants;
-    }
-
-    public MusicGenre getGenre() {
-        return genre;
-    }
-
-    public ZonedDateTime getCreationDate() {
-        return creationDate;
-    }
-
-    public Person getFrontMan() {
-        return frontMan;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setCoordinates(Сoordinates coordinates) {
-        this.coordinates = coordinates;
-    }
-
-    public void setCreationDate(ZonedDateTime creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public void setFrontMan(Person frontMan) {
-        this.frontMan = frontMan;
-    }
-
-    public void setAlbumsCount(long albumsCount) {
-        this.albumsCount = albumsCount;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setGenre(MusicGenre genre) {
-        this.genre = genre;
-    }
-
-    public void setNumberOfParticipants(long numberOfParticipants) {
-        this.numberOfParticipants = numberOfParticipants;
-    }
-
     @Override
     public String toString() {
         return "MusicBand{" +

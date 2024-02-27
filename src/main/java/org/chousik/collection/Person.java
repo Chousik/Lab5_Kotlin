@@ -1,10 +1,15 @@
 package org.chousik.collection;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Objects;
 
 /**
  * Класс персона
  */
+@Getter
+@Setter
 public class Person implements Comparable<Person> {
     private String name; //Поле не может быть null, Строка не может быть пустой
     private String passportID; //Строка не может быть пустой, Длина строки должна быть не меньше 6, Поле не может быть null
@@ -21,47 +26,6 @@ public class Person implements Comparable<Person> {
         this.location = location;
         this.hairColor = color;
         this.nationality = country;
-    }
-
-
-    public String getName() {
-        return name;
-    }
-
-    public Color getHairColor() {
-        return hairColor;
-    }
-
-    public Country getNationality() {
-        return nationality;
-    }
-
-    public Location getLocation() {
-        return location;
-    }
-
-    public String getPassportID() {
-        return passportID;
-    }
-
-    public void setHairColor(Color hairColor) {
-        this.hairColor = hairColor;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setNationality(Country nationality) {
-        this.nationality = nationality;
-    }
-
-    public void setPassportID(String passportID) {
-        this.passportID = passportID;
     }
 
     @Override

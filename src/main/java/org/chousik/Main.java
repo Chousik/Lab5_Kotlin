@@ -5,7 +5,7 @@ import org.chousik.commands.*;
 import org.chousik.database.AltJsonDB;
 import org.chousik.database.IDataBase;
 import org.chousik.handlers.ICollectionController;
-import org.chousik.handlers.CollectionControllerPerson;
+import org.chousik.handlers.CollectionControllerMusicBand;
 import org.chousik.handlers.CommandHandler;
 import org.chousik.handlers.RunHandler;
 
@@ -63,7 +63,7 @@ public class Main {
             }catch (Exception ignored){}
         }
         IDataBase<MusicBand> jsonDB = new AltJsonDB(fileName);
-        ICollectionController<MusicBand> collectionControllerPerson = new CollectionControllerPerson(jsonDB, new LinkedList<MusicBand>());
+        ICollectionController<MusicBand> collectionControllerPerson = new CollectionControllerMusicBand(jsonDB, new LinkedList<MusicBand>());
         collectionControllerPerson.loadData();
         CommandHandler commandHandler = new CommandHandler();
         commandHandler.addCommand("add", new AddCommand(collectionControllerPerson));
