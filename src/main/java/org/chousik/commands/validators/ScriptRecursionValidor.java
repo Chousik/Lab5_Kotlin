@@ -22,12 +22,6 @@ public class ScriptRecursionValidor {
      */
     public void valid(String fileName) throws ArgumentError {
         File scriptFile = new File(fileName);
-        if (!scriptFile.exists()) {
-            throw new ArgumentError("Неверное имя файла");
-        }
-        if (!scriptFile.canRead()){
-            throw new ArgumentError("Файл недоступен к чтению");
-        }
         LinkedList<String> urlList = new LinkedList<>();
         Queue<String> nextFiles = new PriorityQueue<>();
         nextFiles.add(fileName);
@@ -49,7 +43,7 @@ public class ScriptRecursionValidor {
                             nextFiles.add(fileLine.split("\\s+")[1]);
                         }
                     }
-                } catch (FileNotFoundException e) {
+                } catch (FileNotFoundException ignore) {
                 }
             }
         }

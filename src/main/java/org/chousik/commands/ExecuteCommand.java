@@ -1,5 +1,6 @@
 package org.chousik.commands;
 
+import org.chousik.commands.validators.ScriptFileValidator;
 import org.chousik.commands.validators.ScriptRecursionValidor;
 import org.chousik.exception.ArgumentError;
 import org.chousik.exception.ArgumentCountError;
@@ -28,6 +29,7 @@ public class ExecuteCommand extends ACommand {
     @Override
     public void execute(String[] args) throws ArgumentCountError, ScriptExecutionError, ArgumentError {
         valideCountsArgument(args);
+        new ScriptFileValidator().valid(args[0]);
         new ScriptRecursionValidor().valid(args[0]);
         runHandler.scriptsRun(args[0]);
     }
