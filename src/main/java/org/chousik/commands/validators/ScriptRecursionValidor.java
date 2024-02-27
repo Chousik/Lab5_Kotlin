@@ -44,6 +44,7 @@ public class ScriptRecursionValidor {
                         }
                     }
                 } catch (FileNotFoundException ignore) {
+                    throw new ArgumentError("Скрипт пытается вызвать несуществующий скрипт.");
                 }
             }
         }
