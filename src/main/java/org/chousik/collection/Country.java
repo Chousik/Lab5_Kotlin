@@ -1,6 +1,8 @@
 package org.chousik.collection;
 
+import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.stream.Collectors;
 
 /**
  * Класс перечисление стран
@@ -15,10 +17,8 @@ public enum Country {
      * @return возвращает все значения перечисления
      */
     public static String getValue() {
-        LinkedList<String> EnumValues = new LinkedList<>();
-        for (Country country : Country.values()) {
-            EnumValues.add(country.toString());
-        }
-        return String.join(", ", EnumValues);
+        return Arrays.stream(Country.values())
+                .map(Country::name)
+                .collect(Collectors.joining(", "));
     }
 }

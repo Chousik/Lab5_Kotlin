@@ -1,6 +1,8 @@
 package org.chousik.collection;
 
+import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.stream.Collectors;
 
 /**
  * Класс перечисление цветов
@@ -15,10 +17,8 @@ public enum Color {
      * @return возвращает все значения перечисления
      */
     public static String getValue() {
-        LinkedList<String> enumValues = new LinkedList<>();
-        for (Color color : Color.values()) {
-            enumValues.add(color.toString());
-        }
-        return String.join(", ", enumValues);
+        return Arrays.stream(Color.values())
+                .map(Color::name)
+                .collect(Collectors.joining(", "));
     }
 }
