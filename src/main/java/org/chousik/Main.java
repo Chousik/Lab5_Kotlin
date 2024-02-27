@@ -10,9 +10,14 @@ import org.chousik.handlers.CommandHandler;
 import org.chousik.handlers.RunHandler;
 
 import java.io.File;
+import java.util.LinkedList;
 
 public class Main {
     public static void main(String[] args) {
+        if (args.length == 0){
+            System.err.println("Вы не ввели имя файла");
+            System.exit(0);
+        }
         run(args[0]);
     }
 
@@ -58,7 +63,7 @@ public class Main {
             }catch (Exception ignored){}
         }
         IDataBase<MusicBand> jsonDB = new AltJsonDB(fileName);
-        ICollectionController<MusicBand> collectionControllerPerson = new CollectionControllerPerson(jsonDB);
+        ICollectionController<MusicBand> collectionControllerPerson = new CollectionControllerPerson(jsonDB, new LinkedList<MusicBand>());
         collectionControllerPerson.loadData();
         CommandHandler commandHandler = new CommandHandler();
         commandHandler.addCommand("add", new AddCommand(collectionControllerPerson));

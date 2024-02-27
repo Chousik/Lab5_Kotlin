@@ -6,7 +6,7 @@ import org.chousik.exception.ScriptExecutionError;
 
 public class ColorCollector extends EnumCollector<Color> {
     @Override
-    public Color ask(String name, IValidator validator) throws ScriptExecutionError {
+    public Color ask(String name, IValidator<String> validator) throws ScriptExecutionError {
         return askEnum(name,validator, Color::valueOf, Color::getValue);
     }
 }

@@ -8,7 +8,7 @@ import org.chousik.handlers.RunHandler;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-public class StringCollector implements ICollector<String>{
+public class StringCollector implements ICollector<String, String>{
     private Boolean isScript;
     private Scanner scanner;
     public void NumberCollecto() {
@@ -17,11 +17,12 @@ public class StringCollector implements ICollector<String>{
     }
 
     @Override
-    public String ask(String name, IValidator validator) throws ScriptExecutionError {
+    public String ask(String name, IValidator<String> validator) throws ScriptExecutionError {
         while (true) {
             try {
                 if (!isScript) {
                     System.out.println("Введите " + name);
+                    System.out.print(System.getProperty("user.name")+"> ");
                 }
                 String namePerson = scanner.nextLine().trim();
                 validator.valide(namePerson);

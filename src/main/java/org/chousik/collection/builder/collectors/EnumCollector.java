@@ -9,25 +9,25 @@ import org.chousik.handlers.RunHandler;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.lang.Enum;
-import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-public abstract class EnumCollector<T extends Enum> implements ICollector<T> {
-    private Boolean isScript;
-    private Scanner scanner;
+public abstract class EnumCollector<T extends Enum> implements ICollector<T, String> {
+    private final Boolean isScript;
+    private final Scanner scanner;
 
     public EnumCollector() {
         this.isScript = RunHandler.mode();
         this.scanner = RunHandler.getMainScaner();
     }
 
-    public T askEnum(String name, IValidator validator, Function<String, T> method1, Supplier<String> method2) throws ScriptExecutionError {
+    protected T askEnum(String name, IValidator<String> validator, Function<String, T> method1, Supplier<String> method2) throws ScriptExecutionError {
         while (true) {
             try {
                 if (!isScript) {
                     System.out.println("Доступные варианты поля " + name + ": " + method2.get());
                     System.out.println("Выберите один из вариантов");
+                    System.out.print(System.getProperty("user.name")+"> ");
                 }
                 String strValue = scanner.nextLine().trim().toUpperCase();
                 if (strValue.isEmpty()) {

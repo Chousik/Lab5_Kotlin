@@ -6,7 +6,7 @@ import org.chousik.exception.ScriptExecutionError;
 
 public class CountryCollector extends EnumCollector<Country> {
     @Override
-    public Country ask(String name, IValidator validator) throws ScriptExecutionError {
+    public Country ask(String name, IValidator<String> validator) throws ScriptExecutionError {
         return askEnum(name, validator, Country::valueOf, Country::getValue);
     }
 }
