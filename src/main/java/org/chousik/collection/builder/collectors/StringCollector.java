@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class StringCollector implements ICollector<String, String>{
     private Boolean isScript;
     private Scanner scanner;
-    public void NumberCollecto() {
+    public StringCollector() {
         this.isScript = RunHandler.mode();
         this.scanner = RunHandler.getMainScaner();
     }

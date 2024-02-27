@@ -43,7 +43,7 @@ public class ScriptRecursionValidor {
                             nextFiles.add(fileLine.split("\\s+")[1]);
                         }
                     }
-                } catch (FileNotFoundException ignore) {
+                } catch (FileNotFoundException e) {
                     throw new ArgumentError("Скрипт пытается вызвать несуществующий скрипт.");
                 }
             }
