@@ -1,5 +1,6 @@
 package org.chousik.handlers;
 
+import lombok.Getter;
 import org.chousik.collection.MusicBand;
 import org.chousik.commands.ACommand;
 import org.chousik.exception.ArgumentError;
@@ -13,18 +14,15 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class RunHandler {
-    private final ICollectionController<MusicBand> CollectionM;
+    private final ICollectionController<MusicBand> collectionM;
     private final CommandHandler commandHandler;
+    @Getter
     private static Scanner mainScaner = new Scanner(System.in);
     private static boolean isScript = false;
 
-    public RunHandler(ICollectionController<MusicBand> CollectionM, CommandHandler CommandM) {
-        this.CollectionM = CollectionM;
-        this.commandHandler = CommandM;
-    }
-
-    public static Scanner getMainScaner() {
-        return mainScaner;
+    public RunHandler(ICollectionController<MusicBand> collectionM, CommandHandler commandM) {
+        this.collectionM = collectionM;
+        this.commandHandler = commandM;
     }
 
     public static boolean mode() {
@@ -89,10 +87,6 @@ public class RunHandler {
             return;
         }
         command.execute(argument);
-    }
-
-    public ICollectionController<MusicBand> getCollectionM() {
-        return CollectionM;
     }
 }
 

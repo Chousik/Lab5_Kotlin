@@ -1,6 +1,5 @@
 package org.chousik.collection.builder.collectors;
 
-import org.chousik.collection.Color;
 import org.chousik.collection.validators.IValidator;
 import org.chousik.exception.InvalidDataError;
 import org.chousik.exception.ScriptExecutionError;

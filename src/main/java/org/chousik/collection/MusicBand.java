@@ -3,8 +3,6 @@ package org.chousik.collection;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.ZonedDateTime;
-
 /**
  * Класс музыкальная группа
  */
