@@ -50,6 +50,10 @@ class RunHandler(private val commandHandler: CommandHandler) {
     }
 
     private fun runCommand(userMessages: String) {
+        if (String.equals("")) {
+            System.err.println("Пустая команда! Введите help для получения списка команд.")
+            return
+        }
         val messages = userMessages.split("\\s+".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
         val commandString = messages[0]
         val argument = if ((messages.size > 1)) Arrays.copyOfRange(messages, 1, messages.size) else arrayOf()

@@ -9,7 +9,7 @@ import java.io.IOException
 import java.time.LocalDateTime
 import java.util.*
 
-class CollectionControllerMusicBand(private val dataBase: IDataBase<*>, linkedList: LinkedList<MusicBand>) :
+class CollectionControllerMusicBand(private val dataBase: IDataBase<MusicBand>, linkedList: LinkedList<MusicBand>) :
     ICollectionController<MusicBand> {
     override var collection: LinkedList<MusicBand>
 

@@ -31,7 +31,7 @@ object Main {
             } catch (ignored: java.lang.Exception) {
             }
         }
-        val jsonDB: IDataBase<*> = AltJsonDB(fileName)
+        val jsonDB: IDataBase<MusicBand> = AltJsonDB(fileName)
         val collectionControllerPerson =
             CollectionControllerMusicBand(jsonDB, LinkedList<MusicBand>())
         collectionControllerPerson.loadData()

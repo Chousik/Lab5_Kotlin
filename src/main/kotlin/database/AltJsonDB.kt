@@ -7,9 +7,9 @@ import java.io.*
 import java.util.*
 
 
-class AltJsonDB(private val fileName: String) : IDataBase<MusicBand?> {
+class AltJsonDB(private val fileName: String) : IDataBase<MusicBand> {
 
-    override fun saveData(collection: LinkedList<MusicBand?>) {
+    override fun saveData(collection: LinkedList<MusicBand>) {
         val file = File(fileName)
         val objectMapper = ObjectMapper()
         val jsonData: String = objectMapper.writeValueAsString(collection)
