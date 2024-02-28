@@ -50,7 +50,7 @@ class RunHandler(private val commandHandler: CommandHandler) {
     }
 
     private fun runCommand(userMessages: String) {
-        if (String.equals("")) {
+        if (userMessages.isEmpty()) {
             System.err.println("Пустая команда! Введите help для получения списка команд.")
             return
         }
