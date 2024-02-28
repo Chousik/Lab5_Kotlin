@@ -5,37 +5,37 @@ import org.chousik.collection.Person
 import java.time.LocalDateTime
 import java.util.*
 
-interface ICollectionController<T : Comparable<*>?> {
+interface ICollectionController<T : Comparable<*>> {
 
     fun add(t: MusicBand)
 
     val lastInitTime: LocalDateTime?
 
-    val collectionType: String?
+    val collectionType: String
 
-    val collection: LinkedList<T>?
+    val collection: LinkedList<T>
 
     fun size(): Int
 
-    val elements: String?
+    val elements: String
 
-    fun getElementsByAlbomCount(integer: Int?): String?
+    fun getElementsByAlbumCount(integer: Int): String
 
-    fun updateElements(id: Int?)
+    fun updateElements(id: Int)
 
-    fun removeElements(index: Int?)
+    fun removeElements(index: Int)
 
     fun clear()
 
-    fun removeElementByID(id: Int?)
+    fun removeElementByID(id: Int)
 
     fun shuffle()
 
     fun reorder()
 
-    fun removeByFrontMan(person: Person?)
+    fun removeByFrontMan(person: Person)
 
-    fun countNumberOfParticipants(longs: Long?): Int
+    fun countNumberOfParticipants(longs: Long): Int
 
     fun loadData()
 

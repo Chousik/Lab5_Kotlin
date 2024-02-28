@@ -11,7 +11,7 @@ class FilterByAlbumsCountCommand(private val collectionController: ICollectionCo
         validCountsArgument(args)
         try {
             val integer = args[0].toInt()
-            println(collectionController.getElementsByAlbomCount(integer))
+            println(collectionController.getElementsByAlbumCount(integer))
         } catch (e: NumberFormatException) {
             throw ArgumentError("Кол-во групп должно быть числом")
         }

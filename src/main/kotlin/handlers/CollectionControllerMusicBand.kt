@@ -3,18 +3,15 @@ package org.chousik.handlers
 import org.chousik.collection.MusicBand
 import org.chousik.collection.Person
 import org.chousik.collection.builder.BuilderMusicBand
-import org.chousik.database.AltJsonDB
 import exeption.ArgumentError
+import org.chousik.database.IDataBase
 import java.io.IOException
 import java.time.LocalDateTime
 import java.util.*
-import java.util.function.Predicate
-import java.util.function.Function
 
-class CollectionControllerMusicBand(dataBase: AltJsonDB, linkedList: LinkedList<MusicBand>) :
-    ICollectionController<MusicBand?> {
-    override var collection: LinkedList<MusicBand?>
-    private val dataBase: AltJsonDB = dataBase
+class CollectionControllerMusicBand(private val dataBase: IDataBase<MusicBand>, linkedList: LinkedList<MusicBand>) :
+    ICollectionController<MusicBand> {
+    override var collection: LinkedList<MusicBand>
 
     override var lastInitTime: LocalDateTime = LocalDateTime.now()
         private set
@@ -24,8 +21,8 @@ class CollectionControllerMusicBand(dataBase: AltJsonDB, linkedList: LinkedList<
     }
 
 
-    override fun add(musicBand: MusicBand) {
-        collection.add(musicBand)
+    override fun add(t: MusicBand) {
+        collection.add(t)
     }
 
     override val collectionType: String
@@ -35,12 +32,12 @@ class CollectionControllerMusicBand(dataBase: AltJsonDB, linkedList: LinkedList<
         return collection.size
     }
 
-    override fun getElementsByAlbomCount(integer: Int?): String? {
+    override fun getElementsByAlbumCount(integer: Int): String {
         if (collection.isEmpty()) {
             return "Пустая колеекция!"
         }
-        val result: String = collection.stream().filter(Predicate<MusicBand?> { x: MusicBand? -> x!!.getAlbumsCount() == integer?.toLong() })
-                .map<Any>(Function { value: MusicBand? -> value.toString() }).toList().joinToString("\n")
+        val result: String = collection.stream().filter { x: MusicBand -> x.albumsCount == integer.toLong() }
+            .map<Any>{ value: MusicBand? -> value.toString() }.toList().joinToString("\n")
         if (result.isEmpty()) {
             return "Нет таких групп"
         }
@@ -51,29 +48,29 @@ class CollectionControllerMusicBand(dataBase: AltJsonDB, linkedList: LinkedList<
 
         get() {
             if (collection.isEmpty()) {
-                return "Пустая колеекция!"
+                return "Пустая коллекция!"
             }
-            return collection.stream().map<Any>(Function { value: MusicBand? -> value.toString() }).toList().joinToString("\n")
+            return collection.stream().map<Any>{ value: MusicBand? -> value.toString() }.toList().joinToString("\n")
         }
 
 
-    override fun updateElements(id: Int?) {
+    override fun updateElements(id: Int) {
         try {
             val musicBand: MusicBand =
-                collection.stream().filter(Predicate<MusicBand?> { x: MusicBand? -> x!!.getId() == id }).findFirst()
+                collection.stream().filter{ x: MusicBand -> x.id == id }.findFirst()
                     .get()
             BuilderMusicBand().reBuild(musicBand)
         } catch (e: NoSuchElementException) {
-            throw ArgumentError("Группы с таким айди не сущетсвует.")
+            throw ArgumentError("Группы с таким айди не существует.")
         }
     }
 
 
-    override fun removeElements(index: Int?) {
-        if (index!! > collection.size - 1 || index < 0) {
+    override fun removeElements(index: Int) {
+        if (index > collection.size - 1 || index < 0) {
             throw ArgumentError("Неверное id: " + index + ". Длина коллекции: " + collection.size)
         }
-        val musicBand: MusicBand? = collection[index]
+        val musicBand: MusicBand = collection[index]
         collection.remove(musicBand)
     }
 
@@ -85,42 +82,42 @@ class CollectionControllerMusicBand(dataBase: AltJsonDB, linkedList: LinkedList<
 
 
     override fun shuffle() {
-        Collections.shuffle(collection)
+        collection.shuffle()
     }
 
 
     override fun reorder() {
-        Collections.reverse(collection)
+        collection.reverse()
     }
 
 
-    override fun removeElementByID(id: Int?) {
+    override fun removeElementByID(id: Int) {
         try {
             val musicBand: MusicBand =
-                collection.stream().filter(Predicate<MusicBand?> { x: MusicBand? -> x!!.getId() == id }).findFirst()
+                collection.stream().filter{x: MusicBand -> x.id == id }.findFirst()
                     .get()
             collection.remove(musicBand)
         } catch (e: NoSuchElementException) {
-            throw ArgumentError("Группы с таким айди не сущетсвует.")
+            throw ArgumentError("Группы с таким айди не существует.")
         }
     }
 
 
-    override fun removeByFrontMan(person: Person?) {
+    override fun removeByFrontMan(person: Person) {
         try {
-            val musicBand: MusicBand = collection.stream().filter(Predicate<MusicBand?> { x: MusicBand? ->
-                x?.getFrontMan()!!.equals(person)
-            }).findFirst().get()
+            val musicBand: MusicBand = collection.stream().filter{ x: MusicBand ->
+                x.frontMan === person
+            }.findFirst().get()
             collection.remove(musicBand)
         } catch (e: NoSuchElementException) {
-            throw ArgumentError("Группы с таким лидером не сущетсвует.")
+            throw ArgumentError("Группы с таким лидером не существует.")
         }
     }
 
 
-    override fun countNumberOfParticipants(longs: Long?): Int {
+    override fun countNumberOfParticipants(longs: Long): Int {
         return collection.stream()
-            .filter(Predicate<MusicBand?> { x: MusicBand? -> x!!.getNumberOfParticipants() == longs }).toList().size
+            .filter{ x: MusicBand -> x.numberOfParticipants == longs }.toList().size
     }
 
 

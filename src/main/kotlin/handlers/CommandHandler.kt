@@ -3,10 +3,10 @@ package org.chousik.handlers
 import org.chousik.commands.ACommand
 
 class CommandHandler {
-    private val commands: HashMap<String, ACommand> = HashMap<String, ACommand>()
+    private val commands: HashMap<String, ACommand> = HashMap()
 
-    fun addCommand(commandName: String, Command: ACommand) {
-        commands[commandName] = Command
+    fun addCommand(commandName: String, aCommand: ACommand) {
+        commands[commandName] = aCommand
     }
 
     fun getCommands(): HashMap<String, ACommand> {
