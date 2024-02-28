@@ -5,9 +5,10 @@ import org.chousik.collection.builder.collectors.ColorCollector
 import org.chousik.collection.validators.ValidatorColor
 
 class BuilderColor : IBuilder<Color?> {
-    private val validatorColor: ValidatorColor = ValidatorColor()
+    private val validatorColor = ValidatorColor()
+    private val colorCollector = ColorCollector()
 
-    override fun build(): Color? {
-        return ColorCollector().ask("Цвет", validatorColor)
+    override fun build(): Color {
+        return colorCollector.ask("Цвет", validatorColor)
     }
 }
