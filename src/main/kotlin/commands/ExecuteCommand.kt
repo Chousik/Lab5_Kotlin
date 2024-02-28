@@ -1,7 +1,7 @@
 package org.chousik.commands
 
 import org.chousik.commands.validators.ScriptFileValidator
-import org.chousik.commands.validators.ScriptRecursionValidor
+import org.chousik.commands.validators.ScriptRecursionValid
 import org.chousik.handlers.RunHandler
 
 
@@ -11,7 +11,7 @@ class ExecuteCommand(private var runHandler: RunHandler) :
     override fun execute(args: Array<String>) {
         validCountsArgument(args)
         ScriptFileValidator().valid(args[0])
-        ScriptRecursionValidor().valid(args[0])
+        ScriptRecursionValid().valid(args[0])
         runHandler.scriptsRun(args[0])
     }
 }
