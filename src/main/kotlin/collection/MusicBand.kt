@@ -4,14 +4,14 @@ package org.chousik.collection
 class MusicBand : Comparable<MusicBand> {
     private var id = 0
     private var name: String? = null //Поле не может быть null, Строка не может быть пустой
-    private var coordinates: Сoordinates? = null //Поле не может быть null
+    private var coordinates: Coordinates? = null //Поле не может быть null
     private var numberOfParticipants: Long = 0 //Значение поля должно быть больше 0
     private var albumsCount: Long = 0 //Значение поля должно быть больше 0
     private var genre: MusicGenre? = null //Поле не может быть null
     private var frontMan: Person? = null //Поле может быть null
 
     constructor()
-    fun getCoordinates(): Сoordinates?{
+    fun getCoordinates(): Coordinates?{
         return coordinates
     }
     fun getId(): Int{
@@ -32,7 +32,7 @@ class MusicBand : Comparable<MusicBand> {
     fun getGenre(): MusicGenre? {
         return genre;
     }
-    constructor(name: String?, coordinates: Сoordinates?, l1: Long?, l2: Long?, genre: MusicGenre?, person: Person?) {
+    constructor(name: String?, coordinates: Coordinates?, l1: Long?, l2: Long?, genre: MusicGenre?, person: Person?) {
         this.id = (Math.random() * 666666).toInt()
         this.name = name
         this.coordinates = coordinates
@@ -61,7 +61,7 @@ class MusicBand : Comparable<MusicBand> {
     fun setName(name: String) {
         this.name = name;
     }
-    fun setCoordinates(coordinates: Сoordinates?){
+    fun setCoordinates(coordinates: Coordinates?){
         this.coordinates = coordinates;
     }
     fun setNumberOfParticipants(number: Long){

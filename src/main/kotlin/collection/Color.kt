@@ -13,7 +13,7 @@ enum class Color {
     companion object {
         val value: String
             get() = Arrays.stream(entries.toTypedArray())
-                .map({ obj: Color -> obj.name })
+                .map { obj: Color -> obj.name }
                 .collect(Collectors.joining(", "))
     }
 }

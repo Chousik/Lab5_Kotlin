@@ -13,7 +13,7 @@ enum class MusicGenre {
         val value: String
 
             get() = Arrays.stream(entries.toTypedArray())
-                .map({ obj: MusicGenre -> obj.name })
+                .map { obj: MusicGenre -> obj.name }
                 .collect(Collectors.joining(", "))
     }
 }

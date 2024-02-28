@@ -3,25 +3,12 @@ package org.chousik.collection
 import java.util.*
 
 
-class Location {
-    private var x: Double? = null //Поле не может быть null
-    private var y: Int? = null //Поле не может быть null
-    private var z = 0
-    private var name: String? = null //Поле может быть null
+class Location(private var x: Double, private var y: Int, private var z: Int, private var name: String) {
 
-    constructor()
-
-    constructor(x: Double?, y: Int?, z: Int?, name: String?) {
-        this.x = x
-        this.y = y
-        this.z = z!!
-        this.name = name
-    }
-
-    override fun equals(o: Any?): Boolean {
-        if (this === o) return true
-        if (o == null || javaClass != o.javaClass) return false
-        val location = o as Location
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || javaClass != other.javaClass) return false
+        val location = other as Location
         return z == location.z && Objects.equals(x, location.x) && y == location.y && name == location.name
     }
 

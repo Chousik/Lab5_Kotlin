@@ -12,7 +12,7 @@ enum class Country {
     companion object {
         val value: String
             get() = Arrays.stream(entries.toTypedArray())
-                .map({ obj: Country -> obj.name })
+                .map { obj: Country -> obj.name }
                 .collect(Collectors.joining(", "))
     }
 }

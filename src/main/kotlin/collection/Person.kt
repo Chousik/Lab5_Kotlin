@@ -2,32 +2,22 @@ package org.chousik.collection
 
 import java.util.*
 
-class Person : Comparable<Person?> {
-    private var name: String? = null //Поле не может быть null, Строка не может быть пустой
-    private var passportID: String? =
-        null //Строка не может быть пустой, Длина строки должна быть не меньше 6, Поле не может быть null
-    private var hairColor: Color? = null //Поле не может быть null
-    private var nationality: Country? = null //Поле может быть null
-    private var location: Location? = null //Поле не может быть null
+class Person(
+    private var name: String,
+    private var passportID: String,
+    private var hairColor: Color,
+    private var nationality: Country,
+    private var location: Location
+) : Comparable<Person> {
 
-    constructor()
-
-    constructor(name: String?, PassportID: String?, color: Color?, country: Country?, location: Location?) {
-        this.name = name
-        this.passportID = PassportID
-        this.location = location
-        this.hairColor = color
-        this.nationality = country
+    override fun compareTo(other: Person): Int {
+        return nationality.ordinal - other.nationality.ordinal
     }
 
-    override fun compareTo(o: Person?): Int {
-        return nationality!!.ordinal - o?.nationality!!.ordinal
-    }
-
-    override fun equals(o: Any?): Boolean {
-        if (this === o) return true
-        if (o == null || javaClass != o.javaClass) return false
-        val person = o as Person
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || javaClass != other.javaClass) return false
+        val person = other as Person
         return name == person.name && passportID == person.passportID && hairColor == person.hairColor && nationality == person.nationality && location == person.location
     }
 
