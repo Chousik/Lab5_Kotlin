@@ -1,7 +1,7 @@
 package org.chousik.collection.builder.collectors
 
 import org.chousik.collection.validators.IValidator
-import org.chousik.exception.ScriptExecutionError
+import exeption.ScriptExecutionError
 import org.chousik.handlers.RunHandler
 import java.util.*
 import java.util.function.Function

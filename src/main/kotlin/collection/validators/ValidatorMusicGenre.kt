@@ -1,7 +1,7 @@
 package org.chousik.collection.validators
 
 import org.chousik.collection.MusicGenre
-import org.chousik.exception.InvalidDataError
+import exeption.InvalidDataError
 
 
 class ValidatorMusicGenre : IValidator<String?> {

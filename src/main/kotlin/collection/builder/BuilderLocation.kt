@@ -7,7 +7,6 @@ import org.chousik.collection.builder.collectors.StringCollector
 import org.chousik.collection.validators.ValidatorLocationName
 import org.chousik.collection.validators.ValidatorLocationX
 import org.chousik.collection.validators.ValidatorLocationYZ
-import org.chousik.exception.ScriptExecutionError
 
 class BuilderLocation : IBuilder<Location?> {
     private val validatorLocationName: ValidatorLocationName = ValidatorLocationName()

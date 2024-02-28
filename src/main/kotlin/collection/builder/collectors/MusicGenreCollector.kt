@@ -2,9 +2,7 @@ package org.chousik.collection.builder.collectors
 
 import org.chousik.collection.MusicGenre
 import org.chousik.collection.validators.IValidator
-import org.chousik.exception.ScriptExecutionError
 import java.util.function.Function
-import java.util.function.Supplier
 
 class MusicGenreCollector : EnumCollector<MusicGenre?>() {
     override fun ask(name: String?, validator: IValidator<String?>?): MusicGenre? {

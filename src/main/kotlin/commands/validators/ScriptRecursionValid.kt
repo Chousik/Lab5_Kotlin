@@ -1,13 +1,14 @@
 package org.chousik.commands.validators
 
-import org.chousik.exception.ArgumentError
+import exeption.ArgumentError
 import java.io.File
 import java.io.FileNotFoundException
 import java.nio.file.Paths
 import java.util.*
 
 class ScriptRecursionValid {
-    fun valid(fileName: String) {
+    fun valid(fileNameIn: String) {
+        var fileName = fileNameIn
         val urlList = LinkedList<String>()
         val nextFiles: Queue<String> = PriorityQueue()
         nextFiles.add(fileName)

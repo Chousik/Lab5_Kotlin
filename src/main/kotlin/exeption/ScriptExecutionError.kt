@@ -1,4 +1,4 @@
-package org.chousik.exception
+package exeption
 
 
 class ScriptExecutionError(message: String) : Exception("ScriptExecutionError: $message") {

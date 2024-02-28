@@ -1,3 +1,3 @@
-package org.chousik.exception
+package exeption
 
 class InvalidDataError : Exception()

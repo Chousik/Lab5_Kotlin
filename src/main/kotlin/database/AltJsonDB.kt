@@ -11,7 +11,7 @@ class AltJsonDB(private val fileName: String) : IDataBase<MusicBand?> {
 
     override fun saveData(collection: LinkedList<MusicBand?>?) {
         val file = File(fileName)
-        val objectMapper: ObjectMapper = ObjectMapper()
+        val objectMapper = ObjectMapper()
         val jsonData: String = objectMapper.writeValueAsString(collection)
         val writer = FileWriter(file)
         writer.write(jsonData)
@@ -23,7 +23,7 @@ class AltJsonDB(private val fileName: String) : IDataBase<MusicBand?> {
     override fun loadData(): LinkedList<MusicBand> {
         val file = File(fileName)
         if (Scanner(file).hasNext()) {
-            val objectMapper: ObjectMapper = ObjectMapper()
+            val objectMapper = ObjectMapper()
             var jsonData = ""
             val reader = BufferedReader(InputStreamReader(FileInputStream(file)))
             jsonData = reader.readLine()

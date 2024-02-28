@@ -1,6 +1,6 @@
 package org.chousik.commands.validators
 
-import org.chousik.exception.ArgumentError
+import exeption.ArgumentError
 import java.io.File
 
 class ScriptFileValidator {

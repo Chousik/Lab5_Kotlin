@@ -1,6 +1,6 @@
 package org.chousik.commands
 
-import org.chousik.exception.ArgumentError
+import exeption.ArgumentError
 import org.chousik.handlers.ICollectionController
 import org.chousik.handlers.RunHandler
 

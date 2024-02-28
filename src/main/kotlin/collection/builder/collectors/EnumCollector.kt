@@ -1,12 +1,11 @@
 package org.chousik.collection.builder.collectors
 
 import org.chousik.collection.validators.IValidator
-import org.chousik.exception.InvalidDataError
-import org.chousik.exception.ScriptExecutionError
+import exeption.InvalidDataError
+import exeption.ScriptExecutionError
 import org.chousik.handlers.RunHandler
 import java.util.*
 import java.util.function.Function
-import java.util.function.Supplier
 
 abstract class EnumCollector<T : Enum<*>?> : ICollector<T, String?> {
     private val isScript = RunHandler.mode()

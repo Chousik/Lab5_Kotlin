@@ -1,6 +1,6 @@
 package org.chousik.commands
 
-import org.chousik.exception.ArgumentCountError
+import exeption.ArgumentCountError
 
 
 abstract class ACommand(private val name: String, private val info: String, private val countsArgument: Int) {

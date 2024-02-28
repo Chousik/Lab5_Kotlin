@@ -6,7 +6,6 @@ import org.chousik.collection.builder.collectors.StringCollector
 import org.chousik.collection.validators.ValidatorMusicBandAlbumsCount
 import org.chousik.collection.validators.ValidatorMusicBandName
 import org.chousik.collection.validators.ValidatorMusicBandNumberOfParticipants
-import org.chousik.exception.ScriptExecutionError
 
 
 class BuilderMusicBand : IBuilder<MusicBand?> {

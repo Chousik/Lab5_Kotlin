@@ -1,4 +1,4 @@
-package org.chousik.exception
+package exeption
 
 
 class InvalidCommandError(private val command: String) : Exception("InvalidCommandError") {

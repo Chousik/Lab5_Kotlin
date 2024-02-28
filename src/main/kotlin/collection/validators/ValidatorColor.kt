@@ -1,7 +1,7 @@
 package org.chousik.collection.validators
 
 import org.chousik.collection.Color
-import org.chousik.exception.InvalidDataError
+import exeption.InvalidDataError
 
 
 class ValidatorColor : IValidator<String?> {

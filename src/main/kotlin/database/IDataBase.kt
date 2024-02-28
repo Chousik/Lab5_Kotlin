@@ -1,7 +1,6 @@
 package org.chousik.database
 
 import org.chousik.collection.MusicBand
-import java.io.IOException
 import java.util.*
 
 

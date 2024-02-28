@@ -1,6 +1,6 @@
 package org.chousik.collection.validators
 
-import org.chousik.exception.InvalidDataError
+import exeption.InvalidDataError
 
 
 class ValidatorMusicBandAlbumsCount : IValidator<Long?> {

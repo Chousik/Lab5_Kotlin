@@ -2,10 +2,8 @@ package org.chousik.collection.builder
 
 import org.chousik.collection.Person
 import org.chousik.collection.builder.collectors.StringCollector
-import org.chousik.collection.validators.IValidator
 import org.chousik.collection.validators.ValidatorPersonName
 import org.chousik.collection.validators.ValidatorPersonPasportID
-import org.chousik.exception.ScriptExecutionError
 
 
 class BuilderPerson : IBuilder<Person?> {
