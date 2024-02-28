@@ -12,8 +12,6 @@ repositories {
 dependencies {
     implementation ("com.fasterxml.jackson.core:jackson-databind:2.12.4")
     implementation ("com.fasterxml.jackson.core:jackson-core:2.12.4")
-    compileOnly ("org.projectlombok:lombok:1.18.20")
-    annotationProcessor ("org.projectlombok:lombok:1.18.20")
     testImplementation("org.jetbrains.kotlin:kotlin-test")
 }
 
