@@ -2,13 +2,12 @@ package org.chousik.collection.builder.collectors
 
 import org.chousik.collection.Color
 import org.chousik.collection.validators.IValidator
-import java.util.function.Function
-class ColorCollector : EnumCollector<Color?>() {
+class ColorCollector : EnumCollector<Color>() {
 
-    override fun ask(name: String?, validator: IValidator<String?>?): Color? {
+    override fun ask(name: String, validator: IValidator<String?>): Color {
         return askEnum(
-            name!!, validator!!,
-            Function { value: String? -> Color.valueOf(value!!) }, Color.value
-        )!!
+            name, validator,
+            { value: String -> Color.valueOf(value) }, Color.value
+        )
     }
 }

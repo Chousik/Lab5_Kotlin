@@ -5,6 +5,7 @@ import exeption.ScriptExecutionError
 import org.chousik.handlers.RunHandler
 import java.util.*
 import java.util.function.Function
+import kotlin.system.exitProcess
 
 abstract class NumberCollector<T : Number?> : ICollector<T, T> {
     private val isScript = RunHandler.mode()
@@ -23,9 +24,9 @@ abstract class NumberCollector<T : Number?> : ICollector<T, T> {
                 return t
             } catch (e: NumberFormatException) {
                 if (isScript) {
-                    throw ScriptExecutionError("Поле $name должо быть числом")
+                    throw ScriptExecutionError("Поле $name должно быть числом")
                 }
-                println("Поле $name должо быть числом")
+                println("Поле $name должно быть числом")
             } catch (e: NullPointerException) {
                 if (isScript) {
                     throw ScriptExecutionError("Поле $name не может быть null")
@@ -36,13 +37,13 @@ abstract class NumberCollector<T : Number?> : ICollector<T, T> {
                     throw ScriptExecutionError("Ошибка во время ввода данных коллекции из файла. Конец файла.")
                 }
                 println("Не нажимай Ctrl+D((((")
-                System.exit(0)
+                exitProcess(0)
             } catch (e: Exception) {
                 if (isScript) {
-                    throw ScriptExecutionError("Непридвиденная ошибка")
+                    throw ScriptExecutionError("Непредвиденная ошибка")
                 }
-                println("Непридвиденная ошибка")
-                System.exit(0)
+                println("Непредвиденная ошибка")
+                exitProcess(0)
             }
         }
     }

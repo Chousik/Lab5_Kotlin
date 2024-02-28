@@ -5,16 +5,13 @@ import exeption.InvalidDataError
 import exeption.ScriptExecutionError
 import org.chousik.handlers.RunHandler
 import java.util.*
+import kotlin.system.exitProcess
 
 class StringCollector : ICollector<String?, String?> {
     private val isScript = RunHandler.mode()
-    private val scanner: Scanner
+    private val scanner: Scanner = RunHandler.getMainScaner()
 
-    init {
-        this.scanner = RunHandler.getMainScaner()
-    }
-
-    override fun ask(name: String?, validator: IValidator<String?>?): String {
+    override fun ask(name: String, validator: IValidator<String?>): String {
         while (true) {
             try {
                 if (!isScript) {
@@ -22,7 +19,7 @@ class StringCollector : ICollector<String?, String?> {
                     print(System.getProperty("user.name") + "> ")
                 }
                 val namePerson = scanner.nextLine().trim { it <= ' ' }
-                validator!!.valide(namePerson)
+                validator.valide(namePerson)
                 return namePerson
             } catch (e: InvalidDataError) {
                 if (isScript) {
@@ -39,13 +36,13 @@ class StringCollector : ICollector<String?, String?> {
                     throw ScriptExecutionError("Ошибка во время ввода данных коллекции из файла. Конец файла.")
                 }
                 println("Не нажимай Ctrl+D((((")
-                System.exit(0)
+                exitProcess(0)
             } catch (e: Exception) {
                 if (isScript) {
-                    throw ScriptExecutionError("Непридвиденная ошибка")
+                    throw ScriptExecutionError("Непредвиденная ошибка")
                 }
-                println("Непридвиденная ошибка")
-                System.exit(0)
+                println("Непредвиденная ошибка")
+                exitProcess(0)
             }
         }
     }
