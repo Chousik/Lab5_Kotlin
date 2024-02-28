@@ -8,14 +8,10 @@ import java.util.function.Function
 
 abstract class NumberCollector<T : Number?> : ICollector<T, T> {
     private val isScript = RunHandler.mode()
-    private val scanner: Scanner
-
-    init {
-        this.scanner = RunHandler.getMainScaner()
-    }
+    private val scanner: Scanner = RunHandler.getMainScaner()
 
     @Throws(ScriptExecutionError::class)
-    protected fun askNumber(name: String, validator: IValidator<T>, method: Function<String?, T>): T {
+    protected fun askNumber(name: String, validator: IValidator<T>, method: Function<String, T>): T {
         while (true) {
             try {
                 if (!isScript) {

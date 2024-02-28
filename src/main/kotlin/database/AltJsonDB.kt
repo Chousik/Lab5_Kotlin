@@ -6,16 +6,9 @@ import org.chousik.collection.MusicBand
 import java.io.*
 import java.util.*
 
-/**
- * Класс для работы с базой данных в формате json
- */
+
 class AltJsonDB(private val fileName: String) : IDataBase<MusicBand?> {
-    /**
-     * Метод для сохранения данных через FileWriter
-     *
-     * @param collection коллекция
-     * @throws IOException если произошла ошибка ввода/вывода
-     */
+
     @Throws(IOException::class)
     override fun saveData(collection: LinkedList<MusicBand?>?) {
         val file = File(fileName)
@@ -27,12 +20,7 @@ class AltJsonDB(private val fileName: String) : IDataBase<MusicBand?> {
         writer.close()
     }
 
-    /**
-     * Метод для загрузки данных через InputStreamReader
-     *
-     * @return коллекция
-     * @throws IOException если произошла ошибка ввода/вывода
-     */
+
     @Throws(IOException::class)
     override fun loadData(): LinkedList<MusicBand> {
         val file = File(fileName)
@@ -48,11 +36,7 @@ class AltJsonDB(private val fileName: String) : IDataBase<MusicBand?> {
         return LinkedList<MusicBand>()
     }
 
-    /**
-     * Метод для проверки существования файла
-     *
-     * @return true, если файл существует, иначе false
-     */
+
     override fun checkFileExist(): Boolean {
         val file = File(fileName)
         return file.exists()

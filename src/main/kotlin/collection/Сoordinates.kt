@@ -4,9 +4,7 @@ import lombok.Getter
 import lombok.Setter
 import java.util.*
 
-/**
- * Класс координат
- */
+
 @Getter
 @Setter
 class Сoordinates {

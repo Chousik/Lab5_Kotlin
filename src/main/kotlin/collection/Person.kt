@@ -4,9 +4,6 @@ import lombok.Getter
 import lombok.Setter
 import java.util.*
 
-/**
- * Класс персона
- */
 @Getter
 @Setter
 class Person : Comparable<Person?> {

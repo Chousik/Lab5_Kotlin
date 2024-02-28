@@ -7,9 +7,7 @@ import org.chousik.collection.validators.ValidatorPersonName
 import org.chousik.collection.validators.ValidatorPersonPasportID
 import org.chousik.exception.ScriptExecutionError
 
-/**
- * Класс строитель для создания объекта класса Person
- */
+
 class BuilderPerson : IBuilder<Person?> {
     private val validatorPersonName: ValidatorPersonName = ValidatorPersonName()
     private val validatorPersonPasportID: ValidatorPersonPasportID = ValidatorPersonPasportID()

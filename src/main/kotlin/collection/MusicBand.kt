@@ -1,8 +1,6 @@
 package org.chousik.collection
 
-/**
- * Класс музыкальная группа
- */
+
 class MusicBand : Comparable<MusicBand> {
     private var id = 0
     private var name: String? = null //Поле не может быть null, Строка не может быть пустой

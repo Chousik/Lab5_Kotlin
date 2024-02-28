@@ -57,6 +57,6 @@ class ScriptRecursionValidor {
      * @return возвращает true, если файл есть в списке, иначе false
      */
     private fun inUrlList(urlList: LinkedList<String>, fileName: String): Boolean {
-        return !urlList.stream().filter { x: String -> x == fileName }.toList().isEmpty()
+        return !urlList.stream().filter { x: String -> x == fileName }.toList().isNotEmpty()
     }
 }

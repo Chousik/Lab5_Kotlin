@@ -6,7 +6,7 @@ import java.io.File
 class ScriptFileValidator {
     @Throws(ArgumentError::class)
     fun valid(fileName: String?) {
-        val scriptFile = File(fileName)
+        val scriptFile = File(fileName!!)
         if (!scriptFile.exists()) {
             throw ArgumentError("Неверное имя файла")
         }

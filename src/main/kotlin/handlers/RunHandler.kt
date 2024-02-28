@@ -14,12 +14,10 @@ class RunHandler(collectionM: CollectionControllerMusicBand, commandM: CommandHa
     private val collectionM: CollectionControllerMusicBand = collectionM
     private val commandHandler = commandM
 
-    /**
-     * Метод для запуска прогрммы в режиме консольной работы
-     */
+
     fun consoleRun() {
         while (true) try {
-            print(System.getProperty("user.name") + "> ")
+            print("${System.getProperty("user.name")}> ")
             val Messages = mainScaner.nextLine()
             runCommand(Messages)
         } catch (e: InvalidCommandError) {
@@ -33,18 +31,12 @@ class RunHandler(collectionM: CollectionControllerMusicBand, commandM: CommandHa
         }
     }
 
-    /**
-     * Метод для запуска программы в режиме скрипта
-     *
-     * @param fileName имя файла
-     * @throws ScriptExecutionError если произошла ошибка выполнения скрипта
-     */
     @Throws(ScriptExecutionError::class)
     fun scriptsRun(fileName: String?) {
         val lastScraner: Scanner = getMainScaner()
         isScript = true
         try {
-            mainScaner = Scanner(File(fileName))
+            mainScaner = Scanner(File(fileName.toString()))
             while (mainScaner.hasNext()) {
                 val messages = mainScaner.nextLine()
                 runCommand(messages)
@@ -62,15 +54,7 @@ class RunHandler(collectionM: CollectionControllerMusicBand, commandM: CommandHa
             isScript = false
         }
     }
-    /**
-     * Метод для поиска и выполнения команды
-     *
-     * @param userMessges сообщение пользователя
-     * @throws InvalidCommandError  если команда неверная
-     * @throws ArgumentCountError   если неверное количество аргументов
-     * @throws ScriptExecutionError если произошла ошибка выполнения скрипта
-     * @throws ArgumentError        если аргумент неверный
-     */
+
     @Throws(InvalidCommandError::class, ArgumentCountError::class, ScriptExecutionError::class, ArgumentError::class)
     fun runCommand(userMessges: String) {
         val messages = userMessges.split("\\s+".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
@@ -91,7 +75,8 @@ class RunHandler(collectionM: CollectionControllerMusicBand, commandM: CommandHa
         fun mode(): Boolean {
             return isScript
         }
-        fun getMainScaner(): Scanner{
+
+        fun getMainScaner(): Scanner {
             return mainScaner;
         }
     }

@@ -8,9 +8,7 @@ import org.chousik.collection.validators.ValidatorMusicBandName
 import org.chousik.collection.validators.ValidatorMusicBandNumberOfParticipants
 import org.chousik.exception.ScriptExecutionError
 
-/**
- * Класс строитель для создания объекта класса MusicBand
- */
+
 class BuilderMusicBand : IBuilder<MusicBand?> {
     private val validatorMusicBandName: ValidatorMusicBandName = ValidatorMusicBandName()
     private val validatorMusicBandAlbumsCount: ValidatorMusicBandAlbumsCount = ValidatorMusicBandAlbumsCount()
@@ -19,11 +17,7 @@ class BuilderMusicBand : IBuilder<MusicBand?> {
     private val builderPerson = BuilderPerson()
     private val builderMusicGenre = BuilderMusicGenre()
 
-    /**
-     * Метод для создания объекта класса MusicBand
-     *
-     * @return возвращает объект класса MusicBand
-     */
+
     @Throws(ScriptExecutionError::class)
     override fun build(): MusicBand {
         return MusicBand(
@@ -36,11 +30,7 @@ class BuilderMusicBand : IBuilder<MusicBand?> {
         )
     }
 
-    /**
-     * Метод для пересоздания объекта класса MusicBand
-     *
-     * @param musicBand - объект класса MusicBand
-     */
+
     @Throws(ScriptExecutionError::class)
     fun reBuild(musicBand: MusicBand) {
         val newMusicBand = MusicBand(

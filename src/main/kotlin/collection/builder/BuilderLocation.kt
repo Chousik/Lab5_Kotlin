@@ -9,19 +9,11 @@ import org.chousik.collection.validators.ValidatorLocationX
 import org.chousik.collection.validators.ValidatorLocationYZ
 import org.chousik.exception.ScriptExecutionError
 
-/**
- * Класс строитель для создания объекта класса Location
- */
 class BuilderLocation : IBuilder<Location?> {
     private val validatorLocationName: ValidatorLocationName = ValidatorLocationName()
     private val validatorLocationX: ValidatorLocationX = ValidatorLocationX()
     private val validatorLocationYZ: ValidatorLocationYZ = ValidatorLocationYZ()
 
-    /**
-     * Метод для создания объекта класса Location
-     *
-     * @return возвращает объект класса Location
-     */
     @Throws(ScriptExecutionError::class)
     override fun build(): Location {
         return Location(

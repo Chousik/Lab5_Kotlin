@@ -21,7 +21,7 @@ object Main {
 
 
     fun run(fileName: String?) {
-        val file: File = File(fileName)
+        val file = File(fileName.toString())
         if (!file.exists()) {
             println("Введенного файла не существует, создан новый")
             try {
@@ -29,11 +29,11 @@ object Main {
             } catch (ignored: java.lang.Exception) {
             }
         }
-        val jsonDB: AltJsonDB = AltJsonDB(fileName!!)
-        val collectionControllerPerson: CollectionControllerMusicBand =
+        val jsonDB = AltJsonDB(fileName!!)
+        val collectionControllerPerson =
             CollectionControllerMusicBand(jsonDB, LinkedList<MusicBand>())
         collectionControllerPerson.loadData()
-        val commandHandler: CommandHandler = CommandHandler()
+        val commandHandler = CommandHandler()
         commandHandler.addCommand("add", AddCommand(collectionControllerPerson))
         commandHandler.addCommand("help", HelpCommand(commandHandler))
         commandHandler.addCommand("info", InfoCommand(collectionControllerPerson))

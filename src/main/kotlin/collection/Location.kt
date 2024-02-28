@@ -1,14 +1,8 @@
 package org.chousik.collection
 
-import lombok.Getter
-import lombok.Setter
 import java.util.*
 
-/**
- * Класс координаты
- */
-@Getter
-@Setter
+
 class Location {
     private var x: Double? = null //Поле не может быть null
     private var y: Int? = null //Поле не может быть null
