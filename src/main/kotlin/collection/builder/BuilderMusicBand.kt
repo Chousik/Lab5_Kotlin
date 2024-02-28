@@ -39,11 +39,11 @@ class BuilderMusicBand : IBuilder<MusicBand?> {
             builderMusicGenre.build(),
             builderPerson.build()
         )
-        musicBand.setName(newMusicBand.getName()!!)
-        musicBand.setCoordinates(newMusicBand.getCoordinates())
-        musicBand.setNumberOfParticipants(newMusicBand.getNumberOfParticipants())
-        musicBand.setAlbumsCount(newMusicBand.getAlbumsCount())
-        musicBand.setGenre(newMusicBand.getGenre())
-        musicBand.setFrontMan(newMusicBand.getFrontMan())
+//        musicBand.g(newMusicBand.getName()!!)
+//        musicBand.setCoordinates(newMusicBand.getCoordinates())
+//        musicBand.setNumberOfParticipants(newMusicBand.getNumberOfParticipants())
+//        musicBand.setAlbumsCount(newMusicBand.getAlbumsCount())
+//        musicBand.setGenre(newMusicBand.getGenre())
+//        musicBand.setFrontMan(newMusicBand.getFrontMan())
     }
 }

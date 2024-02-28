@@ -13,8 +13,7 @@ import kotlin.system.exitProcess
 object Main {
     @JvmStatic
     fun main(args: Array<String>) {
-        if (args.size == 0) {
-
+        if (args.isEmpty()) {
             println("Вы не ввели имя файла")
             exitProcess(0)
         }
@@ -22,7 +21,7 @@ object Main {
     }
 
 
-    fun run(fileName: String?) {
+    private fun run(fileName: String?) {
         val file = File(fileName.toString())
         if (!file.exists()) {
             println("Введенного файла не существует, создан новый")
@@ -54,7 +53,7 @@ object Main {
         commandHandler.addCommand("filter_by_albums_count", FilterByAlbumsCountCommand(collectionControllerPerson))
         commandHandler.addCommand("save", SaveCommand(collectionControllerPerson))
         commandHandler.addCommand("exit", ExitCommand())
-        val runHandlerMain: RunHandler = RunHandler(collectionControllerPerson, commandHandler)
+        val runHandlerMain = RunHandler(collectionControllerPerson, commandHandler)
         commandHandler.addCommand("execute", ExecuteCommand(runHandlerMain))
         println("Начала работы! Для вывода списка команд используйте help.")
         runHandlerMain.consoleRun()
