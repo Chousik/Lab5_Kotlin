@@ -9,7 +9,7 @@ interface IDataBase<T> {
     fun saveData(collection: LinkedList<T>)
 
 
-    fun loadData(): LinkedList<MusicBand>
+    fun loadData(): LinkedList<T>
 
 
     fun checkFileExist(): Boolean

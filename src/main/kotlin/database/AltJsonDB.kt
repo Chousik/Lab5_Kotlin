@@ -24,7 +24,7 @@ class AltJsonDB(private val fileName: String) : IDataBase<MusicBand?> {
         val file = File(fileName)
         if (Scanner(file).hasNext()) {
             val objectMapper = ObjectMapper()
-            var jsonData = ""
+            val jsonData: String
             val reader = BufferedReader(InputStreamReader(FileInputStream(file)))
             jsonData = reader.readLine()
             reader.close()

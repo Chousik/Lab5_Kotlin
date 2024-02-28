@@ -10,7 +10,7 @@ import kotlin.system.exitProcess
 
 abstract class EnumCollector<T : Enum<*>?> : ICollector<T, String?> {
     private val isScript = RunHandler.mode()
-    private val scanner: Scanner = RunHandler.getMainScaner()
+    private val scanner: Scanner = RunHandler.getMainScanner()
 
     protected fun askEnum(
         name: String,

@@ -3,6 +3,7 @@ package org.chousik
 import org.chousik.collection.MusicBand
 import org.chousik.commands.*
 import org.chousik.database.AltJsonDB
+import org.chousik.database.IDataBase
 import org.chousik.handlers.CollectionControllerMusicBand
 import org.chousik.handlers.CommandHandler
 import org.chousik.handlers.RunHandler
@@ -21,8 +22,8 @@ object Main {
     }
 
 
-    private fun run(fileName: String?) {
-        val file = File(fileName.toString())
+    private fun run(fileName: String) {
+        val file = File(fileName)
         if (!file.exists()) {
             println("Введенного файла не существует, создан новый")
             try {
@@ -30,7 +31,7 @@ object Main {
             } catch (ignored: java.lang.Exception) {
             }
         }
-        val jsonDB = AltJsonDB(fileName!!)
+        val jsonDB: IDataBase<*> = AltJsonDB(fileName)
         val collectionControllerPerson =
             CollectionControllerMusicBand(jsonDB, LinkedList<MusicBand>())
         collectionControllerPerson.loadData()
@@ -53,7 +54,7 @@ object Main {
         commandHandler.addCommand("filter_by_albums_count", FilterByAlbumsCountCommand(collectionControllerPerson))
         commandHandler.addCommand("save", SaveCommand(collectionControllerPerson))
         commandHandler.addCommand("exit", ExitCommand())
-        val runHandlerMain = RunHandler(collectionControllerPerson, commandHandler)
+        val runHandlerMain = RunHandler(commandHandler)
         commandHandler.addCommand("execute", ExecuteCommand(runHandlerMain))
         println("Начала работы! Для вывода списка команд используйте help.")
         runHandlerMain.consoleRun()

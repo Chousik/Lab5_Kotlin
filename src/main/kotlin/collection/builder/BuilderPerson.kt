@@ -8,18 +8,19 @@ import org.chousik.collection.validators.ValidatorPersonPassportID
 
 class BuilderPerson : IBuilder<Person?> {
     private val validatorPersonName: ValidatorPersonName = ValidatorPersonName()
-    private val validatorPersonPasportID: ValidatorPersonPassportID = ValidatorPersonPassportID()
-    private val BuilderColor: BuilderColor = BuilderColor()
-    private val BuilderLocation: BuilderLocation = BuilderLocation()
-    private val BuilderCountry: BuilderCountry = BuilderCountry()
+    private val validatorPersonPassportID: ValidatorPersonPassportID = ValidatorPersonPassportID()
+    private val builderColor: BuilderColor = BuilderColor()
+    private val builderLocation: BuilderLocation = BuilderLocation()
+    private val builderCountry: BuilderCountry = BuilderCountry()
+    private val stringCollector = StringCollector()
 
     override fun build(): Person {
         return Person(
-            StringCollector().ask("Имя Человека", validatorPersonName),
-            StringCollector().ask("Паспорт айди", validatorPersonPasportID),
-            BuilderColor.build(),
-            BuilderCountry.build(),
-            BuilderLocation.build()
+            stringCollector.ask("Имя Человека", validatorPersonName),
+            stringCollector.ask("Паспорт айди", validatorPersonPassportID),
+            builderColor.build(),
+            builderCountry.build(),
+            builderLocation.build()
         )
     }
 }

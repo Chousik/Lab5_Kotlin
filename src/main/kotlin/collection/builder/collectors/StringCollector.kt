@@ -9,7 +9,7 @@ import kotlin.system.exitProcess
 
 class StringCollector : ICollector<String?, String?> {
     private val isScript = RunHandler.mode()
-    private val scanner: Scanner = RunHandler.getMainScaner()
+    private val scanner: Scanner = RunHandler.getMainScanner()
 
     override fun ask(name: String, validator: IValidator<String?>): String {
         while (true) {

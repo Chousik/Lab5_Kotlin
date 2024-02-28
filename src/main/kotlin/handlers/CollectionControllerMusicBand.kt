@@ -9,7 +9,7 @@ import java.io.IOException
 import java.time.LocalDateTime
 import java.util.*
 
-class CollectionControllerMusicBand(private val dataBase: IDataBase<MusicBand>, linkedList: LinkedList<MusicBand>) :
+class CollectionControllerMusicBand(private val dataBase: IDataBase<*>, linkedList: LinkedList<MusicBand>) :
     ICollectionController<MusicBand> {
     override var collection: LinkedList<MusicBand>
 
@@ -123,7 +123,7 @@ class CollectionControllerMusicBand(private val dataBase: IDataBase<MusicBand>, 
 
     override fun loadData() {
         try {
-            collection = dataBase.loadData().filterNotNullTo(LinkedList())
+            collection = dataBase.loadData().filterNotNullTo(LinkedList<MusicBand>())
             lastInitTime = LocalDateTime.now()
         } catch (e: IOException) {
             if (dataBase.checkFileExist()) {

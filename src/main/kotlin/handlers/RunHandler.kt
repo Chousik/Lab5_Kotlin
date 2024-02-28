@@ -9,16 +9,12 @@ import java.io.File
 import java.io.FileNotFoundException
 import java.util.*
 
-class RunHandler(collectionM: CollectionControllerMusicBand, commandM: CommandHandler) {
-    private val collectionM: CollectionControllerMusicBand = collectionM
-    private val commandHandler = commandM
-
-
+class RunHandler(private val commandHandler: CommandHandler) {
     fun consoleRun() {
         while (true) try {
             print("${System.getProperty("user.name")}> ")
-            val Messages = mainScaner.nextLine()
-            runCommand(Messages)
+            val userMessages = mainScanner.nextLine()
+            runCommand(userMessages)
         } catch (e: InvalidCommandError) {
             System.err.println(e)
         } catch (e: ArgumentCountError) {
@@ -30,13 +26,13 @@ class RunHandler(collectionM: CollectionControllerMusicBand, commandM: CommandHa
         }
     }
 
-    fun scriptsRun(fileName: String?) {
-        val lastScraner: Scanner = getMainScaner()
+    fun scriptsRun(fileName: String) {
+        val lastScanner: Scanner = getMainScanner()
         isScript = true
         try {
-            mainScaner = Scanner(File(fileName.toString()))
-            while (mainScaner.hasNext()) {
-                val messages = mainScaner.nextLine()
+            mainScanner = Scanner(File(fileName))
+            while (mainScanner.hasNext()) {
+                val messages = mainScanner.nextLine()
                 runCommand(messages)
             }
         } catch (e: InvalidCommandError) {
@@ -48,13 +44,13 @@ class RunHandler(collectionM: CollectionControllerMusicBand, commandM: CommandHa
         } catch (e: FileNotFoundException) {
             System.err.println(e)
         } finally {
-            mainScaner = lastScraner
+            mainScanner = lastScanner
             isScript = false
         }
     }
 
-    fun runCommand(userMessges: String) {
-        val messages = userMessges.split("\\s+".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+    private fun runCommand(userMessages: String) {
+        val messages = userMessages.split("\\s+".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
         val commandString = messages[0]
         val argument = if ((messages.size > 1)) Arrays.copyOfRange(messages, 1, messages.size) else arrayOf()
         val command: ACommand? = commandHandler.getCommands()[commandString]
@@ -66,15 +62,15 @@ class RunHandler(collectionM: CollectionControllerMusicBand, commandM: CommandHa
     }
 
     companion object {
-        private var mainScaner = Scanner(System.`in`)
+        private var mainScanner = Scanner(System.`in`)
         private var isScript = false
 
         fun mode(): Boolean {
             return isScript
         }
 
-        fun getMainScaner(): Scanner {
-            return mainScaner;
+        fun getMainScanner(): Scanner {
+            return mainScanner
         }
     }
 }

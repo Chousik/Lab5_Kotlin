@@ -9,7 +9,7 @@ import kotlin.system.exitProcess
 
 abstract class NumberCollector<T : Number?> : ICollector<T, T> {
     private val isScript = RunHandler.mode()
-    private val scanner: Scanner = RunHandler.getMainScaner()
+    private val scanner: Scanner = RunHandler.getMainScanner()
 
     protected fun askNumber(name: String, validator: IValidator<T?>, method: Function<String, T>): T {
         while (true) {
