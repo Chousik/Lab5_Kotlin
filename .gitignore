@@ -1,7 +1,6 @@
 target/
 !.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+.gradle/
 /out/artifacts/Lab5_jar/Lab5.jar
 src/main/resources/META-INF/MANIFEST.MF
 ### IntelliJ IDEA ###
@@ -45,3 +44,5 @@ build/
 
 ### Mac OS ###
 .DS_Store
+/gradle/
+/.gradle/
