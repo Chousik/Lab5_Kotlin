@@ -12,7 +12,6 @@ class CountByNumbersOfParticipantsCommand(private val collectionController: ICol
     1
 ) {
 
-    @Throws(ArgumentCountError::class, ScriptExecutionError::class, ArgumentError::class)
     override fun execute(args: Array<String?>?) {
         valideCountsArgument(args!!)
         try {

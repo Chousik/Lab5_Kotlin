@@ -7,11 +7,9 @@ import java.util.*
 
 interface IDataBase<T> {
 
-    @Throws(IOException::class)
     fun saveData(collection: LinkedList<T>?)
 
 
-    @Throws(IOException::class)
     fun loadData(): LinkedList<MusicBand>
 
 

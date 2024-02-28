@@ -12,7 +12,6 @@ class BuilderCoordinates : IBuilder<Сoordinates?> {
     private val validatorCoordinatesX: ValidatorCoordinatesX = ValidatorCoordinatesX()
     private val validatorCoordinatesY: ValidatorCoordinatesY = ValidatorCoordinatesY()
 
-    @Throws(ScriptExecutionError::class)
     override fun build(): Сoordinates {
         return Сoordinates(
             FloatCollector().ask("Координата X", validatorCoordinatesX),

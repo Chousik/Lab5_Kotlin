@@ -9,7 +9,6 @@ import java.util.*
 
 class AltJsonDB(private val fileName: String) : IDataBase<MusicBand?> {
 
-    @Throws(IOException::class)
     override fun saveData(collection: LinkedList<MusicBand?>?) {
         val file = File(fileName)
         val objectMapper: ObjectMapper = ObjectMapper()
@@ -21,7 +20,6 @@ class AltJsonDB(private val fileName: String) : IDataBase<MusicBand?> {
     }
 
 
-    @Throws(IOException::class)
     override fun loadData(): LinkedList<MusicBand> {
         val file = File(fileName)
         if (Scanner(file).hasNext()) {

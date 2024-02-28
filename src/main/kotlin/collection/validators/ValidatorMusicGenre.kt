@@ -6,7 +6,6 @@ import org.chousik.exception.InvalidDataError
 
 class ValidatorMusicGenre : IValidator<String?> {
 
-    @Throws(InvalidDataError::class, NullPointerException::class)
     override fun valide(t: String?) {
         try {
             MusicGenre.valueOf(t.toString())

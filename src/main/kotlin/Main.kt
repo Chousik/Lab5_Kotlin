@@ -8,13 +8,15 @@ import org.chousik.handlers.CommandHandler
 import org.chousik.handlers.RunHandler
 import java.io.File
 import java.util.*
+import kotlin.system.exitProcess
 
 object Main {
-    @kotlin.jvm.JvmStatic
+    @JvmStatic
     fun main(args: Array<String>) {
         if (args.size == 0) {
-            java.lang.System.err.println("Вы не ввели имя файла")
-            java.lang.System.exit(0)
+
+            println("Вы не ввели имя файла")
+            exitProcess(0)
         }
         run(args[0])
     }
@@ -54,7 +56,7 @@ object Main {
         commandHandler.addCommand("exit", ExitCommand())
         val runHandlerMain: RunHandler = RunHandler(collectionControllerPerson, commandHandler)
         commandHandler.addCommand("execute", ExecuteCommand(runHandlerMain))
-        println("Начала работы! Для вывода списка комманд используйте help.")
+        println("Начала работы! Для вывода списка команд используйте help.")
         runHandlerMain.consoleRun()
     }
 }

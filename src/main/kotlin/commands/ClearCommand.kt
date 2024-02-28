@@ -10,7 +10,6 @@ import org.chousik.handlers.RunHandler
 class ClearCommand(private val collectionController: ICollectionController<*>) :
     ACommand("clear", "команда позволяет очистить коллекцию.", 0) {
 
-    @Throws(ArgumentCountError::class, ScriptExecutionError::class, ArgumentError::class)
     override fun execute(args: Array<String?>?) {
         valideCountsArgument(args!!)
         collectionController.clear()

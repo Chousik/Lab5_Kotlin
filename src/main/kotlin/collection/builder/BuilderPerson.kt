@@ -15,12 +15,6 @@ class BuilderPerson : IBuilder<Person?> {
     private val BuilderLocation: BuilderLocation = BuilderLocation()
     private val BuilderCountry: BuilderCountry = BuilderCountry()
 
-    /**
-     * Метод для создания объекта класса Person
-     *
-     * @return возвращает объект класса Person
-     */
-    @Throws(ScriptExecutionError::class)
     override fun build(): Person {
         return Person(
             StringCollector().ask("Имя Человека", validatorPersonName),

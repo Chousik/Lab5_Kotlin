@@ -10,7 +10,6 @@ import org.chousik.handlers.RunHandler
 class SaveCommand(private val collectionController: ICollectionController<*>) :
     ACommand("save", "команда позволяет сохранить данные в файл", 0) {
 
-    @Throws(ArgumentCountError::class, ScriptExecutionError::class, ArgumentError::class)
     override fun execute(args: Array<String?>?) {
         valideCountsArgument(args!!)
         if (!RunHandler.mode() and collectionController.saveData()) {

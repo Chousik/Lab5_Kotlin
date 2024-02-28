@@ -4,6 +4,5 @@ import org.chousik.exception.ScriptExecutionError
 
 
 interface IBuilder<T> {
-    @Throws(ScriptExecutionError::class)
     fun build(): T
 }

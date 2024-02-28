@@ -7,7 +7,6 @@ import org.chousik.handlers.ICollectionController
 class InfoCommand(private val collectionController: ICollectionController<*>) :
     ACommand("info", "команда позволяет увидеть информацию о коллекции.", 0) {
 
-    @Throws(ArgumentCountError::class)
     override fun execute(args: Array<String?>?) {
         valideCountsArgument(args!!)
         println("Тип коллекции: " + collectionController.collectionType)

@@ -9,7 +9,6 @@ import org.chousik.handlers.ICollectionController
 class FilterByAlbumsCountCommand(private val collectionController: ICollectionController<*>) :
     ACommand("filter_by_albums_count", "команда позволяет вывести группы с введеным числом альбомов", 1) {
 
-    @Throws(ArgumentCountError::class, ScriptExecutionError::class, ArgumentError::class)
     override fun execute(args: Array<String?>?) {
         valideCountsArgument(args!!)
         try {

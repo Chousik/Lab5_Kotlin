@@ -10,7 +10,6 @@ import org.chousik.handlers.RunHandler
 class RemoveByIdCommand(private val collectionController: ICollectionController<*>) :
     ACommand("remove_by_id {id} ", "команда позволяет удалить элемент с введеным id", 1) {
 
-    @Throws(ArgumentCountError::class, ScriptExecutionError::class, ArgumentError::class)
     override fun execute(args: Array<String?>?) {
         valideCountsArgument(args!!)
         try {

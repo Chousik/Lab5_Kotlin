@@ -58,7 +58,6 @@ class CollectionControllerMusicBand(dataBase: AltJsonDB, linkedList: LinkedList<
         }
 
 
-    @Throws(ArgumentError::class, ScriptExecutionError::class)
     override fun updateElements(id: Int?) {
         try {
             val musicBand: MusicBand =
@@ -71,7 +70,6 @@ class CollectionControllerMusicBand(dataBase: AltJsonDB, linkedList: LinkedList<
     }
 
 
-    @Throws(ArgumentError::class)
     override fun removeElements(index: Int?) {
         if (index!! > collection.size - 1 || index < 0) {
             throw ArgumentError("Неверное id: " + index + ". Длина коллекции: " + collection.size)
@@ -97,7 +95,6 @@ class CollectionControllerMusicBand(dataBase: AltJsonDB, linkedList: LinkedList<
     }
 
 
-    @Throws(ArgumentError::class)
     override fun removeElementByID(id: Int?) {
         try {
             val musicBand: MusicBand =
@@ -110,7 +107,6 @@ class CollectionControllerMusicBand(dataBase: AltJsonDB, linkedList: LinkedList<
     }
 
 
-    @Throws(ArgumentError::class)
     override fun removeByFrontMan(person: Person?) {
         try {
             val musicBand: MusicBand = collection.stream().filter(Predicate<MusicBand?> { x: MusicBand? ->

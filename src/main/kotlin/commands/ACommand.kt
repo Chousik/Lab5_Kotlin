@@ -15,7 +15,6 @@ abstract class ACommand(private val name: String, private val info: String, priv
     }
 
 
-    @Throws(ArgumentCountError::class, ScriptExecutionError::class, ArgumentError::class)
     abstract fun execute(args: Array<String?>?)
 
     override fun toString(): String {

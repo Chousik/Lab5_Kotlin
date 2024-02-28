@@ -1,11 +1,7 @@
 package org.chousik.collection
 
-import lombok.Getter
-import lombok.Setter
 import java.util.*
 
-@Getter
-@Setter
 class Person : Comparable<Person?> {
     private var name: String? = null //Поле не может быть null, Строка не может быть пустой
     private var passportID: String? =

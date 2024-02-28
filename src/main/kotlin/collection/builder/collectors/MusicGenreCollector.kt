@@ -7,7 +7,6 @@ import java.util.function.Function
 import java.util.function.Supplier
 
 class MusicGenreCollector : EnumCollector<MusicGenre?>() {
-    @Throws(ScriptExecutionError::class)
     override fun ask(name: String?, validator: IValidator<String?>?): MusicGenre? {
         return askEnum(
             name!!, validator!!,

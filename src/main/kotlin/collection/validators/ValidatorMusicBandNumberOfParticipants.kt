@@ -5,7 +5,6 @@ import org.chousik.exception.InvalidDataError
 
 class ValidatorMusicBandNumberOfParticipants : IValidator<Long?> {
 
-    @Throws(InvalidDataError::class)
     override fun valide(t: Long?) {
         if (t == null) {
             throw NullPointerException()

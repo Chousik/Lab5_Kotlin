@@ -23,22 +23,18 @@ interface ICollectionController<T : Comparable<*>?> {
 
     fun getElementsByAlbomCount(integer: Int?): String?
 
-    @Throws(ArgumentError::class, ScriptExecutionError::class)
     fun updateElements(id: Int?)
 
-    @Throws(ArgumentError::class)
     fun removeElements(index: Int?)
 
     fun clear()
 
-    @Throws(ArgumentError::class)
     fun removeElementByID(id: Int?)
 
     fun shuffle()
 
     fun reorder()
 
-    @Throws(ArgumentError::class)
     fun removeByFrontMan(person: Person?)
 
     fun countNumberOfParticipants(longs: Long?): Int

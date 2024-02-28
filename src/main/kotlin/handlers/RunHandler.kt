@@ -31,7 +31,6 @@ class RunHandler(collectionM: CollectionControllerMusicBand, commandM: CommandHa
         }
     }
 
-    @Throws(ScriptExecutionError::class)
     fun scriptsRun(fileName: String?) {
         val lastScraner: Scanner = getMainScaner()
         isScript = true
@@ -55,7 +54,6 @@ class RunHandler(collectionM: CollectionControllerMusicBand, commandM: CommandHa
         }
     }
 
-    @Throws(InvalidCommandError::class, ArgumentCountError::class, ScriptExecutionError::class, ArgumentError::class)
     fun runCommand(userMessges: String) {
         val messages = userMessges.split("\\s+".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
         val commandString = messages[0]

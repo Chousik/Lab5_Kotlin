@@ -4,7 +4,6 @@ import org.chousik.collection.validators.IValidator
 import org.chousik.exception.ScriptExecutionError
 
 class LongCollector : NumberCollector<Long?>() {
-    @Throws(ScriptExecutionError::class)
     override fun ask(name: String?, validator: IValidator<Long?>?): Long? {
         return askNumber(name!!, validator!!, java.lang.Long::parseLong)
     }

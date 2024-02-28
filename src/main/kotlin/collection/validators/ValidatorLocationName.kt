@@ -5,7 +5,6 @@ import org.chousik.exception.InvalidDataError
 
 class ValidatorLocationName : IValidator<String?> {
 
-    @Throws(InvalidDataError::class)
     override fun valide(t: String?) {
         if (t == null) {
             return

@@ -5,7 +5,6 @@ import org.chousik.exception.InvalidDataError
 
 class ValidatorMusicBandName : IValidator<String?> {
 
-    @Throws(InvalidDataError::class)
     override fun valide(t: String?) {
         if (t!!.isBlank() or t.isEmpty()) {
             throw InvalidDataError()

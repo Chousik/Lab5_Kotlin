@@ -11,7 +11,6 @@ import org.chousik.handlers.RunHandler
 class AddCommand(private val collectionController: ICollectionController<*>) :
     ACommand("add", "Команда позволяет добавить новый элемент.", 0) {
 
-    @Throws(ArgumentCountError::class, ScriptExecutionError::class)
     override fun execute(args: Array<String?>?) {
         valideCountsArgument(args!!)
         val musicBand: MusicBand = BuilderMusicBand().build()

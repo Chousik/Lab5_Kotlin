@@ -11,7 +11,6 @@ import org.chousik.handlers.RunHandler
 class ExecuteCommand(var runHandler: RunHandler) :
     ACommand("execute {sctipt_file}", "команда позволяет выполнить указанный скрипт", 1) {
 
-    @Throws(ArgumentCountError::class, ScriptExecutionError::class, ArgumentError::class)
     override fun execute(args: Array<String?>?) {
         valideCountsArgument(args!!)
         ScriptFileValidator().valid(args[0])

@@ -10,7 +10,6 @@ import org.chousik.exception.ScriptExecutionError
 class BuilderMusicGenre : IBuilder<MusicGenre?> {
     private val validatorMusicGenre: ValidatorMusicGenre = ValidatorMusicGenre()
 
-    @Throws(ScriptExecutionError::class)
     override fun build(): MusicGenre? {
         return MusicGenreCollector().ask("Жанр музыки", validatorMusicGenre)
     }

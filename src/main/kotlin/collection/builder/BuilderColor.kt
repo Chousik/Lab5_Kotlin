@@ -9,7 +9,6 @@ import org.chousik.exception.ScriptExecutionError
 class BuilderColor : IBuilder<Color?> {
     private val validatorColor: ValidatorColor = ValidatorColor()
 
-    @Throws(ScriptExecutionError::class)
     override fun build(): Color? {
         return ColorCollector().ask("Цвет", validatorColor)
     }

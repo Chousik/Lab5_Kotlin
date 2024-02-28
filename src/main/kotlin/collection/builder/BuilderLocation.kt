@@ -14,7 +14,6 @@ class BuilderLocation : IBuilder<Location?> {
     private val validatorLocationX: ValidatorLocationX = ValidatorLocationX()
     private val validatorLocationYZ: ValidatorLocationYZ = ValidatorLocationYZ()
 
-    @Throws(ScriptExecutionError::class)
     override fun build(): Location {
         return Location(
             DoubleCollector().ask("Координата X", validatorLocationX),

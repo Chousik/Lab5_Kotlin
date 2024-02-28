@@ -10,7 +10,6 @@ import org.chousik.handlers.RunHandler
 class UpdateCommand(private val collectionController: ICollectionController<*>) :
     ACommand("update", "команда позволяет обновить элемент с введеным айди", 1) {
 
-    @Throws(ArgumentCountError::class, ArgumentError::class, ScriptExecutionError::class)
     override fun execute(args: Array<String?>?) {
         valideCountsArgument(args!!)
         try {

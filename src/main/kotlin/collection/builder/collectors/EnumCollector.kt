@@ -16,7 +16,6 @@ abstract class EnumCollector<T : Enum<*>?> : ICollector<T, String?> {
         this.scanner = RunHandler.getMainScaner()
     }
 
-    @Throws(ScriptExecutionError::class)
     protected fun askEnum(
         name: String,
         validator: IValidator<String?>,

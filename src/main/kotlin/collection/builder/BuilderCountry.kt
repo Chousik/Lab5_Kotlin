@@ -10,7 +10,7 @@ import org.chousik.exception.ScriptExecutionError
 class BuilderCountry : IBuilder<Country?> {
     private val validatorCountry: ValidatorCountry = ValidatorCountry()
 
-    @Throws(ScriptExecutionError::class)
+
     override fun build(): Country? {
         return CountryCollector().ask("Страна", validatorCountry)
     }

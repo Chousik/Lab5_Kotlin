@@ -18,7 +18,6 @@ class BuilderMusicBand : IBuilder<MusicBand?> {
     private val builderMusicGenre = BuilderMusicGenre()
 
 
-    @Throws(ScriptExecutionError::class)
     override fun build(): MusicBand {
         return MusicBand(
             StringCollector().ask("Имя банды", validatorMusicBandName),
@@ -31,7 +30,6 @@ class BuilderMusicBand : IBuilder<MusicBand?> {
     }
 
 
-    @Throws(ScriptExecutionError::class)
     fun reBuild(musicBand: MusicBand) {
         val newMusicBand = MusicBand(
             StringCollector().ask("Имя банды", validatorMusicBandName),

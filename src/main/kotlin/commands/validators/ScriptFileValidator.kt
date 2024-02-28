@@ -4,7 +4,6 @@ import org.chousik.exception.ArgumentError
 import java.io.File
 
 class ScriptFileValidator {
-    @Throws(ArgumentError::class)
     fun valid(fileName: String?) {
         val scriptFile = File(fileName!!)
         if (!scriptFile.exists()) {

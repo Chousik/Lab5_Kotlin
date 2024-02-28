@@ -16,7 +16,6 @@ class ScriptRecursionValidor {
      * @param fileName имя файла
      * @throws ArgumentError если скрипт содержит рекурсию
      */
-    @Throws(ArgumentError::class)
     fun valid(fileName: String?) {
         var fileName = fileName
         var scriptFile = File(fileName)

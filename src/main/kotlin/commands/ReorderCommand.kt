@@ -8,7 +8,6 @@ import org.chousik.handlers.RunHandler
 class ReorderCommand(private val collectionController: ICollectionController<*>) :
     ACommand("reorder", "команда позволяет отсортирова коллекцию в обратном порядке.", 0) {
 
-    @Throws(ArgumentCountError::class)
     override fun execute(args: Array<String?>?) {
         valideCountsArgument(args!!)
         collectionController.reorder()

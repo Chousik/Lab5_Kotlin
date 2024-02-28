@@ -6,7 +6,7 @@ import org.chousik.collection.validators.IValidator
 import org.chousik.exception.ScriptExecutionError
 import java.util.function.Function
 class CountryCollector : EnumCollector<Country?>() {
-    @Throws(ScriptExecutionError::class)
+
     override fun ask(name: String?, validator: IValidator<String?>?): Country? {
         return askEnum(
             name!!, validator!!,

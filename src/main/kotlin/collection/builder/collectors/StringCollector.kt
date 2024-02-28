@@ -14,7 +14,6 @@ class StringCollector : ICollector<String?, String?> {
         this.scanner = RunHandler.getMainScaner()
     }
 
-    @Throws(ScriptExecutionError::class)
     override fun ask(name: String?, validator: IValidator<String?>?): String {
         while (true) {
             try {

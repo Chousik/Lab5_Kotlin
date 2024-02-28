@@ -1,12 +1,7 @@
 package org.chousik.collection
 
-import lombok.Getter
-import lombok.Setter
 import java.util.*
 
-
-@Getter
-@Setter
 class Сoordinates {
     private var x: Float? = null //Значение поля должно быть больше -645, Поле не может быть null
     private var y = 0f
