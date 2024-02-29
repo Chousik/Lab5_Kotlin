@@ -1,6 +1,5 @@
 package org.chousik.collection
 
-import com.fasterxml.jackson.annotation.JsonCreator
 import java.util.*
 class Person(
     private var name: String,
