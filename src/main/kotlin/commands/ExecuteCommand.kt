@@ -6,7 +6,7 @@ import org.chousik.handlers.RunHandler
 
 
 class ExecuteCommand(private var runHandler: RunHandler) :
-    ACommand("execute {script_file}", "команда позволяет выполнить указанный скрипт", 1) {
+    ACommand("execute", " {script_file} команда позволяет выполнить указанный скрипт", 1) {
 
     override fun execute(args: Array<String>) {
         validCountsArgument(args)

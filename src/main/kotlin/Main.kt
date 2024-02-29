@@ -1,11 +1,11 @@
 package org.chousik
 
+import handlers.builders.BuilderCommandHandler
 import org.chousik.collection.MusicBand
 import org.chousik.commands.*
 import org.chousik.database.AltJsonDB
 import org.chousik.database.IDataBase
 import org.chousik.handlers.CollectionControllerMusicBand
-import org.chousik.handlers.CommandHandler
 import org.chousik.handlers.RunHandler
 import java.io.File
 import java.util.*
@@ -35,26 +35,13 @@ object Main {
         val collectionControllerPerson =
             CollectionControllerMusicBand(jsonDB, LinkedList<MusicBand>())
         collectionControllerPerson.loadData()
-        val commandHandler = CommandHandler()
-        commandHandler.addCommand("add", AddCommand(collectionControllerPerson))
-        commandHandler.addCommand("help", HelpCommand(commandHandler))
-        commandHandler.addCommand("info", InfoCommand(collectionControllerPerson))
-        commandHandler.addCommand("show", ShowCommand(collectionControllerPerson))
-        commandHandler.addCommand("update", UpdateCommand(collectionControllerPerson))
-        commandHandler.addCommand("remove_by_id", RemoveByIdCommand(collectionControllerPerson))
-        commandHandler.addCommand("clear", ClearCommand(collectionControllerPerson))
-        commandHandler.addCommand("remove_at", RemoveAtCommand(collectionControllerPerson))
-        commandHandler.addCommand("shuffle", ShuffleCommand(collectionControllerPerson))
-        commandHandler.addCommand("reorder", ReorderCommand(collectionControllerPerson))
-        commandHandler.addCommand("remove_any_by_front_man", RemoveAnyByFrontManCommand(collectionControllerPerson))
-        commandHandler.addCommand(
-            "count_by_number_of_participants",
-            CountByNumbersOfParticipantsCommand(collectionControllerPerson)
-        )
-        commandHandler.addCommand("filter_by_albums_count", FilterByAlbumsCountCommand(collectionControllerPerson))
-        commandHandler.addCommand("save", SaveCommand(collectionControllerPerson))
-        commandHandler.addCommand("exit", ExitCommand())
+        val commandHandler = BuilderCommandHandler().build(listOf(AddCommand(collectionControllerPerson), InfoCommand(collectionControllerPerson), ShowCommand(collectionControllerPerson),
+            UpdateCommand(collectionControllerPerson),RemoveByIdCommand(collectionControllerPerson), ClearCommand(collectionControllerPerson), RemoveAtCommand(collectionControllerPerson),
+            ShuffleCommand(collectionControllerPerson), ReorderCommand(collectionControllerPerson),RemoveAnyByFrontManCommand(collectionControllerPerson),
+            CountByNumbersOfParticipantsCommand(collectionControllerPerson), FilterByAlbumsCountCommand(collectionControllerPerson), SaveCommand(collectionControllerPerson),
+            ExitCommand()))
         val runHandlerMain = RunHandler(commandHandler)
+        commandHandler.addCommand("help", HelpCommand(commandHandler))
         commandHandler.addCommand("execute", ExecuteCommand(runHandlerMain))
         println("Начала работы! Для вывода списка команд используйте help.")
         runHandlerMain.consoleRun()

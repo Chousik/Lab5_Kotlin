@@ -6,7 +6,7 @@ import org.chousik.handlers.RunHandler
 
 
 class RemoveAtCommand(private val collectionController: ICollectionController<*>) :
-    ACommand("remove_at {index} ", "команда позволяет удалить элемент с введенным индексом.", 1) {
+    ACommand("remove_at", " {index} команда позволяет удалить элемент с введенным индексом.", 1) {
 
     override fun execute(args: Array<String>) {
         validCountsArgument(args)
