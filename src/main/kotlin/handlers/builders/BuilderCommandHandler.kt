@@ -3,13 +3,23 @@ package handlers.builders
 import org.chousik.commands.ACommand
 import org.chousik.handlers.CommandHandler
 
-class BuilderCommandHandler {
+class BuilderCommandHandler(private val commands: HashMap<String, ACommand> = HashMap()) {
 
-    fun build(commands: List<ACommand>): CommandHandler {
-        val result = CommandHandler()
+    fun addCommands(commands: List<ACommand>): BuilderCommandHandler {
         for (command in commands) {
-            result.addCommand(command.name, command)
+            this.add(command.name, command)
         }
-        return result
+        return this
+    }
+//    fun addCommand(command: ACommand): BuilderCommandHandler {
+//        add(command.name, command)
+//        return this
+//    }
+    private fun add(commandName: String, aCommand: ACommand) {
+        commands[commandName] = aCommand
+    }
+
+    fun build(): CommandHandler{
+        return CommandHandler(this.commands)
     }
 }

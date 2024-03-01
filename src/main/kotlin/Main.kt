@@ -35,11 +35,11 @@ object Main {
         val collectionControllerPerson =
             CollectionControllerMusicBand(jsonDB, LinkedList<MusicBand>())
         collectionControllerPerson.loadData()
-        val commandHandler = BuilderCommandHandler().build(listOf(AddCommand(collectionControllerPerson), InfoCommand(collectionControllerPerson), ShowCommand(collectionControllerPerson),
+        val commandHandler = BuilderCommandHandler().addCommands(listOf(AddCommand(collectionControllerPerson), InfoCommand(collectionControllerPerson), ShowCommand(collectionControllerPerson),
             UpdateCommand(collectionControllerPerson),RemoveByIdCommand(collectionControllerPerson), ClearCommand(collectionControllerPerson), RemoveAtCommand(collectionControllerPerson),
             ShuffleCommand(collectionControllerPerson), ReorderCommand(collectionControllerPerson),RemoveAnyByFrontManCommand(collectionControllerPerson),
             CountByNumbersOfParticipantsCommand(collectionControllerPerson), FilterByAlbumsCountCommand(collectionControllerPerson), SaveCommand(collectionControllerPerson),
-            ExitCommand()))
+            ExitCommand())).build()
         val runHandlerMain = RunHandler(commandHandler)
         commandHandler.addCommand("help", HelpCommand(commandHandler))
         commandHandler.addCommand("execute", ExecuteCommand(runHandlerMain))
