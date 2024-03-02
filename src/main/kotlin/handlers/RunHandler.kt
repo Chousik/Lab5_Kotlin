@@ -13,8 +13,7 @@ class RunHandler(private val commandHandler: CommandHandler) {
     fun consoleRun() {
         while (true) try {
             print("${System.getProperty("user.name")}> ")
-            val userMessages = mainScanner.nextLine()
-            runCommand(userMessages)
+            runCommand(mainScanner.nextLine())
         } catch (e: InvalidCommandError) {
             System.err.println(e)
         } catch (e: ArgumentCountError) {
@@ -23,6 +22,10 @@ class RunHandler(private val commandHandler: CommandHandler) {
             System.err.println(e)
         } catch (e: ArgumentError) {
             System.err.println(e)
+        } catch (e: NoSuchElementException) {
+            System.err.println("Группы с введенным аргументом не существует.")
+        } catch (e: NumberFormatException){
+            System.err.println("Аргумент должен быть числом.")
         }
     }
 
@@ -32,8 +35,7 @@ class RunHandler(private val commandHandler: CommandHandler) {
         try {
             mainScanner = Scanner(File(fileName))
             while (mainScanner.hasNext()) {
-                val messages = mainScanner.nextLine()
-                runCommand(messages)
+                runCommand(mainScanner.nextLine())
             }
         } catch (e: InvalidCommandError) {
             throw ScriptExecutionError(e.toString())

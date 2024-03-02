@@ -9,8 +9,6 @@ class HelpCommand(private val commandHandler: CommandHandler) :
     override fun execute(args: Array<String>) {
         validCountsArgument(args)
         println("Доступные команды:")
-        for (aCommand in commandHandler.getCommands().values) {
-            println(aCommand.toString())
-        }
+        println(commandHandler.getCommands().values.joinToString ("\n"))
     }
 }

@@ -55,14 +55,10 @@ class CollectionControllerMusicBand(private val dataBase: IDataBase<MusicBand>, 
 
 
     override fun updateElements(id: Int) {
-        try {
-            val musicBand: MusicBand =
-                collection.stream().filter{ x: MusicBand -> x.id == id }.findFirst()
-                    .get()
-            BuilderMusicBand().reBuild(musicBand)
-        } catch (e: NoSuchElementException) {
-            throw ArgumentError("Группы с таким айди не существует.")
-        }
+        val musicBand: MusicBand =
+            collection.stream().filter{ x: MusicBand -> x.id == id }.findFirst()
+                .get()
+        BuilderMusicBand().reBuild(musicBand)
     }
 
 
@@ -92,26 +88,18 @@ class CollectionControllerMusicBand(private val dataBase: IDataBase<MusicBand>, 
 
 
     override fun removeElementByID(id: Int) {
-        try {
-            val musicBand: MusicBand =
-                collection.stream().filter{x: MusicBand -> x.id == id }.findFirst()
-                    .get()
-            collection.remove(musicBand)
-        } catch (e: NoSuchElementException) {
-            throw ArgumentError("Группы с таким айди не существует.")
-        }
+        val musicBand: MusicBand =
+            collection.stream().filter{x: MusicBand -> x.id == id }.findFirst()
+                .get()
+        collection.remove(musicBand)
     }
 
 
     override fun removeByFrontMan(person: Person) {
-        try {
-            val musicBand: MusicBand = collection.stream().filter{ x: MusicBand ->
-                x.frontMan === person
-            }.findFirst().get()
-            collection.remove(musicBand)
-        } catch (e: NoSuchElementException) {
-            throw ArgumentError("Группы с таким лидером не существует.")
-        }
+        val musicBand: MusicBand = collection.stream().filter{ x: MusicBand ->
+            x.frontMan === person
+        }.findFirst().get()
+        collection.remove(musicBand)
     }
 
 

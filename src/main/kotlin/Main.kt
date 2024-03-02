@@ -1,6 +1,6 @@
 package org.chousik
 
-import handlers.builders.BuilderCommandHandler
+import handlers.builders.CommandHandlerBuilder
 import org.chousik.collection.MusicBand
 import org.chousik.commands.*
 import org.chousik.database.AltJsonDB
@@ -35,7 +35,7 @@ object Main {
         val collectionControllerPerson =
             CollectionControllerMusicBand(jsonDB, LinkedList<MusicBand>())
         collectionControllerPerson.loadData()
-        val commandHandler = BuilderCommandHandler().addCommands(listOf(AddCommand(collectionControllerPerson), InfoCommand(collectionControllerPerson), ShowCommand(collectionControllerPerson),
+        val commandHandler = CommandHandlerBuilder().addCommands(listOf(AddCommand(collectionControllerPerson), InfoCommand(collectionControllerPerson), ShowCommand(collectionControllerPerson),
             UpdateCommand(collectionControllerPerson),RemoveByIdCommand(collectionControllerPerson), ClearCommand(collectionControllerPerson), RemoveAtCommand(collectionControllerPerson),
             ShuffleCommand(collectionControllerPerson), ReorderCommand(collectionControllerPerson),RemoveAnyByFrontManCommand(collectionControllerPerson),
             CountByNumbersOfParticipantsCommand(collectionControllerPerson), FilterByAlbumsCountCommand(collectionControllerPerson), SaveCommand(collectionControllerPerson),

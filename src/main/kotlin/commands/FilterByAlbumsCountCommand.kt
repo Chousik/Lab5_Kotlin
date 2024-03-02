@@ -1,6 +1,5 @@
 package org.chousik.commands
 
-import exeption.ArgumentError
 import org.chousik.handlers.ICollectionController
 
 
@@ -9,11 +8,7 @@ class FilterByAlbumsCountCommand(private val collectionController: ICollectionCo
 
     override fun execute(args: Array<String>) {
         validCountsArgument(args)
-        try {
-            val integer = args[0].toInt()
-            println(collectionController.getElementsByAlbumCount(integer))
-        } catch (e: NumberFormatException) {
-            throw ArgumentError("Кол-во групп должно быть числом")
-        }
+        val integer = args[0].toInt()
+        println(collectionController.getElementsByAlbumCount(integer))
     }
 }

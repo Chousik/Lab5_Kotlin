@@ -1,6 +1,5 @@
 package org.chousik.commands
 
-import exeption.ArgumentError
 import org.chousik.handlers.ICollectionController
 import org.chousik.handlers.RunHandler
 
@@ -10,12 +9,8 @@ class RemoveByIdCommand(private val collectionController: ICollectionController<
 
     override fun execute(args: Array<String>) {
         validCountsArgument(args)
-        try {
-            val id = args[0].toInt()
-            collectionController.removeElementByID(id)
-        } catch (e: NumberFormatException) {
-            throw ArgumentError("Айди должно быть числом")
-        }
+        val id = args[0].toInt()
+        collectionController.removeElementByID(id)
         if (!RunHandler.mode()) {
             println("Элемент успешно удален")
         }

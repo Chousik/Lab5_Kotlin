@@ -1,7 +1,6 @@
 package org.chousik.collection.builder.collectors
 
 import org.chousik.collection.validators.IValidator
-import exeption.InvalidDataError
 import exeption.ScriptExecutionError
 import org.chousik.handlers.RunHandler
 import java.util.*
@@ -31,7 +30,7 @@ abstract class EnumCollector<T : Enum<*>?> : ICollector<T, String?> {
                 }
                 validator.valide(strValue)
                 return method1.apply(strValue!!)
-            } catch (e: InvalidDataError) {
+            } catch (e: IllegalArgumentException) {
                 if (isScript) {
                     throw ScriptExecutionError("Введено некоренное значение из списка.")
                 }
