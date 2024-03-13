@@ -35,13 +35,13 @@ object Main {
         val collectionControllerPerson =
             CollectionControllerMusicBand(jsonDB, LinkedList<MusicBand>())
         collectionControllerPerson.loadData()
-        val commandHandler = CommandHandlerBuilder().addCommands(listOf(AddCommand(collectionControllerPerson), InfoCommand(collectionControllerPerson), ShowCommand(collectionControllerPerson),
+        val commandMap = HashMap<String, ACommand>();
+        val commandHandler = CommandHandlerBuilder(commandMap).addCommands(listOf(AddCommand(collectionControllerPerson), InfoCommand(collectionControllerPerson), ShowCommand(collectionControllerPerson),
             UpdateCommand(collectionControllerPerson),RemoveByIdCommand(collectionControllerPerson), ClearCommand(collectionControllerPerson), RemoveAtCommand(collectionControllerPerson),
             ShuffleCommand(collectionControllerPerson), ReorderCommand(collectionControllerPerson),RemoveAnyByFrontManCommand(collectionControllerPerson),
             CountByNumbersOfParticipantsCommand(collectionControllerPerson), FilterByAlbumsCountCommand(collectionControllerPerson), SaveCommand(collectionControllerPerson),
-            ExitCommand())).build()
+            ExitCommand(), HelpCommand(commandMap))).build()
         val runHandlerMain = RunHandler(commandHandler)
-        commandHandler.addCommand("help", HelpCommand(commandHandler))
         commandHandler.addCommand("execute", ExecuteCommand(runHandlerMain))
         println("Начала работы! Для вывода списка команд используйте help.")
         runHandlerMain.consoleRun()
