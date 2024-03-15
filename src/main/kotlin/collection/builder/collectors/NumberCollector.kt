@@ -7,7 +7,7 @@ import java.util.*
 import java.util.function.Function
 import kotlin.system.exitProcess
 
-abstract class NumberCollector<T : Number?> : ICollector<T, T> {
+abstract class NumberCollector<T : Number> : ICollector<T, T> {
     private val isScript = RunHandler.mode()
     private val scanner: Scanner = RunHandler.getMainScanner()
 
@@ -20,7 +20,7 @@ abstract class NumberCollector<T : Number?> : ICollector<T, T> {
                 }
                 val string = scanner.nextLine().trim { it <= ' ' }
                 val t = method.apply(string)
-                validator.valide(t)
+                validator.valid(t)
                 return t
             } catch (e: NumberFormatException) {
                 if (isScript) {

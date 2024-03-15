@@ -7,7 +7,7 @@ import org.chousik.handlers.RunHandler
 import java.util.*
 import kotlin.system.exitProcess
 
-class StringCollector : ICollector<String?, String?> {
+class StringCollector : ICollector<String, String?> {
     private val isScript = RunHandler.mode()
     private val scanner: Scanner = RunHandler.getMainScanner()
 
@@ -19,7 +19,7 @@ class StringCollector : ICollector<String?, String?> {
                     print(System.getProperty("user.name") + "> ")
                 }
                 val namePerson = scanner.nextLine().trim { it <= ' ' }
-                validator.valide(namePerson)
+                validator.valid(namePerson)
                 return namePerson
             } catch (e: InvalidDataError) {
                 if (isScript) {

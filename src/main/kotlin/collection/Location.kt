@@ -3,7 +3,7 @@ package org.chousik.collection
 import java.util.*
 
 
-class Location(private var x: Double, private var y: Int, private var z: Int, private var name: String) {
+class Location(private val x: Double, private val y: Int, private val z: Int, private val name: String) {
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

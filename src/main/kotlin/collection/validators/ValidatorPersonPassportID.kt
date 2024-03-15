@@ -2,11 +2,11 @@ package org.chousik.collection.validators
 
 import exeption.InvalidDataError
 
+const val CONST = 6
 
 class  ValidatorPersonPassportID : IValidator<String?> {
-    private val const = 6;
-    override fun valide(t: String?) {
-        if (t!!.isEmpty() or (t.length < const)) {
+    override fun valid(t: String?) {
+        if (t!!.isEmpty() or (t.length < CONST)) {
             throw InvalidDataError()
         }
     }

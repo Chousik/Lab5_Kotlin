@@ -1,42 +1,10 @@
 package org.chousik.collection
 
 
-class MusicBand(name: String, coordinates: Coordinates, numberOfParticipants: Long, albumsCount: Long, genre: MusicGenre, person: Person) : Comparable<MusicBand> {
+class MusicBand(
+    var name: String, var coordinates: Coordinates, var numberOfParticipants: Long,
+    var albumsCount: Long, var genre: MusicGenre, var frontMan: Person) : Comparable<MusicBand> {
     var id = (Math.random() * 666666).toInt()
-        get() = field
-        set(value) {
-            field = value
-        }
-    var name = name
-        get() = field
-        set(value) {
-            field = value
-        }
-    var coordinates = coordinates
-        get() = field
-        set(value) {
-            field = value
-        }
-    var numberOfParticipants= numberOfParticipants
-        get() = field
-        set(value) {
-            field = value
-        }
-    var albumsCount = albumsCount
-        get() = field
-        set(value) {
-            field = value
-        }
-    var genre = genre
-        get() = field
-        set(value) {
-            field = value
-        }
-    var frontMan = person
-        get() = field
-        set(value) {
-            field = value
-        }
 
     override fun toString(): String {
         return (("MusicBand{" +

@@ -1,6 +1,5 @@
 package org.chousik.database
 
-import org.chousik.collection.MusicBand
 import java.util.*
 
 

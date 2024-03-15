@@ -2,7 +2,7 @@ package org.chousik.collection
 
 import java.util.*
 
-class Coordinates(private var x: Float, private var y: Float) {
+class Coordinates(private val x: Float, private val y: Float) {
 
 
     override fun equals(other: Any?): Boolean {

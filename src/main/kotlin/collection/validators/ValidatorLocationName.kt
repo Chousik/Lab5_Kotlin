@@ -5,7 +5,7 @@ import exeption.InvalidDataError
 
 class ValidatorLocationName : IValidator<String?> {
 
-    override fun valide(t: String?) {
+    override fun valid(t: String?) {
         if (t == null) {
             return
         }

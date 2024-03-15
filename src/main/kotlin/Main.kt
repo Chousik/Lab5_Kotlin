@@ -35,7 +35,7 @@ object Main {
         val collectionControllerPerson =
             CollectionControllerMusicBand(jsonDB, LinkedList<MusicBand>())
         collectionControllerPerson.loadData()
-        val commandMap = HashMap<String, ACommand>();
+        val commandMap = HashMap<String, ACommand>()
         val commandHandler = CommandHandlerBuilder(commandMap).addCommands(listOf(AddCommand(collectionControllerPerson), InfoCommand(collectionControllerPerson), ShowCommand(collectionControllerPerson),
             UpdateCommand(collectionControllerPerson),RemoveByIdCommand(collectionControllerPerson), ClearCommand(collectionControllerPerson), RemoveAtCommand(collectionControllerPerson),
             ShuffleCommand(collectionControllerPerson), ReorderCommand(collectionControllerPerson),RemoveAnyByFrontManCommand(collectionControllerPerson),

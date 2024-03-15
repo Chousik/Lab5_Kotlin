@@ -5,7 +5,7 @@ import exeption.InvalidDataError
 
 class ValidatorMusicBandNumberOfParticipants : IValidator<Long?> {
 
-    override fun valide(t: Long?) {
+    override fun valid(t: Long?) {
         if (t == null) {
             throw NullPointerException()
         }

@@ -5,7 +5,7 @@ import exeption.InvalidDataError
 
 class ValidatorCoordinatesX : IValidator<Float?> {
     private val const = -645
-    override fun valide(t: Float?) {
+    override fun valid(t: Float?) {
         if (t == null){
             throw NullPointerException()
         }

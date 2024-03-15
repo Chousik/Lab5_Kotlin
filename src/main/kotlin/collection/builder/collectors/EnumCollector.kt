@@ -7,7 +7,7 @@ import java.util.*
 import java.util.function.Function
 import kotlin.system.exitProcess
 
-abstract class EnumCollector<T : Enum<*>?> : ICollector<T, String?> {
+abstract class EnumCollector<T : Enum<*>> : ICollector<T, String?> {
     private val isScript = RunHandler.mode()
     private val scanner: Scanner = RunHandler.getMainScanner()
 
@@ -28,7 +28,7 @@ abstract class EnumCollector<T : Enum<*>?> : ICollector<T, String?> {
                 if (strValue!!.isEmpty()) {
                     strValue = null
                 }
-                validator.valide(strValue)
+                validator.valid(strValue)
                 return method1.apply(strValue!!)
             } catch (e: IllegalArgumentException) {
                 if (isScript) {
