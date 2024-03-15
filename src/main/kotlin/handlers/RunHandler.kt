@@ -1,27 +1,19 @@
 package org.chousik.handlers
 
-import org.chousik.collection.MusicBand
 import org.chousik.commands.ACommand
-import org.chousik.exception.ArgumentCountError
-import org.chousik.exception.ArgumentError
-import org.chousik.exception.InvalidCommandError
-import org.chousik.exception.ScriptExecutionError
+import exeption.ArgumentCountError
+import exeption.ArgumentError
+import exeption.InvalidCommandError
+import exeption.ScriptExecutionError
 import java.io.File
 import java.io.FileNotFoundException
 import java.util.*
 
-class RunHandler(collectionM: CollectionControllerMusicBand, commandM: CommandHandler) {
-    private val collectionM: CollectionControllerMusicBand = collectionM
-    private val commandHandler = commandM
-
-    /**
-     * Метод для запуска прогрммы в режиме консольной работы
-     */
+class RunHandler(private val commandHandler: CommandHandler) {
     fun consoleRun() {
         while (true) try {
-            print(System.getProperty("user.name") + "> ")
-            val Messages = mainScaner.nextLine()
-            runCommand(Messages)
+            print("${System.getProperty("user.name")}> ")
+            runCommand(mainScanner.nextLine())
         } catch (e: InvalidCommandError) {
             System.err.println(e)
         } catch (e: ArgumentCountError) {
@@ -30,24 +22,20 @@ class RunHandler(collectionM: CollectionControllerMusicBand, commandM: CommandHa
             System.err.println(e)
         } catch (e: ArgumentError) {
             System.err.println(e)
+        } catch (e: NoSuchElementException) {
+            System.err.println("Группы с введенным аргументом не существует.")
+        } catch (e: NumberFormatException){
+            System.err.println("Аргумент должен быть числом.")
         }
     }
 
-    /**
-     * Метод для запуска программы в режиме скрипта
-     *
-     * @param fileName имя файла
-     * @throws ScriptExecutionError если произошла ошибка выполнения скрипта
-     */
-    @Throws(ScriptExecutionError::class)
-    fun scriptsRun(fileName: String?) {
-        val lastScraner: Scanner = getMainScaner()
+    fun scriptsRun(fileName: String) {
+        val lastScanner: Scanner = getMainScanner()
         isScript = true
         try {
-            mainScaner = Scanner(File(fileName))
-            while (mainScaner.hasNext()) {
-                val messages = mainScaner.nextLine()
-                runCommand(messages)
+            mainScanner = Scanner(File(fileName))
+            while (mainScanner.hasNext()) {
+                runCommand(mainScanner.nextLine())
             }
         } catch (e: InvalidCommandError) {
             throw ScriptExecutionError(e.toString())
@@ -58,22 +46,17 @@ class RunHandler(collectionM: CollectionControllerMusicBand, commandM: CommandHa
         } catch (e: FileNotFoundException) {
             System.err.println(e)
         } finally {
-            mainScaner = lastScraner
+            mainScanner = lastScanner
             isScript = false
         }
     }
-    /**
-     * Метод для поиска и выполнения команды
-     *
-     * @param userMessges сообщение пользователя
-     * @throws InvalidCommandError  если команда неверная
-     * @throws ArgumentCountError   если неверное количество аргументов
-     * @throws ScriptExecutionError если произошла ошибка выполнения скрипта
-     * @throws ArgumentError        если аргумент неверный
-     */
-    @Throws(InvalidCommandError::class, ArgumentCountError::class, ScriptExecutionError::class, ArgumentError::class)
-    fun runCommand(userMessges: String) {
-        val messages = userMessges.split("\\s+".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+
+    private fun runCommand(userMessages: String) {
+        if (userMessages.isEmpty()) {
+            System.err.println("Пустая команда! Введите help для получения списка команд.")
+            return
+        }
+        val messages = userMessages.split("\\s+".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
         val commandString = messages[0]
         val argument = if ((messages.size > 1)) Arrays.copyOfRange(messages, 1, messages.size) else arrayOf()
         val command: ACommand? = commandHandler.getCommands()[commandString]
@@ -85,14 +68,15 @@ class RunHandler(collectionM: CollectionControllerMusicBand, commandM: CommandHa
     }
 
     companion object {
-        private var mainScaner = Scanner(System.`in`)
+        private var mainScanner = Scanner(System.`in`)
         private var isScript = false
 
         fun mode(): Boolean {
             return isScript
         }
-        fun getMainScaner(): Scanner{
-            return mainScaner;
+
+        fun getMainScanner(): Scanner {
+            return mainScanner
         }
     }
 }

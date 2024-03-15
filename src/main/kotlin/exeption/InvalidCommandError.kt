@@ -1,8 +1,6 @@
-package org.chousik.exception
+package exeption
 
-/**
- * Класс ошибки неверной команды
- */
+
 class InvalidCommandError(private val command: String) : Exception("InvalidCommandError") {
     override fun toString(): String {
         return this.message + ": команда " + command + " не найдена."

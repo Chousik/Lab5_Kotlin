@@ -1,58 +1,25 @@
 package org.chousik.database
-
-import com.fasterxml.jackson.core.type.TypeReference
-import com.fasterxml.jackson.databind.ObjectMapper
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import org.chousik.collection.MusicBand
 import java.io.*
 import java.util.*
 
-/**
- * Класс для работы с базой данных в формате json
- */
-class AltJsonDB(private val fileName: String) : IDataBase<MusicBand?> {
-    /**
-     * Метод для сохранения данных через FileWriter
-     *
-     * @param collection коллекция
-     * @throws IOException если произошла ошибка ввода/вывода
-     */
-    @Throws(IOException::class)
-    override fun saveData(collection: LinkedList<MusicBand?>?) {
+class AltJsonDB(private val fileName: String): IDataBase<MusicBand>{
+    override fun saveData(collection: LinkedList<MusicBand>) {
         val file = File(fileName)
-        val objectMapper: ObjectMapper = ObjectMapper()
-        val jsonData: String = objectMapper.writeValueAsString(collection)
-        val writer = FileWriter(file)
-        writer.write(jsonData)
-        writer.flush()
-        writer.close()
+        val gson = Gson()
+        val json = gson.toJson(collection)
+        file.writeText(json)
     }
 
-    /**
-     * Метод для загрузки данных через InputStreamReader
-     *
-     * @return коллекция
-     * @throws IOException если произошла ошибка ввода/вывода
-     */
-    @Throws(IOException::class)
+
     override fun loadData(): LinkedList<MusicBand> {
         val file = File(fileName)
-        if (Scanner(file).hasNext()) {
-            val objectMapper: ObjectMapper = ObjectMapper()
-            var jsonData = ""
-            val reader = BufferedReader(InputStreamReader(FileInputStream(file)))
-            jsonData = reader.readLine()
-            reader.close()
-            val data = objectMapper.readValue(jsonData, object : TypeReference<LinkedList<MusicBand>>() {})
-            return data
-        }
-        return LinkedList<MusicBand>()
+        val gson = Gson()
+        val listType = object : TypeToken<LinkedList<MusicBand>>() {}.type
+        return gson.fromJson(file.readText(), listType)
     }
-
-    /**
-     * Метод для проверки существования файла
-     *
-     * @return true, если файл существует, иначе false
-     */
     override fun checkFileExist(): Boolean {
         val file = File(fileName)
         return file.exists()

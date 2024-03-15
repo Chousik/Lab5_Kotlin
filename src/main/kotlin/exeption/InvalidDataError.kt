@@ -1,6 +1,3 @@
-package org.chousik.exception
+package exeption
 
-/**
- * Класс ошибки неверных данных
- */
 class InvalidDataError : Exception()

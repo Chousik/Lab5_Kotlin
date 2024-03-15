@@ -2,34 +2,25 @@ package org.chousik.collection.builder
 
 import org.chousik.collection.Person
 import org.chousik.collection.builder.collectors.StringCollector
-import org.chousik.collection.validators.IValidator
 import org.chousik.collection.validators.ValidatorPersonName
-import org.chousik.collection.validators.ValidatorPersonPasportID
-import org.chousik.exception.ScriptExecutionError
+import org.chousik.collection.validators.ValidatorPersonPassportID
 
-/**
- * Класс строитель для создания объекта класса Person
- */
+
 class BuilderPerson : IBuilder<Person?> {
     private val validatorPersonName: ValidatorPersonName = ValidatorPersonName()
-    private val validatorPersonPasportID: ValidatorPersonPasportID = ValidatorPersonPasportID()
-    private val BuilderColor: BuilderColor = BuilderColor()
-    private val BuilderLocation: BuilderLocation = BuilderLocation()
-    private val BuilderCountry: BuilderCountry = BuilderCountry()
+    private val validatorPersonPassportID: ValidatorPersonPassportID = ValidatorPersonPassportID()
+    private val builderColor: BuilderColor = BuilderColor()
+    private val builderLocation: BuilderLocation = BuilderLocation()
+    private val builderCountry: BuilderCountry = BuilderCountry()
+    private val stringCollector = StringCollector()
 
-    /**
-     * Метод для создания объекта класса Person
-     *
-     * @return возвращает объект класса Person
-     */
-    @Throws(ScriptExecutionError::class)
     override fun build(): Person {
         return Person(
-            StringCollector().ask("Имя Человека", validatorPersonName),
-            StringCollector().ask("Паспорт айди", validatorPersonPasportID),
-            BuilderColor.build(),
-            BuilderCountry.build(),
-            BuilderLocation.build()
+            stringCollector.ask("Имя Человека", validatorPersonName),
+            stringCollector.ask("Паспорт айди", validatorPersonPassportID),
+            builderColor.build(),
+            builderCountry.build(),
+            builderLocation.build()
         )
     }
 }

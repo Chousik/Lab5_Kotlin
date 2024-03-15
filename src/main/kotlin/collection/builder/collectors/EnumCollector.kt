@@ -1,33 +1,26 @@
 package org.chousik.collection.builder.collectors
 
 import org.chousik.collection.validators.IValidator
-import org.chousik.exception.InvalidDataError
-import org.chousik.exception.ScriptExecutionError
+import exeption.ScriptExecutionError
 import org.chousik.handlers.RunHandler
 import java.util.*
 import java.util.function.Function
-import java.util.function.Supplier
+import kotlin.system.exitProcess
 
-abstract class EnumCollector<T : Enum<*>?> : ICollector<T, String?> {
+abstract class EnumCollector<T : Enum<*>> : ICollector<T, String?> {
     private val isScript = RunHandler.mode()
-    private val scanner: Scanner
+    private val scanner: Scanner = RunHandler.getMainScanner()
 
-    init {
-        this.scanner = RunHandler.getMainScaner()
-    }
-
-    @Throws(ScriptExecutionError::class)
     protected fun askEnum(
         name: String,
         validator: IValidator<String?>,
-        method1: Function<String?, T>,
+        method1: Function<String, T>,
         value: String
-//        method2: Supplier<String>
     ): T {
         while (true) {
             try {
                 if (!isScript) {
-                    println("Доступные варианты поля " + name + ": " + value)
+                    println("Доступные варианты поля $name: $value")
                     println("Выберите один из вариантов")
                     print(System.getProperty("user.name") + "> ")
                 }
@@ -35,13 +28,13 @@ abstract class EnumCollector<T : Enum<*>?> : ICollector<T, String?> {
                 if (strValue!!.isEmpty()) {
                     strValue = null
                 }
-                validator.valide(strValue)
-                return method1.apply(strValue)
-            } catch (e: InvalidDataError) {
+                validator.valid(strValue)
+                return method1.apply(strValue!!)
+            } catch (e: IllegalArgumentException) {
                 if (isScript) {
-                    throw ScriptExecutionError("Введено неккоретное значение из списка.")
+                    throw ScriptExecutionError("Введено некоренное значение из списка.")
                 }
-                println("Введено неккоретное значение из списка.")
+                println("Введено некоренное значение из списка.")
             } catch (e: NullPointerException) {
                 if (isScript) {
                     throw ScriptExecutionError("Значение не может быть null")
@@ -52,13 +45,13 @@ abstract class EnumCollector<T : Enum<*>?> : ICollector<T, String?> {
                     throw ScriptExecutionError("Ошибка во время ввода данных коллекции из файла. Конец файла.")
                 }
                 println("Не нажимай Ctrl+D((((")
-                System.exit(0)
+                exitProcess(0)
             } catch (e: Exception) {
                 if (isScript) {
-                    throw ScriptExecutionError("Непридвиденная ошибка")
+                    throw ScriptExecutionError("Непредвиденная ошибка")
                 }
-                println("Непридвиденная ошибка")
-                System.exit(0)
+                println("Непредвиденная ошибка")
+                exitProcess(0)
             }
         }
     }

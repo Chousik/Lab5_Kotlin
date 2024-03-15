@@ -1,11 +1,10 @@
 package org.chousik.commands.validators
 
-import org.chousik.exception.ArgumentError
+import exeption.ArgumentError
 import java.io.File
 
 class ScriptFileValidator {
-    @Throws(ArgumentError::class)
-    fun valid(fileName: String?) {
+    fun valid(fileName: String) {
         val scriptFile = File(fileName)
         if (!scriptFile.exists()) {
             throw ArgumentError("Неверное имя файла")
