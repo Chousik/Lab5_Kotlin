@@ -1,11 +1,11 @@
-package org.chousik.database
+package database
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import org.chousik.collection.MusicBand
+import collection.MusicBand
 import java.io.*
 import java.util.*
 
-class AltJsonDB(private val fileName: String): IDataBase<MusicBand>{
+class AltJsonDB(private val fileName: String): IDataBase<MusicBand> {
     override fun saveData(collection: LinkedList<MusicBand>) {
         val file = File(fileName)
         val gson = Gson()

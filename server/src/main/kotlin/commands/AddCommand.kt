@@ -1,20 +1,13 @@
-package org.chousik.commands
+package commands
 
-import org.chousik.collection.MusicBand
-import org.chousik.collection.builder.BuilderMusicBand
-import org.chousik.handlers.ICollectionController
-import org.chousik.handlers.RunHandler
+import ICollectionController
+import collection.MusicBand
 
 
 class AddCommand(private val collectionController: ICollectionController<*>) :
-    ACommand("add", "Команда позволяет добавить новый элемент.", 0) {
-
-    override fun execute(args: Array<String>) {
-        validCountsArgument(args)
-        val musicBand: MusicBand = BuilderMusicBand().build()
-        collectionController.add(musicBand)
-        if (!RunHandler.mode()) {
-            println("Элемент успешно добавлен")
-        }
+    ACommand("add", "Команда позволяет добавить новый элемент.", "Элемент успешно добавлен в коллекцию.") {
+    override fun doIt(arg: Any?) {
+        collectionController.add(arg!! as MusicBand)
     }
+
 }

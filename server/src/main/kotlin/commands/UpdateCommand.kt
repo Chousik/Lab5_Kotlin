@@ -1,18 +1,13 @@
-package org.chousik.commands
+package commands
 
-import org.chousik.handlers.ICollectionController
-import org.chousik.handlers.RunHandler
+import ICollectionController
+import collection.MusicBand
 
 
 class UpdateCommand(private val collectionController: ICollectionController<*>) :
-    ACommand("update", "команда позволяет обновить элемент с введенным айди", 1) {
-
-    override fun execute(args: Array<String>) {
-        validCountsArgument(args)
-        val id = args[0].toInt()
-        collectionController.updateElements(id)
-        if (!RunHandler.mode()) {
-            println("Элемент успешно обновлен")
-        }
+    ACommand("update", "команда позволяет обновить элемент с введенным айди", "Элемент успешно обновлен") {
+    override fun doIt(arg: Any?) {
+        val arguments = arg!! as Array<*>
+        collectionController.updateElements(arguments[0] as Int, arguments[1] as MusicBand)
     }
 }

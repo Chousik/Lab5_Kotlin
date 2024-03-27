@@ -1,16 +1,15 @@
-package org.chousik.collection.builder.collectors
+package collection.builder.collectors
 
-import org.chousik.collection.validators.IValidator
+import collection.validators.IValidator
 import exeption.ScriptExecutionError
-import org.chousik.handlers.RunHandler
+import scanners.FileScanner
+import scanners.MyScanners
 import java.util.*
 import java.util.function.Function
 import kotlin.system.exitProcess
 
-abstract class NumberCollector<T : Number> : ICollector<T, T> {
-    private val isScript = RunHandler.mode()
-    private val scanner: Scanner = RunHandler.getMainScanner()
-
+abstract class NumberCollector<T : Number>(private val scanner: MyScanners) : ICollector<T, T> {
+    private var isScript = scanner is FileScanner
     protected fun askNumber(name: String, validator: IValidator<T?>, method: Function<String, T>): T {
         while (true) {
             try {

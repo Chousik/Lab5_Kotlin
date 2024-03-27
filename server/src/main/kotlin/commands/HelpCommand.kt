@@ -1,14 +1,9 @@
-package org.chousik.commands
-
-import org.chousik.handlers.CommandHandler
+package commands
 
 
-class HelpCommand(private val commandMap: Map<String, ACommand>) :
-    ACommand("help", "команда позволяет получить список доступных команд.", 0) {
-
-    override fun execute(args: Array<String>) {
-        validCountsArgument(args)
-        println("Доступные команды:")
-        println(commandMap.values.joinToString ("\n"))
+class HelpCommand(private val commandMap: Map<CommandType, ACommand>) :
+    ACommand("help", "команда позволяет получить список доступных команд.") {
+    override fun doIt(arg: Any?) {
+        successfullyInfo = (commandMap.values.joinToString ("\n"))
     }
 }

@@ -1,8 +1,10 @@
-package org.chousik.collection.builder.collectors
+package collection.builder.collectors
 
-import org.chousik.collection.validators.IValidator
+import collection.validators.IValidator
+import scanners.MyScanners
+import java.util.*
 
-class DoubleCollector : NumberCollector<Double>() {
+class DoubleCollector(scanner: MyScanners) : NumberCollector<Double>(scanner) {
 
     override fun ask(name: String, validator: IValidator<Double?>): Double {
         return askNumber(name, validator, java.lang.Double::parseDouble)

@@ -1,12 +1,15 @@
-package org.chousik.commands
+package commands
 
-import org.chousik.handlers.ICollectionController
+import ICollectionController
+import commands.ACommand
+import java.util.*
 
 
 class ShowCommand(private val collectionController: ICollectionController<*>) :
-    ACommand("show", " команда позволяет вывести коллекцию.", 0) {
-    override fun execute(args: Array<String>) {
-        validCountsArgument(args)
-        println(collectionController.elements)
+    ACommand("show", " команда позволяет вывести коллекцию.") {
+
+    override fun doIt(arg: Any?) {
+
+        successfullyInfo = collectionController.elements
     }
 }

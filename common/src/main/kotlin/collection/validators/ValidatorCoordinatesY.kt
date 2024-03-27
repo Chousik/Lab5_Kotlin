@@ -1,4 +1,4 @@
-package org.chousik.collection.validators
+package collection.validators
 
 
 class ValidatorCoordinatesY : IValidator<Float?> {

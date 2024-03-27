@@ -1,4 +1,6 @@
 package response
 
-class Response(status: ResponseStatus, message: String) {
+import java.io.Serializable
+
+data class CommandResponse(val status: ResponseStatus, val message: String): Serializable {
 }

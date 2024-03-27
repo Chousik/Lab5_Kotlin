@@ -1,8 +1,10 @@
-package org.chousik.collection.builder.collectors
+package collection.builder.collectors
 
-import org.chousik.collection.validators.IValidator
+import collection.validators.IValidator
+import scanners.MyScanners
+import java.util.*
 
-class IntegerCollector : NumberCollector<Int>() {
+class IntegerCollector(private val scanner: MyScanners) : NumberCollector<Int>(scanner) {
     override fun ask(name: String, validator: IValidator<Int?>): Int {
         return askNumber(name, validator,  Integer::parseInt)
     }

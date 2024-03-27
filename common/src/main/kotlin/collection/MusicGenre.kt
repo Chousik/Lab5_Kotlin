@@ -1,10 +1,11 @@
-package org.chousik.collection
+package collection
 
+import java.io.Serializable
 import java.util.*
 import java.util.stream.Collectors
 
 
-enum class MusicGenre {
+enum class MusicGenre: Serializable {
     JAZZ,
     SOUL,
     POP;

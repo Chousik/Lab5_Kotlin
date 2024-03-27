@@ -1,20 +1,13 @@
-package org.chousik.commands
+package commands
 
-import org.chousik.collection.Person
-import org.chousik.collection.builder.BuilderPerson
-import org.chousik.handlers.ICollectionController
-import org.chousik.handlers.RunHandler
+import collection.Person
+import ICollectionController
 
 
 class RemoveAnyByFrontManCommand(var collectionController: ICollectionController<*>) :
-    ACommand("remove_any_by_front_man", "команда позволяет удалить группы с введенным лидером.", 0) {
+    ACommand("remove_any_by_front_man", "команда позволяет удалить группы с введенным лидером.", "Элемент успешно удален") {
 
-    override fun execute(args: Array<String>) {
-        validCountsArgument(args)
-        val person: Person = BuilderPerson().build()
-        collectionController.removeByFrontMan(person)
-        if (!RunHandler.mode()) {
-            println("Элемент успешно удален")
-        }
+    override fun doIt(arg: Any?) {
+        collectionController.removeByFrontMan(arg!! as Person)
     }
 }

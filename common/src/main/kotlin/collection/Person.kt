@@ -1,4 +1,6 @@
-package org.chousik.collection
+package collection
+
+import java.io.Serializable
 
 data class Person(
     private var name: String,
@@ -6,7 +8,7 @@ data class Person(
     private var hairColor: Color,
     private var nationality: Country,
     private var location: Location
-) : Comparable<Person> {
+) : Comparable<Person>, Serializable {
 
     override fun compareTo(other: Person): Int {
         return nationality.ordinal - other.nationality.ordinal

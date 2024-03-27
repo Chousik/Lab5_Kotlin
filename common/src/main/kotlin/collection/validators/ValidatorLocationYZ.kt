@@ -1,4 +1,4 @@
-package org.chousik.collection.validators
+package collection.validators
 
 
 class ValidatorLocationYZ : IValidator<Int?> {

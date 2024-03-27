@@ -1,16 +1,15 @@
-package org.chousik.collection.builder.collectors
+package collection.builder.collectors
 
-import org.chousik.collection.validators.IValidator
+import collection.validators.IValidator
 import exeption.ScriptExecutionError
-import org.chousik.handlers.RunHandler
+import scanners.FileScanner
+import scanners.MyScanners
 import java.util.*
 import java.util.function.Function
 import kotlin.system.exitProcess
 
-abstract class EnumCollector<T : Enum<*>> : ICollector<T, String?> {
-    private val isScript = RunHandler.mode()
-    private val scanner: Scanner = RunHandler.getMainScanner()
-
+abstract class EnumCollector<T : Enum<*>, >(private val scanner: MyScanners) : ICollector<T, String?> {
+    private var isScript = scanner is FileScanner
     protected fun askEnum(
         name: String,
         validator: IValidator<String?>,

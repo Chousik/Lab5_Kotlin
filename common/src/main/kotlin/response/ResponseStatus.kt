@@ -1,6 +1,6 @@
-package request
+package response
 
-enum class RequestStatus {
+enum class ResponseStatus {
     Successfully,
     ExecutionError
 }

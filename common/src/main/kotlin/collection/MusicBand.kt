@@ -1,9 +1,12 @@
-package org.chousik.collection
+package collection
+
+import java.io.Serializable
 
 
-class MusicBand(
+class MusicBand (
     var name: String, var coordinates: Coordinates, var numberOfParticipants: Long,
-    var albumsCount: Long, var genre: MusicGenre, var frontMan: Person) : Comparable<MusicBand> {
+    var albumsCount: Long, var genre: MusicGenre, var frontMan: Person
+) : Comparable<MusicBand>, Serializable {
     var id = (Math.random() * 666666).toInt()
 
     override fun toString(): String {

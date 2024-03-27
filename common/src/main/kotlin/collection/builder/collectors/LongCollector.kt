@@ -1,8 +1,10 @@
-package org.chousik.collection.builder.collectors
+package collection.builder.collectors
 
-import org.chousik.collection.validators.IValidator
+import collection.validators.IValidator
+import scanners.MyScanners
+import java.util.*
 
-class LongCollector : NumberCollector<Long>() {
+class LongCollector(private val scanner: MyScanners) : NumberCollector<Long>(scanner) {
     override fun ask(name: String, validator: IValidator<Long?>): Long {
         return askNumber(name, validator, java.lang.Long::parseLong)
     }

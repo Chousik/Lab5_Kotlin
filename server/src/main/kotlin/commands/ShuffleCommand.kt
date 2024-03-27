@@ -1,17 +1,11 @@
-package org.chousik.commands
+package commands
 
-import org.chousik.handlers.ICollectionController
-import org.chousik.handlers.RunHandler
+import ICollectionController
 
 
 class ShuffleCommand(private val collectionController: ICollectionController<*>) :
-    ACommand("shuffle", "команда позволяет перемешать элементы коллекции", 0) {
-
-    override fun execute(args: Array<String>) {
-        validCountsArgument(args)
+    ACommand("shuffle", "команда позволяет перемешать элементы коллекции", "Коллекция успешно перемешана") {
+    override fun doIt(arg: Any?) {
         collectionController.shuffle()
-        if (!RunHandler.mode()) {
-            println("Коллекция успешно перемешана")
-        }
     }
 }

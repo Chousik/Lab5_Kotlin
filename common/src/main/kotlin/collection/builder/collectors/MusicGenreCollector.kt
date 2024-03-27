@@ -1,9 +1,11 @@
-package org.chousik.collection.builder.collectors
+package collection.builder.collectors
 
-import org.chousik.collection.MusicGenre
-import org.chousik.collection.validators.IValidator
+import collection.MusicGenre
+import collection.validators.IValidator
+import scanners.MyScanners
+import java.util.*
 
-class MusicGenreCollector : EnumCollector<MusicGenre>() {
+class MusicGenreCollector(private val scanner: MyScanners) : EnumCollector<MusicGenre>(scanner) {
     override fun ask(name: String, validator: IValidator<String?>): MusicGenre {
         return askEnum(
             name, validator,

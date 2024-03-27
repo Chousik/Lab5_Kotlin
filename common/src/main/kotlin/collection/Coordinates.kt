@@ -1,8 +1,9 @@
-package org.chousik.collection
+package collection
 
+import java.io.Serializable
 import java.util.*
 
-class Coordinates(private val x: Float, private val y: Float) {
+class Coordinates(private val x: Float, private val y: Float): Serializable {
 
 
     override fun equals(other: Any?): Boolean {

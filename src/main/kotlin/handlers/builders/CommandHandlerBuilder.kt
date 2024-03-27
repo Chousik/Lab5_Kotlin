@@ -1,7 +1,7 @@
 package handlers.builders
 
-import org.chousik.commands.ACommand
-import org.chousik.handlers.CommandHandler
+import commands.ACommand
+import handlers.CommandHandler
 
 class CommandHandlerBuilder(private val commands: HashMap<String, ACommand> = HashMap()) {
 

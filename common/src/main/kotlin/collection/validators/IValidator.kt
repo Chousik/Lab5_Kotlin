@@ -1,4 +1,4 @@
-package org.chousik.collection.validators
+package collection.validators
 
 
 interface IValidator<T> {

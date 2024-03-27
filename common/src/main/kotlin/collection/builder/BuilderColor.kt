@@ -1,12 +1,15 @@
-package org.chousik.collection.builder
+package collection.builder
 
-import org.chousik.collection.Color
-import org.chousik.collection.builder.collectors.ColorCollector
-import org.chousik.collection.validators.ValidatorColor
+import collection.Color
+import collection.builder.collectors.ColorCollector
+import collection.validators.ValidatorColor
+import scanners.MyScanners
+import java.io.Serializable
+import java.util.Scanner
 
-class BuilderColor : IBuilder<Color> {
+class BuilderColor(scanner: MyScanners) : IBuilder<Color>, Serializable {
     private val validatorColor = ValidatorColor()
-    private val colorCollector = ColorCollector()
+    private val colorCollector = ColorCollector(scanner)
 
     override fun build(): Color {
         return colorCollector.ask("Цвет", validatorColor)

@@ -1,17 +1,13 @@
-package handlers.builders
+package builders
 
-import org.chousik.commands.ACommand
-import org.chousik.handlers.CommandHandler
+import commands.ACommand
+import CommandHandler
+import commands.CommandType
 
-class CommandHandlerBuilder(private val commands: HashMap<String, ACommand> = HashMap()) {
+class CommandHandlerBuilder(private val commands: HashMap<CommandType, ACommand> = HashMap()) {
 
-    fun addCommands(commands: List<ACommand>): CommandHandlerBuilder {
-        commands.stream().forEach{x -> addCommand(x)}
-        return this
-    }
-
-    private fun addCommand(aCommand: ACommand): CommandHandlerBuilder {
-        commands[aCommand.name] = aCommand
+    fun addCommand(commandType: CommandType, aCommand: ACommand): CommandHandlerBuilder {
+        commands[commandType] = aCommand
         return this
     }
 

@@ -1,20 +1,23 @@
-package org.chousik.collection.builder
+package collection.builder
 
-import org.chousik.collection.Location
-import org.chousik.collection.builder.collectors.DoubleCollector
-import org.chousik.collection.builder.collectors.IntegerCollector
-import org.chousik.collection.builder.collectors.StringCollector
-import org.chousik.collection.validators.ValidatorLocationName
-import org.chousik.collection.validators.ValidatorLocationX
-import org.chousik.collection.validators.ValidatorLocationYZ
+import collection.Location
+import collection.builder.collectors.DoubleCollector
+import collection.builder.collectors.IntegerCollector
+import collection.builder.collectors.StringCollector
+import collection.validators.ValidatorLocationName
+import collection.validators.ValidatorLocationX
+import collection.validators.ValidatorLocationYZ
+import scanners.MyScanners
+import java.io.Serializable
+import java.util.*
 
-class BuilderLocation : IBuilder<Location> {
+class BuilderLocation(private val scanner: MyScanners) : IBuilder<Location>, Serializable{
     private val validatorLocationName = ValidatorLocationName()
     private val validatorLocationX = ValidatorLocationX()
     private val validatorLocationYZ = ValidatorLocationYZ()
-    private val doubleCollector = DoubleCollector()
-    private val integerCollector = IntegerCollector()
-    private val stringCollector = StringCollector()
+    private val doubleCollector = DoubleCollector(scanner)
+    private val integerCollector = IntegerCollector(scanner)
+    private val stringCollector = StringCollector(scanner)
 
     override fun build(): Location {
         return Location(

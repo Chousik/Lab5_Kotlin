@@ -1,6 +1,6 @@
-package org.chousik.collection.validators
+package collection.validators
 
-import org.chousik.collection.Country
+import collection.Country
 
 class ValidatorCountry : IValidator<String?> {
     override fun valid(t: String?) {

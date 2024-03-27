@@ -1,6 +1,6 @@
-package org.chousik.collection.validators
+package collection.validators
 
-import org.chousik.collection.Color
+import collection.Color
 
 
 class ValidatorColor : IValidator<String?> {

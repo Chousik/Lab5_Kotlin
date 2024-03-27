@@ -1,17 +1,11 @@
-package org.chousik.commands
+package commands
 
-import org.chousik.handlers.ICollectionController
-import org.chousik.handlers.RunHandler
+import ICollectionController
 
 
 class ClearCommand(private val collectionController: ICollectionController<*>) :
-    ACommand("clear", "команда позволяет очистить коллекцию.", 0) {
-
-    override fun execute(args: Array<String>) {
-        validCountsArgument(args)
+    ACommand("clear", "команда позволяет очистить коллекцию.", "Коллекция успешно очищена") {
+    override fun doIt(arg: Any?) {
         collectionController.clear()
-        if (!RunHandler.mode()) {
-            println("Коллекция успешно очищена")
-        }
     }
 }

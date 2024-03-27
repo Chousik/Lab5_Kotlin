@@ -1,10 +1,9 @@
-package org.chousik.handlers
-
-import org.chousik.collection.MusicBand
-import org.chousik.collection.Person
-import org.chousik.collection.builder.BuilderMusicBand
+import collection.MusicBand
+import collection.Person
+import collection.builder.BuilderMusicBand
 import exeption.ArgumentError
-import org.chousik.database.IDataBase
+import database.IDataBase
+import scanners.MainScanner
 import java.io.IOException
 import java.time.LocalDateTime
 import java.util.*
@@ -54,11 +53,11 @@ class CollectionControllerMusicBand(private val dataBase: IDataBase<MusicBand>, 
         }
 
 
-    override fun updateElements(id: Int) {
+    override fun updateElements(id: Int, musicBandNew: MusicBand) {
         val musicBand: MusicBand =
             collection.stream().filter{ x: MusicBand -> x.id == id }.findFirst()
                 .get()
-        BuilderMusicBand().reBuild(musicBand)
+        BuilderMusicBand(MainScanner()).reBuild(musicBand, musicBandNew)
     }
 
 

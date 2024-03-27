@@ -1,17 +1,11 @@
-package org.chousik.commands
+package commands
 
-import org.chousik.handlers.ICollectionController
-import org.chousik.handlers.RunHandler
+import ICollectionController
 
 
 class ReorderCommand(private val collectionController: ICollectionController<*>) :
-    ACommand("reorder", "команда позволяет отсортирована коллекцию в обратном порядке.", 0) {
-
-    override fun execute(args: Array<String>) {
-        validCountsArgument(args)
+    ACommand("reorder", "команда позволяет отсортирована коллекцию в обратном порядке.", "Коллекция успешно отсортирована в обратом порядке.") {
+    override fun doIt(arg: Any?) {
         collectionController.reorder()
-        if (!RunHandler.mode()) {
-            println("Коллекция успешно отсортирована в обратом порядке.")
-        }
     }
 }

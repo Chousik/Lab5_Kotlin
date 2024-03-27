@@ -1,4 +1,4 @@
-package org.chousik.database
+package database
 
 import java.util.*
 

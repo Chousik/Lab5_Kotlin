@@ -1,22 +1,25 @@
-package org.chousik.collection.builder
+package collection.builder
 
-import org.chousik.collection.MusicBand
-import org.chousik.collection.builder.collectors.LongCollector
-import org.chousik.collection.builder.collectors.StringCollector
-import org.chousik.collection.validators.ValidatorMusicBandAlbumsCount
-import org.chousik.collection.validators.ValidatorMusicBandName
-import org.chousik.collection.validators.ValidatorMusicBandNumberOfParticipants
+import collection.MusicBand
+import collection.builder.collectors.LongCollector
+import collection.builder.collectors.StringCollector
+import collection.validators.ValidatorMusicBandAlbumsCount
+import collection.validators.ValidatorMusicBandName
+import collection.validators.ValidatorMusicBandNumberOfParticipants
+import scanners.MyScanners
+import java.io.Serializable
+import java.util.*
 
 
-class BuilderMusicBand : IBuilder<MusicBand> {
+class BuilderMusicBand(private val scanner: MyScanners) : IBuilder<MusicBand>, Serializable {
     private val validatorMusicBandName: ValidatorMusicBandName = ValidatorMusicBandName()
     private val validatorMusicBandAlbumsCount: ValidatorMusicBandAlbumsCount = ValidatorMusicBandAlbumsCount()
     private val validatorMusicBandNumberOfParticipants: ValidatorMusicBandNumberOfParticipants = ValidatorMusicBandNumberOfParticipants()
-    private val builderCoordinates: BuilderCoordinates = BuilderCoordinates()
-    private val builderPerson = BuilderPerson()
-    private val builderMusicGenre = BuilderMusicGenre()
-    private val stringCollector = StringCollector()
-    private val longCollector = LongCollector()
+    private val builderCoordinates: BuilderCoordinates = BuilderCoordinates(scanner)
+    private val builderPerson = BuilderPerson(scanner)
+    private val builderMusicGenre = BuilderMusicGenre(scanner)
+    private val stringCollector = StringCollector(scanner)
+    private val longCollector = LongCollector(scanner)
 
 
 
@@ -32,20 +35,12 @@ class BuilderMusicBand : IBuilder<MusicBand> {
     }
 
 
-    fun reBuild(musicBand: MusicBand) {
-        val newMusicBand = MusicBand(
-            stringCollector.ask("Имя банды", validatorMusicBandName),
-            builderCoordinates.build(),
-            longCollector.ask("Кол-во участников группы", validatorMusicBandNumberOfParticipants),
-            longCollector.ask("Кол-во альбомов группы", validatorMusicBandAlbumsCount),
-            builderMusicGenre.build(),
-            builderPerson.build()
-        )
-        musicBand.name = newMusicBand.name
-        musicBand.coordinates = newMusicBand.coordinates
-        musicBand.numberOfParticipants = newMusicBand.numberOfParticipants
-        musicBand.albumsCount = newMusicBand.albumsCount
-        musicBand.genre = newMusicBand.genre
-        musicBand.frontMan = newMusicBand.frontMan
+    fun reBuild(musicBandOld: MusicBand, musicBandNew: MusicBand) {
+        musicBandOld.name = musicBandNew.name
+        musicBandOld.coordinates = musicBandNew.coordinates
+        musicBandOld.numberOfParticipants = musicBandNew.numberOfParticipants
+        musicBandOld.albumsCount = musicBandNew.albumsCount
+        musicBandOld.genre = musicBandNew.genre
+        musicBandOld.frontMan = musicBandNew.frontMan
     }
 }

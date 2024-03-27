@@ -1,16 +1,12 @@
-package org.chousik.commands
+package commands
 
-import org.chousik.handlers.ICollectionController
-import org.chousik.handlers.RunHandler
+import ICollectionController
 
 
 class SaveCommand(private val collectionController: ICollectionController<*>) :
-    ACommand("save", "команда позволяет сохранить данные в файл", 0) {
+    ACommand("save", "команда позволяет сохранить данные в файл", "Данные успешно сохранены") {
 
-    override fun execute(args: Array<String>) {
-        validCountsArgument(args)
-        if (!RunHandler.mode() and collectionController.saveData()) {
-            println("Данные успешно сохранены")
-        }
+    override fun doIt(arg: Any?) {
+        collectionController.saveData()
     }
 }

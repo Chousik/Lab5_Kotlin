@@ -1,4 +1,4 @@
-package org.chousik.commands
+package commands
 
 import kotlin.system.exitProcess
 

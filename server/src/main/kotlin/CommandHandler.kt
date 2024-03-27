@@ -1,14 +1,13 @@
-package org.chousik.handlers
+import commands.ACommand
+import commands.CommandType
 
-import org.chousik.commands.ACommand
+class CommandHandler(private val commands: HashMap<CommandType, ACommand>) {
 
-class CommandHandler(private val commands: HashMap<String, ACommand>) {
-
-    fun addCommand(commandName: String, aCommand: ACommand) {
-        commands[commandName] = aCommand
+    fun addCommand(commandType: CommandType, aCommand: ACommand) {
+        commands[commandType] = aCommand
     }
 
-    fun getCommands(): HashMap<String, ACommand> {
+    fun getCommands(): HashMap<CommandType, ACommand> {
         return commands
     }
 }

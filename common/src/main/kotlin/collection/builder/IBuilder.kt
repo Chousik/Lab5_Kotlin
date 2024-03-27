@@ -1,4 +1,4 @@
-package org.chousik.collection.builder
+package collection.builder
 
 
 interface IBuilder<T> {

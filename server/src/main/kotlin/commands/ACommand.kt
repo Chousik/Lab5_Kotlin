@@ -1,23 +1,25 @@
-package org.chousik.commands
+package commands
 
-import exeption.ArgumentCountError
+import response.CommandResponse
+import response.ResponseStatus
 
 
-abstract class ACommand(private val nameValue: String, private val info: String, private val countsArgument: Int) {
+abstract class ACommand(private val nameValue: String, private val info: String,protected var successfullyInfo: String = "") {
     val name: String
         get() {
             return nameValue
         }
-
-    fun validCountsArgument(args: Array<String>) {
-        if (args.size != countsArgument) {
-            throw ArgumentCountError(countsArgument, args.size)
+    fun execute(arg: Any?): CommandResponse{
+        try {
+            doIt(arg)
+            return CommandResponse(ResponseStatus.Successfully, successfullyInfo)
+        }catch (e: Exception){
+            return CommandResponse(ResponseStatus.ExecutionError, e.toString())
         }
     }
-
-    abstract fun execute(args: Array<String>)
+    abstract fun doIt(arg: Any?)
 
     override fun toString(): String {
-        return this.nameValue + ": " + this.info
+        return "${this.nameValue}: ${this.info}"
     }
 }

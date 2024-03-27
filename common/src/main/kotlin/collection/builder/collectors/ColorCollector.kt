@@ -1,8 +1,11 @@
-package org.chousik.collection.builder.collectors
+package collection.builder.collectors
 
-import org.chousik.collection.Color
-import org.chousik.collection.validators.IValidator
-class ColorCollector : EnumCollector<Color>() {
+import collection.Color
+import collection.validators.IValidator
+import scanners.MyScanners
+import java.util.*
+
+class ColorCollector(private val scanner: MyScanners) : EnumCollector<Color>(scanner) {
 
     override fun ask(name: String, validator: IValidator<String?>): Color {
         return askEnum(

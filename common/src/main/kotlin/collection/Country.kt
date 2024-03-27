@@ -1,9 +1,10 @@
-package org.chousik.collection
+package collection
 
+import java.io.Serializable
 import java.util.*
 import java.util.stream.Collectors
 
-enum class Country {
+enum class Country: Serializable {
     RUSSIA,
     UNITED_KINGDOM,
     GERMANY,

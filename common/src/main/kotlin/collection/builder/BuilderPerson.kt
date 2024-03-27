@@ -1,18 +1,21 @@
-package org.chousik.collection.builder
+package collection.builder
 
-import org.chousik.collection.Person
-import org.chousik.collection.builder.collectors.StringCollector
-import org.chousik.collection.validators.ValidatorPersonName
-import org.chousik.collection.validators.ValidatorPersonPassportID
+import collection.Person
+import collection.builder.collectors.StringCollector
+import collection.validators.ValidatorPersonName
+import collection.validators.ValidatorPersonPassportID
+import scanners.MyScanners
+import java.io.Serializable
+import java.util.*
 
 
-class BuilderPerson : IBuilder<Person?> {
+class BuilderPerson(private val scanner: MyScanners) : IBuilder<Person?>, Serializable {
     private val validatorPersonName: ValidatorPersonName = ValidatorPersonName()
     private val validatorPersonPassportID: ValidatorPersonPassportID = ValidatorPersonPassportID()
-    private val builderColor: BuilderColor = BuilderColor()
-    private val builderLocation: BuilderLocation = BuilderLocation()
-    private val builderCountry: BuilderCountry = BuilderCountry()
-    private val stringCollector = StringCollector()
+    private val builderColor: BuilderColor = BuilderColor(scanner)
+    private val builderLocation: BuilderLocation = BuilderLocation(scanner)
+    private val builderCountry: BuilderCountry = BuilderCountry(scanner)
+    private val stringCollector = StringCollector(scanner)
 
     override fun build(): Person {
         return Person(

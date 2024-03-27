@@ -1,8 +1,11 @@
-package org.chousik.collection.builder.collectors
+package collection.builder.collectors
 
-import org.chousik.collection.Country
-import org.chousik.collection.validators.IValidator
-class CountryCollector : EnumCollector<Country>() {
+import collection.Country
+import collection.validators.IValidator
+import scanners.MyScanners
+import java.util.*
+
+class CountryCollector(scanner: MyScanners) : EnumCollector<Country>(scanner) {
 
     override fun ask(name: String, validator: IValidator<String?>): Country {
         return askEnum(

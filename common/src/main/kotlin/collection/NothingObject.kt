@@ -1,4 +1,6 @@
 package collection
 
-class NothingObject {
+import java.io.Serializable
+
+class NothingObject: Serializable{
 }

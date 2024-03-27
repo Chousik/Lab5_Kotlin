@@ -1,9 +1,11 @@
-package org.chousik.collection
+package collection
 
+
+import java.io.Serializable
 import java.util.*
 
 
-class Location(private val x: Double, private val y: Int, private val z: Int, private val name: String) {
+class Location(private val x: Double, private val y: Int, private val z: Int, private val name: String): Serializable {
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

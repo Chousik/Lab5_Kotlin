@@ -1,8 +1,8 @@
-package org.chousik.collection.builder.collectors
+package collection.builder.collectors
 
-import org.chousik.collection.validators.IValidator
+import collection.validators.IValidator
 
 interface ICollector<R, T> {
 
-    fun ask(name: String, validator: IValidator<T? >): R
+    fun ask(name: String, validator: IValidator<T?>): R
 }

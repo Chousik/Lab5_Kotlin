@@ -1,10 +1,7 @@
-package org.chousik.handlers
-
-import org.chousik.collection.MusicBand
-import org.chousik.collection.Person
+import collection.MusicBand
+import collection.Person
 import java.time.LocalDateTime
 import java.util.*
-
 interface ICollectionController<T : Comparable<*>> {
 
     fun add(t: MusicBand)
@@ -20,8 +17,6 @@ interface ICollectionController<T : Comparable<*>> {
     val elements: String
 
     fun getElementsByAlbumCount(integer: Int): String
-
-    fun updateElements(id: Int)
 
     fun removeElements(index: Int)
 
@@ -40,4 +35,5 @@ interface ICollectionController<T : Comparable<*>> {
     fun loadData()
 
     fun saveData(): Boolean
+    fun updateElements(id: Int, musicBandNew: MusicBand)
 }
