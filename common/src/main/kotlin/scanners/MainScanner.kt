@@ -1,0 +1,4 @@
+package scanners
+
+class MainScanner {
+}
