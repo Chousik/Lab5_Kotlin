@@ -1,4 +1,4 @@
-package org.chousik.commands
+package commands
 
 import org.chousik.commands.validators.ScriptFileValidator
 import org.chousik.commands.validators.ScriptRecursionValid

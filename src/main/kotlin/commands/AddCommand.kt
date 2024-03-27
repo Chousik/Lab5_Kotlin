@@ -1,4 +1,4 @@
-package org.chousik.commands
+package commands
 
 import org.chousik.collection.MusicBand
 import org.chousik.collection.builder.BuilderMusicBand

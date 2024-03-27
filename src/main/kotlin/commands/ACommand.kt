@@ -1,5 +1,4 @@
-package org.chousik.commands
-
+package commands
 import exeption.ArgumentCountError
 
 

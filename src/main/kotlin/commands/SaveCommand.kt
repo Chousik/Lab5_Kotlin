@@ -1,4 +1,4 @@
-package org.chousik.commands
+package commands
 
 import org.chousik.handlers.ICollectionController
 import org.chousik.handlers.RunHandler
