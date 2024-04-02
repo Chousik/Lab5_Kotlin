@@ -2,7 +2,6 @@ package collection.builder.collectors
 
 import collection.validators.IValidator
 import scanners.MyScanners
-import java.util.*
 
 class DoubleCollector(scanner: MyScanners) : NumberCollector<Double>(scanner) {
 

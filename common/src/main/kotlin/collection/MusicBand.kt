@@ -5,7 +5,7 @@ import java.io.Serializable
 
 class MusicBand (
     var name: String, var coordinates: Coordinates, var numberOfParticipants: Long,
-    var albumsCount: Long, var genre: MusicGenre, var frontMan: Person
+    var albumsCount: Long, var genre: MusicGenre?, var frontMan: Person
 ) : Comparable<MusicBand>, Serializable {
     var id = (Math.random() * 666666).toInt()
 

@@ -2,7 +2,6 @@ package commands
 
 import collection.NothingObject
 import scanners.MyScanners
-import java.util.*
 
 class WithoutArgumentMaker: MakerArguments<Any>(0) {
     override fun make(arguments: Array<String>, scanner: MyScanners): NothingObject {

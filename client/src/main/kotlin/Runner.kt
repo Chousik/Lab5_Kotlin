@@ -12,7 +12,6 @@ import scanners.FileScanner
 import scanners.MainScanner
 import scanners.MyScanners
 import java.io.File
-import java.io.FileNotFoundException
 import java.util.*
 import kotlin.system.exitProcess
 
@@ -27,41 +26,34 @@ class Runner {
             while (true) try {
                 print("${System.getProperty("user.name")}> ")
                 runCommand(mainScanner.nextLine())
-            } catch (e: InvalidCommandError) {
+            }
+            catch (e: Exception) {
+                when(e){
+                    is ArgumentError, is ArgumentCountError, is ScriptExecutionError -> System.err.println(e)
+                    is NoSuchElementException -> System.err.println("Группы с введенным аргументом не существует.")
+                    is NumberFormatException -> System.err.println("Аргумент должен быть числом.")
+                }
                 System.err.println(e)
-            } catch (e: ArgumentCountError) {
-                System.err.println(e)
-            } catch (e: ScriptExecutionError) {
-                System.err.println(e)
-            } catch (e: ArgumentError) {
-                System.err.println(e)
-            } catch (e: NoSuchElementException) {
-                System.err.println("Группы с введенным аргументом не существует.")
-            } catch (e: NumberFormatException){
-                System.err.println("Аргумент должен быть числом.")
             }
         }
 
-        fun scriptsRun(fileName: String) {
+        private fun scriptsRun(fileName: String) {
             stack.push(mainScanner)
             try {
                 mainScanner = FileScanner(File(fileName))
                 while (mainScanner.hasNext()) {
                     runCommand(mainScanner.nextLine())
                 }
-            } catch (e: InvalidCommandError) {
-                throw ScriptExecutionError(e.toString())
-            } catch (e: ArgumentCountError) {
-                throw ScriptExecutionError(e.toString())
-            } catch (e: ArgumentError) {
-                throw ScriptExecutionError(e.toString())
-            } catch (e: FileNotFoundException) {
-                System.err.println(e)
+            }catch (e: Exception){
+                when(e){
+                    is InvalidCommandError, is ArgumentCountError, is ArgumentError -> throw ScriptExecutionError(e.toString())
+                    else -> System.err.println(e)
+                }
             } finally {
                 mainScanner = stack.pop()
             }
         }
-
+    
         private fun runCommand(userMessages: String) {
             if (userMessages.isEmpty()) {
                 System.err.println("Пустая команда! Введите help для получения списка команд.")

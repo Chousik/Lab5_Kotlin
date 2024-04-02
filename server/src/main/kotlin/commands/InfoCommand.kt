@@ -1,7 +1,6 @@
 package commands
 
 import ICollectionController
-import commands.ACommand
 
 
 class InfoCommand(private val collectionController: ICollectionController<*>) :

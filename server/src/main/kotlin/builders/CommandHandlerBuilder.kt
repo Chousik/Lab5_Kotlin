@@ -4,10 +4,10 @@ import commands.ACommand
 import CommandHandler
 import commands.CommandType
 
-class CommandHandlerBuilder(private val commands: HashMap<CommandType, ACommand> = HashMap()) {
+class CommandHandlerBuilder(private var commands: Map<CommandType, ACommand>) {
 
     fun addCommand(commandType: CommandType, aCommand: ACommand): CommandHandlerBuilder {
-        commands[commandType] = aCommand
+        commands+= mapOf(commandType to aCommand)
         return this
     }
 

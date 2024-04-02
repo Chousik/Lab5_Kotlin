@@ -8,10 +8,9 @@ import collection.validators.ValidatorMusicBandName
 import collection.validators.ValidatorMusicBandNumberOfParticipants
 import scanners.MyScanners
 import java.io.Serializable
-import java.util.*
 
 
-class BuilderMusicBand(private val scanner: MyScanners) : IBuilder<MusicBand>, Serializable {
+class BuilderMusicBand(scanner: MyScanners) : IBuilder<MusicBand>, Serializable {
     private val validatorMusicBandName: ValidatorMusicBandName = ValidatorMusicBandName()
     private val validatorMusicBandAlbumsCount: ValidatorMusicBandAlbumsCount = ValidatorMusicBandAlbumsCount()
     private val validatorMusicBandNumberOfParticipants: ValidatorMusicBandNumberOfParticipants = ValidatorMusicBandNumberOfParticipants()

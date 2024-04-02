@@ -1,4 +1,4 @@
 package exeption
 
 
-class ArgumentError(message: String?) : Exception(message)
+class ArgumentError(message: String) : Exception(message)

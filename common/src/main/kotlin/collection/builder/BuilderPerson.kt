@@ -6,10 +6,9 @@ import collection.validators.ValidatorPersonName
 import collection.validators.ValidatorPersonPassportID
 import scanners.MyScanners
 import java.io.Serializable
-import java.util.*
 
 
-class BuilderPerson(private val scanner: MyScanners) : IBuilder<Person?>, Serializable {
+class BuilderPerson(scanner: MyScanners) : IBuilder<Person?>, Serializable {
     private val validatorPersonName: ValidatorPersonName = ValidatorPersonName()
     private val validatorPersonPassportID: ValidatorPersonPassportID = ValidatorPersonPassportID()
     private val builderColor: BuilderColor = BuilderColor(scanner)

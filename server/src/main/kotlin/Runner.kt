@@ -2,28 +2,44 @@ import builders.CommandHandlerBuilder
 import collection.MusicBand
 import commands.*
 import database.AltJsonDB
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
+import request.FullRequest
+import response.CommandResponse
 import java.io.File
 import java.util.*
-import kotlin.collections.HashMap
-
-fun main() {
+suspend fun main(): Unit = coroutineScope{
+    val requestChannel = Channel<FullRequest>()
+    val clientChannel = Channel<CommandResponse>()
+    val serverChannel = Channel<CommandResponse>()
     val filename = "data.json"
     val file = File(filename)
     if (!file.exists()){
         file.createNewFile()
     }
     val server = ServerUDP()
-    val commandList = HashMap<CommandType, ACommand>()
     val collectionH = CollectionControllerMusicBand(AltJsonDB(filename), LinkedList<MusicBand>())
-    val commandsBuilder = CommandHandlerBuilder(commandList).addCommand(CommandType.Add, AddCommand(collectionH)).addCommand(CommandType.Info, InfoCommand(collectionH)).addCommand(CommandType.Clear, ClearCommand(collectionH)).addCommand(CommandType.Add, AddCommand(collectionH))
-    commandsBuilder.addCommand(CommandType.Help, HelpCommand(commandList)).addCommand(CommandType.Show, ShowCommand(collectionH)).addCommand(CommandType.Save, SaveCommand(collectionH)).addCommand(CommandType.Clear, ClearCommand(collectionH))
-    commandsBuilder.addCommand(CommandType.CountByNumbersOfParticipants, CountByNumbersOfParticipantsCommand(collectionH)).addCommand(CommandType.FilterByAlbumsCount, FilterByAlbumsCountCommand(collectionH)).addCommand(CommandType.RemoveAt, RemoveAtCommand(collectionH))
-    commandsBuilder.addCommand(CommandType.Shuffle, ShuffleCommand(collectionH)).addCommand(CommandType.Reorder, ReorderCommand(collectionH)).addCommand(CommandType.RemoveAnyByFrontMan, RemoveAnyByFrontManCommand(collectionH))
-    commandsBuilder.addCommand(CommandType.Exit, ExitCommand()).addCommand(CommandType.Execute, ExecuteCommand())
-    val commands = commandsBuilder.build()
-    var executorC = CommandExecutor(commands)
-    while (true){
-        var request = server.readRequest()
-        server.sendResponse(executorC.execute(request))
+    val commandList = mapOf(CommandType.Add to AddCommand(collectionH), CommandType.Info to InfoCommand(collectionH), CommandType.Clear to  ClearCommand(collectionH),
+        CommandType.Add to AddCommand(collectionH), CommandType.Show to ShowCommand(collectionH), CommandType.Save to SaveCommand(collectionH),
+        CommandType.Clear to ClearCommand(collectionH), CommandType.CountByNumbersOfParticipants to CountByNumbersOfParticipantsCommand(collectionH),
+        CommandType.FilterByAlbumsCount to FilterByAlbumsCountCommand(collectionH), CommandType.RemoveAt to RemoveAtCommand(collectionH),
+        CommandType.Shuffle to ShuffleCommand(collectionH), CommandType.Reorder to ReorderCommand(collectionH), CommandType.RemoveAnyByFrontMan to RemoveAnyByFrontManCommand(collectionH),
+        CommandType.Exit to ExitCommand(), CommandType.Execute to ExecuteCommand(), CommandType.Update to UpdateCommand(collectionH), CommandType.RemoveById to RemoveByIdCommand(collectionH),
+        CommandType.RemoveById to RemoveByIdCommand(collectionH))
+    val commandsBuilder = CommandHandlerBuilder(commandList)
+    val commands = commandsBuilder.addCommand(CommandType.Help, HelpCommand(commandList)).build()
+    val executorC = CommandExecutor(commands)
+    launch{
+        val serverConsole = ServerConsole(requestChannel, serverChannel)
+        serverConsole.consoleRun()
+    }
+    launch{
+        val clientConnect = ClientConnect(requestChannel, clientChannel, server)
+        clientConnect.run()
+    }
+    launch {
+        val requestProcessor = RequestProcessor(executorC, requestChannel, clientChannel, serverChannel)
+        requestProcessor.run()
     }
 }

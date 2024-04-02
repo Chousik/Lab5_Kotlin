@@ -8,14 +8,14 @@ import java.util.*
 import java.util.function.Function
 import kotlin.system.exitProcess
 
-abstract class EnumCollector<T : Enum<*>, >(private val scanner: MyScanners) : ICollector<T, String?> {
+abstract class EnumCollector<T : Enum<*>>(private val scanner: MyScanners) : ICollector<T, String?> {
     private var isScript = scanner is FileScanner
     protected fun askEnum(
         name: String,
         validator: IValidator<String?>,
         method1: Function<String, T>,
         value: String
-    ): T {
+    ): T? {
         while (true) {
             try {
                 if (!isScript) {
@@ -23,12 +23,12 @@ abstract class EnumCollector<T : Enum<*>, >(private val scanner: MyScanners) : I
                     println("Выберите один из вариантов")
                     print(System.getProperty("user.name") + "> ")
                 }
-                var strValue: String? = scanner.nextLine().trim { it <= ' ' }.uppercase(Locale.getDefault())
-                if (strValue!!.isEmpty()) {
-                    strValue = null
+                val strValue: String = scanner.nextLine().trim { it <= ' ' }.uppercase(Locale.getDefault())
+                if (strValue.isEmpty()) {
+                    return null
                 }
                 validator.valid(strValue)
-                return method1.apply(strValue!!)
+                return method1.apply(strValue)
             } catch (e: IllegalArgumentException) {
                 if (isScript) {
                     throw ScriptExecutionError("Введено некоренное значение из списка.")

@@ -6,10 +6,9 @@ import collection.validators.ValidatorCoordinatesY
 import collection.Coordinates
 import scanners.MyScanners
 import java.io.Serializable
-import java.util.*
 
 
-class BuilderCoordinates(private val scanner: MyScanners) : IBuilder<Coordinates>, Serializable {
+class BuilderCoordinates(scanner: MyScanners) : IBuilder<Coordinates>, Serializable {
     private val validatorCoordinatesX = ValidatorCoordinatesX()
     private val validatorCoordinatesY = ValidatorCoordinatesY()
     private val floatCollector = FloatCollector(scanner)

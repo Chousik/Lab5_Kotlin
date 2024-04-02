@@ -12,7 +12,7 @@ class BuilderCountry(private val scanner: MyScanners) : IBuilder<Country>, Seria
     private val validatorCountry = ValidatorCountry()
     private val countryCollector = CountryCollector(scanner)
 
-    override fun build(): Country {
+    override fun build(): Country? {
         return countryCollector.ask("Страна", validatorCountry)
     }
 }

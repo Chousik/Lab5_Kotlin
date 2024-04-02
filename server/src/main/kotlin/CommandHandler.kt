@@ -1,13 +1,8 @@
 import commands.ACommand
 import commands.CommandType
 
-class CommandHandler(private val commands: HashMap<CommandType, ACommand>) {
-
-    fun addCommand(commandType: CommandType, aCommand: ACommand) {
-        commands[commandType] = aCommand
-    }
-
-    fun getCommands(): HashMap<CommandType, ACommand> {
+class CommandHandler(private val commands: Map<CommandType, ACommand>) {
+    fun getCommands(): Map<CommandType, ACommand> {
         return commands
     }
 }

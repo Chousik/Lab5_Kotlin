@@ -5,13 +5,13 @@ import java.io.Serializable
 data class Person(
     private var name: String,
     private var passportID: String,
-    private var hairColor: Color,
-    private var nationality: Country,
+    private var hairColor: Color?,
+    private var nationality: Country?,
     private var location: Location
 ) : Comparable<Person>, Serializable {
 
     override fun compareTo(other: Person): Int {
-        return nationality.ordinal - other.nationality.ordinal
+        return nationality!!.ordinal - other.nationality!!.ordinal
     }
 
     override fun toString(): String {

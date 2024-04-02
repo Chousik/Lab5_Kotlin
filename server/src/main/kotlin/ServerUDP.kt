@@ -1,6 +1,5 @@
 import request.Request
 import response.CommandResponse
-import response.ResponseStatus
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.ObjectInputStream
@@ -9,10 +8,10 @@ import java.nio.ByteBuffer
 import java.net.InetSocketAddress
 import java.nio.channels.DatagramChannel
 
-class ServerUDP(private val port: Int = 1488) {
+class ServerUDP(port: Int = 1488) {
     private val channel: DatagramChannel = DatagramChannel.open()
     private var inetSocketAddress: InetSocketAddress? = null
-    val buffer = ByteBuffer.allocate(2048)
+    private val buffer = ByteBuffer.allocate(2048)
     init {
         channel.socket().bind(InetSocketAddress(port))
     }
@@ -23,17 +22,17 @@ class ServerUDP(private val port: Int = 1488) {
         buffer.get(data)
         val bais = ByteArrayInputStream(data)
         val ols = ObjectInputStream(bais)
-        var request: Request = ols.readObject() as Request
+        val request: Request = ols.readObject() as Request
         ols.close()
-        buffer.clear();
+        buffer.clear()
         return request
     }
     fun sendResponse(response: CommandResponse){
-        var baos = ByteArrayOutputStream()
-        var oos = ObjectOutputStream(baos)
+        val baos = ByteArrayOutputStream()
+        val oos = ObjectOutputStream(baos)
         oos.writeObject(response)
         oos.flush()
-        var responseData = baos.toByteArray()
+        val responseData = baos.toByteArray()
         channel.send(ByteBuffer.wrap(responseData), inetSocketAddress!!)
     }
 }
