@@ -1,7 +1,7 @@
 package builders
 
 import commands.ACommand
-import CommandHandler
+import CommandMatcher
 import commands.CommandType
 
 class CommandHandlerBuilder(private var commands: Map<CommandType, ACommand>) {
@@ -11,7 +11,7 @@ class CommandHandlerBuilder(private var commands: Map<CommandType, ACommand>) {
         return this
     }
 
-    fun build(): CommandHandler{
-        return CommandHandler(this.commands)
+    fun build(): CommandMatcher{
+        return CommandMatcher(this.commands)
     }
 }

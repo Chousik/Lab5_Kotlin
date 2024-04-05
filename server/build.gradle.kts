@@ -1,5 +1,7 @@
 plugins {
     kotlin("jvm")
+    application
+    java
 }
 
 group = "org.example"
@@ -17,6 +19,9 @@ dependencies {
     implementation("org.apache.poi:poi-ooxml:5.2.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.8.0")
 }
+
+application
+java
 
 tasks.test {
     useJUnitPlatform()

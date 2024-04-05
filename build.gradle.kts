@@ -2,6 +2,7 @@ plugins {
     kotlin("jvm") version "1.9.21"
     application
     java
+    id("org.jlleitschuh.gradle.ktlint") version "12.1.0"
 }
 
 group = "Lab5_Kotlin"

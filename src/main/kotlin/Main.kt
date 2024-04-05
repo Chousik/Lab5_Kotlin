@@ -21,7 +21,6 @@ object Main {
         run(args[0])
     }
 
-
     private fun run(fileName: String) {
         val file = File(fileName)
         if (!file.exists()) {
