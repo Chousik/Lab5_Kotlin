@@ -4,17 +4,18 @@ import collection.validators.IValidator
 import exeption.ScriptExecutionError
 import scanners.FileScanner
 import scanners.MyScanners
-import java.util.*
+import java.util.Locale
 import java.util.function.Function
 import kotlin.system.exitProcess
 
 abstract class EnumCollector<T : Enum<*>>(private val scanner: MyScanners) : ICollector<T, String?> {
     private var isScript = scanner is FileScanner
+
     protected fun askEnum(
         name: String,
         validator: IValidator<String?>,
         method1: Function<String, T>,
-        value: String
+        value: String,
     ): T? {
         while (true) {
             try {

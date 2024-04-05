@@ -16,5 +16,5 @@ enum class CommandType(val maker: MakerArguments<*>) {
     Update(UpdateArgumentsMaker()),
     Save(WithoutArgumentMaker.get()),
     Exit(WithoutArgumentMaker.get()),
-    Execute(WithoutArgumentMaker.get())
+    Execute(WithoutArgumentMaker.get()),
 }

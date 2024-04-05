@@ -2,13 +2,27 @@ import kotlinx.coroutines.channels.Channel
 import request.FullRequest
 import request.RequestContext
 import response.CommandResponse
+import response.ResponseStatus
 
-class RequestProcessor(private val commandExecutor: CommandExecutor, private val requestChannel: Channel<FullRequest>, private val clientChannel: Channel<CommandResponse>, private val serverChannel: Channel<CommandResponse>) {
-    suspend fun run(){
-        while (true){
+class RequestProcessor(
+    private val commandExecutor: CommandExecutor,
+    private val requestChannel: Channel<FullRequest>,
+    private val clientChannel: Channel<CommandResponse>,
+    private val serverChannel: Channel<CommandResponse>,
+) {
+    suspend fun run() {
+        while (true) {
             val fullRequest = requestChannel.receive()
             val response = commandExecutor.execute(fullRequest.request)
-            when (fullRequest.context){
+            when (response.status) {
+                ResponseStatus.ExecutionError -> {
+                    ServerUDP.logger.error("Команда завершена с ошибкой")
+                }
+                ResponseStatus.Successfully -> {
+                    ServerUDP.logger.info("Команда успешно обработана")
+                }
+            }
+            when (fullRequest.context) {
                 RequestContext.SERVER -> {
                     serverChannel.send(response)
                 }

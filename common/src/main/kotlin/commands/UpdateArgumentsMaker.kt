@@ -3,9 +3,11 @@ package commands
 import collection.builder.BuilderMusicBand
 import scanners.MyScanners
 
-class UpdateArgumentsMaker: MakerArguments<Array<Any>>(1) {
-    override fun make(arguments: Array<String>, scanner: MyScanners): Array<Any> {
+class UpdateArgumentsMaker : MakerArguments<Array<Any>>(1) {
+    override fun make(
+        arguments: Array<String>,
+        scanner: MyScanners,
+    ): Array<Any> {
         return arrayOf(arguments[0].toInt(), BuilderMusicBand(scanner).build())
     }
-
 }

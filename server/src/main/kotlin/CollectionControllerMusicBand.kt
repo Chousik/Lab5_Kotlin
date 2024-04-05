@@ -1,14 +1,18 @@
+
 import collection.MusicBand
 import collection.Person
 import collection.builder.BuilderMusicBand
-import exeption.ArgumentError
 import database.IDataBase
+import exeption.ArgumentError
 import scanners.MainScanner
 import java.io.IOException
 import java.time.LocalDateTime
-import java.util.*
+import java.util.LinkedList
 
-class CollectionControllerMusicBand(private val dataBase: IDataBase<MusicBand>, linkedList: LinkedList<MusicBand>) :
+class CollectionControllerMusicBand(
+    private val dataBase: IDataBase<MusicBand>,
+    linkedList: LinkedList<MusicBand>,
+) :
     ICollectionController<MusicBand> {
     override var collection: LinkedList<MusicBand>
 
@@ -18,7 +22,6 @@ class CollectionControllerMusicBand(private val dataBase: IDataBase<MusicBand>, 
     init {
         collection = linkedList.filterNotNullTo(LinkedList())
     }
-
 
     override fun add(t: MusicBand) {
         collection.add(t)
@@ -35,8 +38,9 @@ class CollectionControllerMusicBand(private val dataBase: IDataBase<MusicBand>, 
         if (collection.isEmpty()) {
             return "Пустая колеекция!"
         }
-        val result: String = collection.stream().filter { x: MusicBand -> x.albumsCount == integer.toLong() }
-            .map<Any>{ value: MusicBand? -> value.toString() }.toList().joinToString("\n")
+        val result: String =
+            collection.stream().filter { x: MusicBand -> x.albumsCount == integer.toLong() }
+                .map<Any> { value: MusicBand? -> value.toString() }.toList().joinToString("\n")
         if (result.isEmpty()) {
             return "Нет таких групп"
         }
@@ -49,17 +53,19 @@ class CollectionControllerMusicBand(private val dataBase: IDataBase<MusicBand>, 
             if (collection.isEmpty()) {
                 return "Пустая коллекция!"
             }
-            return collection.stream().map<Any>{ value: MusicBand? -> value.toString() }.toList().joinToString("\n")
+            return collection.stream().map<Any>
+            { value: MusicBand? -> value.toString() }.toList().joinToString("\n")
         }
 
-
-    override fun updateElements(id: Int, musicBandNew: MusicBand) {
+    override fun updateElements(
+        id: Int,
+        musicBandNew: MusicBand,
+    ) {
         val musicBand: MusicBand =
-            collection.stream().filter{ x: MusicBand -> x.id == id }.findFirst()
+            collection.stream().filter { x: MusicBand -> x.id == id }.findFirst()
                 .get()
         BuilderMusicBand(MainScanner()).reBuild(musicBand, musicBandNew)
     }
-
 
     override fun removeElements(index: Int) {
         if (index > collection.size - 1 || index < 0) {
@@ -69,44 +75,38 @@ class CollectionControllerMusicBand(private val dataBase: IDataBase<MusicBand>, 
         collection.remove(musicBand)
     }
 
-
     override fun clear() {
         collection.clear()
         lastInitTime = LocalDateTime.now()
     }
 
-
     override fun shuffle() {
         collection.shuffle()
     }
-
 
     override fun reorder() {
         collection.reverse()
     }
 
-
     override fun removeElementByID(id: Int) {
         val musicBand: MusicBand =
-            collection.stream().filter{x: MusicBand -> x.id == id }.findFirst()
+            collection.stream().filter { x: MusicBand -> x.id == id }.findFirst()
                 .get()
         collection.remove(musicBand)
     }
 
-
     override fun removeByFrontMan(person: Person) {
-        val musicBand: MusicBand = collection.stream().filter{ x: MusicBand ->
-            x.frontMan === person
-        }.findFirst().get()
+        val musicBand: MusicBand =
+            collection.stream().filter { x: MusicBand ->
+                x.frontMan === person
+            }.findFirst().get()
         collection.remove(musicBand)
     }
 
-
     override fun countNumberOfParticipants(longs: Long): Int {
         return collection.stream()
-            .filter{ x: MusicBand -> x.numberOfParticipants == longs }.toList().size
+            .filter { x: MusicBand -> x.numberOfParticipants == longs }.toList().size
     }
-
 
     override fun loadData() {
         try {
@@ -120,7 +120,6 @@ class CollectionControllerMusicBand(private val dataBase: IDataBase<MusicBand>, 
             }
         }
     }
-
 
     override fun saveData(): Boolean {
         try {

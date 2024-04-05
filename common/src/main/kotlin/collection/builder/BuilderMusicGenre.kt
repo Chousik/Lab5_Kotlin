@@ -6,7 +6,6 @@ import collection.validators.ValidatorMusicGenre
 import scanners.MyScanners
 import java.io.Serializable
 
-
 class BuilderMusicGenre(private val scanner: MyScanners) : IBuilder<MusicGenre>, Serializable {
     private val validatorMusicGenre: ValidatorMusicGenre = ValidatorMusicGenre()
 

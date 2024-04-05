@@ -6,5 +6,4 @@ class ExitCommand : ACommand("exit", "команда завершает рабо
     override fun doIt(arg: Any?) {
         exitProcess(0)
     }
-
 }

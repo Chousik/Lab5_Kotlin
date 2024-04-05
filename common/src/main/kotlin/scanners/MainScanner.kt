@@ -1,5 +1,5 @@
 package scanners
 
-import java.util.*
+import java.util.Scanner
 
-class MainScanner: MyScanners(Scanner(System.`in`))
+class MainScanner : MyScanners(Scanner(System.`in`))

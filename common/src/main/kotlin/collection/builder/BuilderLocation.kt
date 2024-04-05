@@ -9,9 +9,8 @@ import collection.validators.ValidatorLocationX
 import collection.validators.ValidatorLocationYZ
 import scanners.MyScanners
 import java.io.Serializable
-import java.util.*
 
-class BuilderLocation(private val scanner: MyScanners) : IBuilder<Location>, Serializable{
+class BuilderLocation(private val scanner: MyScanners) : IBuilder<Location>, Serializable {
     private val validatorLocationName = ValidatorLocationName()
     private val validatorLocationX = ValidatorLocationX()
     private val validatorLocationYZ = ValidatorLocationYZ()
@@ -24,7 +23,7 @@ class BuilderLocation(private val scanner: MyScanners) : IBuilder<Location>, Ser
             doubleCollector.ask("Координата X", validatorLocationX),
             integerCollector.ask("Координата Y", validatorLocationYZ),
             integerCollector.ask("Координата Z", validatorLocationYZ),
-            stringCollector.ask("Имя локации", validatorLocationName)
+            stringCollector.ask("Имя локации", validatorLocationName),
         )
     }
 }

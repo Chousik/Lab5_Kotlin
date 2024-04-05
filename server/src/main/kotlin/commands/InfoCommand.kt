@@ -2,7 +2,6 @@ package commands
 
 import ICollectionController
 
-
 class InfoCommand(private val collectionController: ICollectionController<*>) :
     ACommand("info", "команда позволяет увидеть информацию о коллекции.") {
     override fun doIt(arg: Any?) {

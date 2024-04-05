@@ -2,9 +2,7 @@ package collection.validators
 
 import exeption.InvalidDataError
 
-
 class ValidatorMusicBandAlbumsCount : IValidator<Long?> {
-
     override fun valid(t: Long?) {
         if (t == null) {
             throw NullPointerException()

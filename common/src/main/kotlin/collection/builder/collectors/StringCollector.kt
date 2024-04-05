@@ -5,12 +5,15 @@ import exeption.InvalidDataError
 import exeption.ScriptExecutionError
 import scanners.FileScanner
 import scanners.MyScanners
-import java.util.*
 import kotlin.system.exitProcess
 
 class StringCollector(private val scanner: MyScanners) : ICollector<String, String?> {
     private var isScript = scanner is FileScanner
-    override fun ask(name: String, validator: IValidator<String?>): String {
+
+    override fun ask(
+        name: String,
+        validator: IValidator<String?>,
+    ): String {
         while (true) {
             try {
                 if (!isScript) {

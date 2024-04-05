@@ -4,7 +4,10 @@ import exeption.ArgumentError
 import java.io.File
 import java.io.FileNotFoundException
 import java.nio.file.Paths
-import java.util.*
+import java.util.LinkedList
+import java.util.PriorityQueue
+import java.util.Queue
+import java.util.Scanner
 
 class ScriptRecursionValid {
     fun valid(fileNameIn: String) {
@@ -27,8 +30,10 @@ class ScriptRecursionValid {
                     while (fileScanner.hasNext()) {
                         val fileLine = fileScanner.nextLine()
                         if (fileLine.startsWith("execute")) {
-                            nextFiles.add(fileLine.split("\\s+".toRegex()).dropLastWhile { it.isEmpty() }
-                                .toTypedArray()[1])
+                            nextFiles.add(
+                                fileLine.split("\\s+".toRegex()).dropLastWhile { it.isEmpty() }
+                                    .toTypedArray()[1],
+                            )
                         }
                     }
                 } catch (e: FileNotFoundException) {
@@ -38,8 +43,10 @@ class ScriptRecursionValid {
         }
     }
 
-
-    private fun inUrlList(urlList: LinkedList<String>, fileName: String): Boolean {
+    private fun inUrlList(
+        urlList: LinkedList<String>,
+        fileName: String,
+    ): Boolean {
         return urlList.stream().filter { x: String -> x == fileName }.toList().isEmpty()
     }
 }

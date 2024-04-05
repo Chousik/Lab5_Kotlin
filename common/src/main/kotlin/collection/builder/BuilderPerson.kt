@@ -7,7 +7,6 @@ import collection.validators.ValidatorPersonPassportID
 import scanners.MyScanners
 import java.io.Serializable
 
-
 class BuilderPerson(scanner: MyScanners) : IBuilder<Person?>, Serializable {
     private val validatorPersonName: ValidatorPersonName = ValidatorPersonName()
     private val validatorPersonPassportID: ValidatorPersonPassportID = ValidatorPersonPassportID()
@@ -22,7 +21,7 @@ class BuilderPerson(scanner: MyScanners) : IBuilder<Person?>, Serializable {
             stringCollector.ask("Паспорт айди", validatorPersonPassportID),
             builderColor.build(),
             builderCountry.build(),
-            builderLocation.build()
+            builderLocation.build(),
         )
     }
 }

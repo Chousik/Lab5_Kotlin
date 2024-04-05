@@ -1,11 +1,9 @@
 package collection
 
 import java.io.Serializable
-import java.util.*
+import java.util.Objects
 
-class Coordinates(private val x: Float, private val y: Float): Serializable {
-
-
+class Coordinates(private val x: Float, private val y: Float) : Serializable {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null || javaClass != other.javaClass) return false
@@ -19,8 +17,8 @@ class Coordinates(private val x: Float, private val y: Float): Serializable {
 
     override fun toString(): String {
         return "Coordinates{" +
-                "x=" + x +
-                ", y=" + y +
-                '}'
+            "x=" + x +
+            ", y=" + y +
+            '}'
     }
 }

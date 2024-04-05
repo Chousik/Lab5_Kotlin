@@ -3,7 +3,6 @@ package commands
 import ICollectionController
 import collection.MusicBand
 
-
 class UpdateCommand(private val collectionController: ICollectionController<*>) :
     ACommand("update", "команда позволяет обновить элемент с введенным айди", "Элемент успешно обновлен") {
     override fun doIt(arg: Any?) {

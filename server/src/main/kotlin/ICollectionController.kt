@@ -1,9 +1,9 @@
 import collection.MusicBand
 import collection.Person
 import java.time.LocalDateTime
-import java.util.*
-interface ICollectionController<T : Comparable<*>> {
+import java.util.LinkedList
 
+interface ICollectionController<T : Comparable<*>> {
     fun add(t: MusicBand)
 
     val lastInitTime: LocalDateTime?
@@ -35,5 +35,9 @@ interface ICollectionController<T : Comparable<*>> {
     fun loadData()
 
     fun saveData(): Boolean
-    fun updateElements(id: Int, musicBandNew: MusicBand)
+
+    fun updateElements(
+        id: Int,
+        musicBandNew: MusicBand,
+    )
 }

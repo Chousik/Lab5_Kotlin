@@ -1,12 +1,9 @@
 package collection
 
-
 import java.io.Serializable
-import java.util.*
+import java.util.Objects
 
-
-class Location(private val x: Double, private val y: Int, private val z: Int, private val name: String): Serializable {
-
+class Location(private val x: Double, private val y: Int, private val z: Int, private val name: String) : Serializable {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null || javaClass != other.javaClass) return false
@@ -20,10 +17,10 @@ class Location(private val x: Double, private val y: Int, private val z: Int, pr
 
     override fun toString(): String {
         return "Location{" +
-                "x=" + x +
-                ", y=" + y +
-                ", z=" + z +
-                ", name='" + name + '\'' +
-                '}'
+            "x=" + x +
+            ", y=" + y +
+            ", z=" + z +
+            ", name='" + name + '\'' +
+            '}'
     }
 }
