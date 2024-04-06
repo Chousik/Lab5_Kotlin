@@ -7,7 +7,7 @@ import exeption.ArgumentError
 import scanners.MainScanner
 import java.io.IOException
 import java.time.LocalDateTime
-import java.util.LinkedList
+import java.util.*
 
 class CollectionControllerMusicBand(
     private val dataBase: IDataBase<MusicBand>,
@@ -122,6 +122,7 @@ class CollectionControllerMusicBand(
     }
 
     override fun saveData(): Boolean {
+        ServerUDP.logger.info("Данные сохранены.")
         try {
             dataBase.saveData(collection)
             return true

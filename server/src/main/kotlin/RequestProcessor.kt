@@ -16,10 +16,10 @@ class RequestProcessor(
             val response = commandExecutor.execute(fullRequest.request)
             when (response.status) {
                 ResponseStatus.ExecutionError -> {
-                    ServerUDP.logger.error("Команда завершена с ошибкой")
+                    ServerUDP.logger.error("Команда ${fullRequest.request.type} завершена с ошибкой")
                 }
                 ResponseStatus.Successfully -> {
-                    ServerUDP.logger.info("Команда успешно обработана")
+                    ServerUDP.logger.info("Команда ${fullRequest.request.type} успешно обработана")
                 }
             }
             when (fullRequest.context) {
