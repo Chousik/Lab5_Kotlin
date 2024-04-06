@@ -7,7 +7,7 @@ import exeption.ArgumentError
 import scanners.MainScanner
 import java.io.IOException
 import java.time.LocalDateTime
-import java.util.*
+import java.util.LinkedList
 
 class CollectionControllerMusicBand(
     private val dataBase: IDataBase<MusicBand>,
