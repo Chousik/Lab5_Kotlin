@@ -29,6 +29,7 @@ import java.util.LinkedList
 
 suspend fun main(): Unit =
     coroutineScope {
+
         val requestChannel = Channel<FullRequest>()
         val clientChannel = Channel<CommandResponse>()
         val serverChannel = Channel<CommandResponse>()
@@ -75,4 +76,10 @@ suspend fun main(): Unit =
             val requestProcessor = RequestProcessor(executorC, requestChannel, clientChannel, serverChannel)
             requestProcessor.run()
         }
+        Runtime.getRuntime().addShutdownHook(
+            Thread {
+                collectionH.saveData()
+                ServerUDP.logger.info("Завершение работы сервера.")
+            },
+        )
     }

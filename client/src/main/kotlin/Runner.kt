@@ -12,6 +12,7 @@ import scanners.FileScanner
 import scanners.MainScanner
 import scanners.MyScanners
 import java.io.File
+import java.net.SocketTimeoutException
 import java.util.Arrays
 import java.util.Stack
 import kotlin.system.exitProcess
@@ -80,14 +81,25 @@ class Runner {
                     System.err.println("Неверная команда! Введите help для получения списка команд.")
                     return
                 }
+                var countRequest = 0
                 val request = Request(commandType, commandType.maker.make(argument, mainScanner))
-                udp.sendRequest(request)
-                val response = udp.readResponse()
-                if (response.status == ResponseStatus.Successfully) {
-                    println(response.message)
-                    return
+                while (countRequest <= 2) {
+                    try {
+                        udp.sendRequest(request)
+                        val response = udp.readResponse()
+                        if (response.status == ResponseStatus.Successfully) {
+                            println(response.message)
+                            return
+                        }
+                        System.err.println(response)
+                        return
+                    } catch (e: SocketTimeoutException) {
+                        countRequest += 1
+                        System.err.println("Ошибка запроса к серверу. Попытка $countRequest")
+                        Thread.sleep(10000)
+                    }
                 }
-                System.err.println(response)
+                System.err.println("Не удалось отправить команду. Попробуйте позже")
             }
         }
     }

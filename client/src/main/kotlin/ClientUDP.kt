@@ -13,6 +13,10 @@ import java.net.InetAddress
 class ClientUDP(private val ipNet: InetAddress = InetAddress.getByName("localhost"), private val port: Int = 1488) {
     private val datagramSocket = DatagramSocket()
 
+    init {
+        datagramSocket.soTimeout = 5000
+    }
+
     fun sendRequest(request: Request) {
         var baos = ByteArrayOutputStream()
         var oos = ObjectOutputStream(baos)
