@@ -25,7 +25,13 @@ import kotlinx.coroutines.launch
 import request.FullRequest
 import response.CommandResponse
 import java.io.File
+<<<<<<< HEAD
 import java.util.LinkedList
+=======
+import java.util.*
+import java.util.concurrent.Executors
+import java.util.concurrent.locks.ReentrantLock
+>>>>>>> 40cc7ce (add_ReentrantLock)
 
 suspend fun main(): Unit =
     coroutineScope {
@@ -40,26 +46,27 @@ suspend fun main(): Unit =
         }
         val server = ServerUDP()
         val collectionH = CollectionControllerMusicBand(AltJsonDB(filename), LinkedList<MusicBand>())
+        val lock = ReentrantLock()
         val commandList =
             mapOf(
-                CommandType.Add to AddCommand(collectionH),
-                CommandType.Info to InfoCommand(collectionH),
-                CommandType.Clear to ClearCommand(collectionH),
-                CommandType.Add to AddCommand(collectionH),
-                CommandType.Show to ShowCommand(collectionH),
+                CommandType.Add to AddCommand(collectionH, lock),
+                CommandType.Info to InfoCommand(collectionH, lock),
+                CommandType.Clear to ClearCommand(collectionH, lock),
+                CommandType.Add to AddCommand(collectionH, lock),
+                CommandType.Show to ShowCommand(collectionH, lock),
                 CommandType.Save to SaveCommand(collectionH),
-                CommandType.Clear to ClearCommand(collectionH),
-                CommandType.CountByNumbersOfParticipants to CountByNumbersOfParticipantsCommand(collectionH),
-                CommandType.FilterByAlbumsCount to FilterByAlbumsCountCommand(collectionH),
-                CommandType.RemoveAt to RemoveAtCommand(collectionH),
-                CommandType.Shuffle to ShuffleCommand(collectionH),
-                CommandType.Reorder to ReorderCommand(collectionH),
-                CommandType.RemoveAnyByFrontMan to RemoveAnyByFrontManCommand(collectionH),
+                CommandType.Clear to ClearCommand(collectionH, lock),
+                CommandType.CountByNumbersOfParticipants to CountByNumbersOfParticipantsCommand(collectionH, lock),
+                CommandType.FilterByAlbumsCount to FilterByAlbumsCountCommand(collectionH, lock),
+                CommandType.RemoveAt to RemoveAtCommand(collectionH, lock),
+                CommandType.Shuffle to ShuffleCommand(collectionH, lock),
+                CommandType.Reorder to ReorderCommand(collectionH, lock),
+                CommandType.RemoveAnyByFrontMan to RemoveAnyByFrontManCommand(collectionH, lock),
                 CommandType.Exit to ExitCommand(),
                 CommandType.Execute to ExecuteCommand(),
-                CommandType.Update to UpdateCommand(collectionH),
-                CommandType.RemoveById to RemoveByIdCommand(collectionH),
-                CommandType.RemoveById to RemoveByIdCommand(collectionH),
+                CommandType.Update to UpdateCommand(collectionH, lock),
+                CommandType.RemoveById to RemoveByIdCommand(collectionH, lock),
+                CommandType.RemoveById to RemoveByIdCommand(collectionH, lock),
             )
         val commandsBuilder = CommandHandlerBuilder(commandList)
         val commands = commandsBuilder.addCommand(CommandType.Help, HelpCommand(commandList)).build()
