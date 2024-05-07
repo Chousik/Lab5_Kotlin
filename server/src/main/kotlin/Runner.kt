@@ -1,51 +1,25 @@
 
 import builders.CommandHandlerBuilder
 import collection.MusicBand
-import commands.AddCommand
-import commands.ClearCommand
-import commands.CommandType
-import commands.CountByNumbersOfParticipantsCommand
-import commands.ExecuteCommand
-import commands.ExitCommand
-import commands.FilterByAlbumsCountCommand
-import commands.HelpCommand
-import commands.InfoCommand
-import commands.RemoveAnyByFrontManCommand
-import commands.RemoveAtCommand
-import commands.RemoveByIdCommand
-import commands.ReorderCommand
-import commands.SaveCommand
-import commands.ShowCommand
-import commands.ShuffleCommand
-import commands.UpdateCommand
+import commands.*
 import database.AltJsonDB
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
-import request.FullRequest
-import response.CommandResponse
+import database.SqlDB
 import java.io.File
-<<<<<<< HEAD
-import java.util.LinkedList
-=======
 import java.util.*
 import java.util.concurrent.Executors
 import java.util.concurrent.locks.ReentrantLock
->>>>>>> 40cc7ce (add_ReentrantLock)
 
-suspend fun main(): Unit =
-    coroutineScope {
-
-        val requestChannel = Channel<FullRequest>()
-        val clientChannel = Channel<CommandResponse>()
-        val serverChannel = Channel<CommandResponse>()
+fun main(){
+        val readRequestThread = Executors.newFixedThreadPool(2)
+        val responseThreadPool = Executors.newCachedThreadPool()
+        val sqlDB = SqlDB()
         val filename = "data.json"
         val file = File(filename)
         if (!file.exists()) {
             file.createNewFile()
         }
         val server = ServerUDP()
-        val collectionH = CollectionControllerMusicBand(AltJsonDB(filename), LinkedList<MusicBand>())
+        val collectionH = CollectionControllerMusicBand(AltJsonDB(filename), sqlDB, LinkedList<MusicBand>())
         val lock = ReentrantLock()
         val commandList =
             mapOf(
@@ -71,22 +45,13 @@ suspend fun main(): Unit =
         val commandsBuilder = CommandHandlerBuilder(commandList)
         val commands = commandsBuilder.addCommand(CommandType.Help, HelpCommand(commandList)).build()
         val executorC = CommandExecutor(commands)
-        launch {
-            val serverConsole = ServerConsole(requestChannel, serverChannel)
+        val requestProcessor = RequestProcessor(executorC,sqlDB)
+        readRequestThread.execute{
+            val serverConsole = ServerConsole(responseThreadPool, requestProcessor)
             serverConsole.consoleRun()
         }
-        launch {
-            val clientConnect = ClientConnect(requestChannel, clientChannel, server)
+        readRequestThread.execute{
+            val clientConnect = ClientConnect(responseThreadPool, server, requestProcessor)
             clientConnect.run()
         }
-        launch {
-            val requestProcessor = RequestProcessor(executorC, requestChannel, clientChannel, serverChannel)
-            requestProcessor.run()
-        }
-        Runtime.getRuntime().addShutdownHook(
-            Thread {
-                collectionH.saveData()
-                ServerUDP.logger.info("Завершение работы сервера.")
-            },
-        )
     }

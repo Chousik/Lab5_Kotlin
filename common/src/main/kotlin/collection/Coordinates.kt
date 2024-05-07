@@ -1,9 +1,9 @@
 package collection
 
 import java.io.Serializable
-import java.util.Objects
+import java.util.*
 
-class Coordinates(private val x: Float, private val y: Float) : Serializable {
+class Coordinates(val x: Float, val y: Float) : Serializable {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null || javaClass != other.javaClass) return false

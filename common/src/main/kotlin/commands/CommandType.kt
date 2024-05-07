@@ -17,4 +17,5 @@ enum class CommandType(val maker: MakerArguments<*>) {
     Save(WithoutArgumentMaker.get()),
     Exit(WithoutArgumentMaker.get()),
     Execute(WithoutArgumentMaker.get()),
+    Authorization(AuthorizationCommandMake())
 }

@@ -3,14 +3,16 @@ import collection.MusicBand
 import collection.Person
 import collection.builder.BuilderMusicBand
 import database.IDataBase
+import database.SqlDB
 import exeption.ArgumentError
 import scanners.MainScanner
 import java.io.IOException
 import java.time.LocalDateTime
-import java.util.LinkedList
+import java.util.*
 
 class CollectionControllerMusicBand(
     private val dataBase: IDataBase<MusicBand>,
+    private val sqlDB: SqlDB,
     linkedList: LinkedList<MusicBand>,
 ) :
     ICollectionController<MusicBand> {
@@ -24,7 +26,8 @@ class CollectionControllerMusicBand(
     }
 
     override fun add(t: MusicBand) {
-        collection.add(t)
+        val band = sqlDB.addBand(t, 1)
+        collection.add(band)
     }
 
     override val collectionType: String

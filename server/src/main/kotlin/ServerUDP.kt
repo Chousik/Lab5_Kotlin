@@ -1,7 +1,7 @@
 
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
-import request.Request
+import request.RequestClient
 import response.CommandResponse
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
@@ -13,7 +13,6 @@ import java.nio.channels.DatagramChannel
 
 class ServerUDP(port: Int = 1488) {
     private val channel: DatagramChannel = DatagramChannel.open()
-    private var inetSocketAddress: InetSocketAddress? = null
     private val buffer = ByteBuffer.allocate(2048)
 
     init {
@@ -21,28 +20,28 @@ class ServerUDP(port: Int = 1488) {
         logger.info("Сервер запущен на порту $port")
     }
 
-    fun readRequest(): Request {
-        inetSocketAddress = channel.receive(buffer) as InetSocketAddress
+    fun readRequest(): Pair<RequestClient, InetSocketAddress?> {
+        val inetSocketAddress = channel.receive(buffer) as InetSocketAddress
         buffer.flip()
         val data = ByteArray(buffer.remaining())
         buffer.get(data)
         val bais = ByteArrayInputStream(data)
         val ols = ObjectInputStream(bais)
-        val request: Request = ols.readObject() as Request
+        val request: RequestClient = ols.readObject() as RequestClient
         ols.close()
         buffer.clear()
         logger.info("Полученный запрос: $request от $inetSocketAddress")
-        return request
+        return request to inetSocketAddress
     }
 
-    fun sendResponse(response: CommandResponse) {
+    fun sendResponse(response: CommandResponse, inetSocketAddress: InetSocketAddress) {
         logger.info("Сервер отправил ответ: $response")
         val baos = ByteArrayOutputStream()
         val oos = ObjectOutputStream(baos)
         oos.writeObject(response)
         oos.flush()
         val responseData = baos.toByteArray()
-        channel.send(ByteBuffer.wrap(responseData), inetSocketAddress!!)
+        channel.send(ByteBuffer.wrap(responseData), inetSocketAddress)
     }
 
     companion object {

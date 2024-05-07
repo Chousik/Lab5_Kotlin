@@ -1,20 +1,22 @@
 package org.example
 
+import collection.AuthorizationData
 import commands.CommandByType
+import commands.CommandType
 import exeption.ArgumentCountError
 import exeption.ArgumentError
 import exeption.InvalidCommandError
 import exeption.ScriptExecutionError
 import org.chousik.commands.validators.ScriptFileValidator
 import request.Request
+import request.RequestClient
 import response.ResponseStatus
 import scanners.FileScanner
 import scanners.MainScanner
 import scanners.MyScanners
 import java.io.File
 import java.net.SocketTimeoutException
-import java.util.Arrays
-import java.util.Stack
+import java.util.*
 import kotlin.system.exitProcess
 
 class Runner {
@@ -24,8 +26,21 @@ class Runner {
     private val udp = ClientUDP()
     private val scriptFileValidator = ScriptFileValidator()
     private val scriptRecursionValid = ScriptFileValidator()
-
-    fun consoleRun() {
+    private lateinit var authorizationData: AuthorizationData
+    fun start(){
+        var flag = true
+        while (flag){
+        authorizationData = CommandType.Authorization.maker.make(arrayOf(), mainScanner) as AuthorizationData
+        udp.sendRequest(RequestClient(Request(CommandType.Authorization, null), authorizationData))
+        var response = udp.readResponse()
+            if (response.status == ResponseStatus.Successfully) {
+                flag = false
+            }
+            println(response.message)
+        }
+        consoleRun()
+    }
+    private fun consoleRun() {
         while (true) try {
             print("${System.getProperty("user.name")}> ")
             runCommand(mainScanner.nextLine())
@@ -57,11 +72,11 @@ class Runner {
     }
 
     private fun runCommand(userMessages: String) {
-        if (userMessages.isEmpty()) {
+        val messages = userMessages.split("\\s+".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+        if (messages.isEmpty()) {
             System.err.println("Пустая команда! Введите help для получения списка команд.")
             return
         }
-        val messages = userMessages.split("\\s+".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
         val commandString = messages[0]
         val argument = if ((messages.size > 1)) Arrays.copyOfRange(messages, 1, messages.size) else arrayOf()
         when (commandString) {
@@ -75,6 +90,10 @@ class Runner {
                 scriptRecursionValid.valid(argument[0])
                 scriptsRun(argument[0])
             }
+            "unlogin" -> {
+                println("Вы успешно вышли из профиля ${authorizationData.login}")
+                start()
+            }
             else -> {
                 val commandType = commandsType.getTypeCommand(commandString)
                 if (commandType == null) {
@@ -85,7 +104,7 @@ class Runner {
                 val request = Request(commandType, commandType.maker.make(argument, mainScanner))
                 while (countRequest <= 2) {
                     try {
-                        udp.sendRequest(request)
+                        udp.sendRequest(RequestClient(request, authorizationData))
                         val response = udp.readResponse()
                         if (response.status == ResponseStatus.Successfully) {
                             println(response.message)

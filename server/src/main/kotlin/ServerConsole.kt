@@ -3,22 +3,19 @@ import commands.CommandByTypeServer
 import exeption.ArgumentCountError
 import exeption.ArgumentError
 import exeption.ScriptExecutionError
-import kotlinx.coroutines.channels.Channel
-import request.FullRequest
 import request.Request
-import request.RequestContext
-import response.CommandResponse
 import response.ResponseStatus
 import scanners.MainScanner
 import scanners.MyScanners
-import java.util.Arrays
+import java.util.*
+import java.util.concurrent.ExecutorService
 import kotlin.system.exitProcess
 
-class ServerConsole(private val requestChanel: Channel<FullRequest>, private val responseChanel: Channel<CommandResponse>) {
+class ServerConsole(private val responseThreadPool: ExecutorService, private val requestProcessor: RequestProcessor) {
     private var mainScanner: MyScanners = MainScanner()
     private val commandsType = CommandByTypeServer()
 
-    suspend fun consoleRun() {
+    fun consoleRun() {
         while (true) try {
             print("${System.getProperty("user.name")}> ")
             runCommand(mainScanner.nextLine())
@@ -32,7 +29,7 @@ class ServerConsole(private val requestChanel: Channel<FullRequest>, private val
         }
     }
 
-    private suspend fun runCommand(userMessages: String) {
+    private fun runCommand(userMessages: String) {
         if (userMessages.isEmpty()) {
             System.err.println("Пустая команда! Введите help для получения списка команд.")
             return
@@ -49,14 +46,14 @@ class ServerConsole(private val requestChanel: Channel<FullRequest>, private val
                     return
                 }
                 val request = Request(commandType, commandType.maker.make(argument, mainScanner))
-                val fullRequest = FullRequest(request, RequestContext.SERVER)
-                requestChanel.send(fullRequest)
-                val response = responseChanel.receive()
-                if (response.status == ResponseStatus.Successfully) {
-                    println(response.message)
-                    return
+                responseThreadPool.execute{
+                    val response = requestProcessor.process(request)
+                    if (response.status == ResponseStatus.Successfully) {
+                        println(response.message)
+                    }else{
+                        System.err.println(response)
+                    }
                 }
-                System.err.println(response)
             }
         }
     }

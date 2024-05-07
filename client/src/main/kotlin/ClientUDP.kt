@@ -1,6 +1,6 @@
 package org.example
 
-import request.Request
+import request.RequestClient
 import response.CommandResponse
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
@@ -17,7 +17,7 @@ class ClientUDP(private val ipNet: InetAddress = InetAddress.getByName("localhos
         datagramSocket.soTimeout = 5000
     }
 
-    fun sendRequest(request: Request) {
+    fun sendRequest(request: RequestClient) {
         var baos = ByteArrayOutputStream()
         var oos = ObjectOutputStream(baos)
         oos.writeObject(request)
