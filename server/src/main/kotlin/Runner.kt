@@ -28,7 +28,7 @@ fun main(){
                 CommandType.Clear to ClearCommand(collectionH, lock),
                 CommandType.Add to AddCommand(collectionH, lock),
                 CommandType.Show to ShowCommand(collectionH, lock),
-                CommandType.Save to SaveCommand(collectionH),
+//                CommandType.Save to SaveCommand(collectionH),
                 CommandType.Clear to ClearCommand(collectionH, lock),
                 CommandType.CountByNumbersOfParticipants to CountByNumbersOfParticipantsCommand(collectionH, lock),
                 CommandType.FilterByAlbumsCount to FilterByAlbumsCountCommand(collectionH, lock),
@@ -46,10 +46,10 @@ fun main(){
         val commands = commandsBuilder.addCommand(CommandType.Help, HelpCommand(commandList)).build()
         val executorC = CommandExecutor(commands)
         val requestProcessor = RequestProcessor(executorC,sqlDB)
-        readRequestThread.execute{
-            val serverConsole = ServerConsole(responseThreadPool, requestProcessor)
-            serverConsole.consoleRun()
-        }
+//        readRequestThread.execute{
+//            val serverConsole = ServerConsole(responseThreadPool, requestProcessor)
+//            serverConsole.consoleRun()
+//        }
         readRequestThread.execute{
             val clientConnect = ClientConnect(responseThreadPool, server, requestProcessor)
             clientConnect.run()

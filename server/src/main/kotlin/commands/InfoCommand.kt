@@ -5,7 +5,7 @@ import java.util.concurrent.locks.ReentrantLock
 
 class InfoCommand(private val collectionController: ICollectionController<*>, private val lock: ReentrantLock) :
     ACommand("info", "команда позволяет увидеть информацию о коллекции.") {
-    override fun doIt(arg: Any?) {
+    override fun doIt(arg: Any?, id: Int) {
         try {
             lock.lock()
             val builder = StringBuilder()

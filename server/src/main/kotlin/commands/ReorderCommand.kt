@@ -9,7 +9,7 @@ class ReorderCommand(private val collectionController: ICollectionController<*>,
         "команда позволяет отсортирована коллекцию в обратном порядке.",
         "Коллекция успешно отсортирована в обратом порядке.",
     ) {
-    override fun doIt(arg: Any?) {
+    override fun doIt(arg: Any?, id: Int) {
         try {
             lock.lock()
             collectionController.reorder()

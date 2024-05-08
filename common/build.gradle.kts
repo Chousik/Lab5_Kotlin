@@ -1,6 +1,8 @@
 plugins {
     kotlin("jvm")
     id("org.jlleitschuh.gradle.ktlint") version "12.1.0"
+    id("org.springframework.boot") version "3.2.2"
+    id("io.spring.dependency-management") version "1.1.4"
 }
 val ktlintCom by configurations.creating
 group = "org.example"
@@ -14,6 +16,9 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test")
     implementation("org.apache.poi:poi:5.2.0")
     implementation("org.apache.poi:poi-ooxml:5.2.0")
+    implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib")
     ktlintCom("com.pinterest.ktlint:ktlint-cli:1.2.1") {
         attributes {
             attribute(Bundling.BUNDLING_ATTRIBUTE, objects.named(Bundling.EXTERNAL))

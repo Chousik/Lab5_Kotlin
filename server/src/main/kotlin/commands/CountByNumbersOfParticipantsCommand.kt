@@ -7,7 +7,7 @@ class CountByNumbersOfParticipantsCommand(private val collectionController: ICol
     "count_by_number_of_participants",
     "команда позволяет вывести количество элементов, с кол-вом участников равному введенному.",
 ) {
-    override fun doIt(arg: Any?) {
+    override fun doIt(arg: Any?, id: Int) {
         try {
             lock.lock()
             successfullyInfo = "Кол-во групп: ${collectionController.countNumberOfParticipants(arg!! as Long)}"

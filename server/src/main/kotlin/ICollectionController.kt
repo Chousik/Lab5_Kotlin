@@ -1,10 +1,10 @@
+
 import collection.MusicBand
 import collection.Person
 import java.time.LocalDateTime
-import java.util.LinkedList
+import java.util.*
 
 interface ICollectionController<T : Comparable<*>> {
-    fun add(t: MusicBand)
 
     val lastInitTime: LocalDateTime?
 
@@ -18,11 +18,11 @@ interface ICollectionController<T : Comparable<*>> {
 
     fun getElementsByAlbumCount(integer: Int): String
 
-    fun removeElements(index: Int)
+    fun removeElements(index: Int, userId: Int)
 
-    fun clear()
+    fun clear(id: Int)
 
-    fun removeElementByID(id: Int)
+    fun removeElementByID(id: Int, userId: Int)
 
     fun shuffle()
 
@@ -38,6 +38,9 @@ interface ICollectionController<T : Comparable<*>> {
 
     fun updateElements(
         id: Int,
+        userId: Int,
         musicBandNew: MusicBand,
     )
+
+    fun add(t: MusicBand, id: Int)
 }

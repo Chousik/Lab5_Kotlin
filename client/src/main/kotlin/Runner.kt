@@ -110,7 +110,7 @@ class Runner {
                             println(response.message)
                             return
                         }
-                        System.err.println(response)
+                        System.err.println(response.message)
                         return
                     } catch (e: SocketTimeoutException) {
                         countRequest += 1

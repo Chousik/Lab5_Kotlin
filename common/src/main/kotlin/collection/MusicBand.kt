@@ -11,7 +11,6 @@ class MusicBand(
     var frontMan: Person,
 ) : Comparable<MusicBand>, Serializable {
     var id = (Math.random() * 666666).toInt()
-
     override fun toString(): String {
         return (
             (
