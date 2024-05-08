@@ -3,6 +3,7 @@ target/
 .gradle/
 /out/artifacts/Lab5_jar/Lab5.jar
 src/main/resources/META-INF/MANIFEST.MF
+data/
 ### IntelliJ IDEA ###
 .idea/modules.xml
 .idea/jarRepositories.xml
@@ -48,3 +49,5 @@ build/
 /.gradle/
 /1.sql
 /1.kt
+/data/
+/data/

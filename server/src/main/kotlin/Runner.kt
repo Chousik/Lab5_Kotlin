@@ -1,31 +1,16 @@
 
 import builders.CommandHandlerBuilder
 import collection.MusicBand
-import commands.AddCommand
-import commands.ClearCommand
-import commands.CommandType
-import commands.CountByNumbersOfParticipantsCommand
-import commands.ExecuteCommand
-import commands.ExitCommand
-import commands.FilterByAlbumsCountCommand
-import commands.HelpCommand
-import commands.InfoCommand
-import commands.RemoveAnyByFrontManCommand
-import commands.RemoveAtCommand
-import commands.RemoveByIdCommand
-import commands.ReorderCommand
-import commands.ShowCommand
-import commands.ShuffleCommand
-import commands.UpdateCommand
+import commands.*
 import database.AltJsonDB
 import database.SqlDB
 import java.io.File
-import java.util.LinkedList
+import java.util.*
 import java.util.concurrent.Executors
 import java.util.concurrent.locks.ReentrantLock
 
 fun main() {
-    val readRequestThread = Executors.newFixedThreadPool(2)
+    val readRequestThread = Executors.newFixedThreadPool(3)
     val responseThreadPool = Executors.newCachedThreadPool()
     val sqlDB = SqlDB()
     val filename = "data.json"

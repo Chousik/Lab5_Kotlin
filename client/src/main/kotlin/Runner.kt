@@ -17,8 +17,7 @@ import validators.ScriptFileValidator
 import validators.ScriptRecursionValid
 import java.io.File
 import java.net.SocketTimeoutException
-import java.util.Arrays
-import java.util.Stack
+import java.util.*
 import kotlin.system.exitProcess
 
 class Runner {
@@ -47,7 +46,7 @@ class Runner {
 
     private fun consoleRun() {
         while (true) try {
-            print("${System.getProperty("user.name")}> ")
+            print("${authorizationData.login}> ")
             runCommand(mainScanner.nextLine())
         } catch (e: Exception) {
             when (e) {
