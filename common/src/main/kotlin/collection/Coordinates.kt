@@ -1,7 +1,7 @@
 package collection
 
 import java.io.Serializable
-import java.util.*
+import java.util.Objects
 
 class Coordinates(val x: Float, val y: Float) : Serializable {
     override fun equals(other: Any?): Boolean {

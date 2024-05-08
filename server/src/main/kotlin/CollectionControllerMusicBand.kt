@@ -61,7 +61,7 @@ class CollectionControllerMusicBand(
                 return "Пустая коллекция!"
             }
             return collection.stream().map<Any>
-                { value: MusicBand? -> value.toString() }.toList().joinToString("\n")
+            { value: MusicBand? -> value.toString() }.toList().joinToString("\n")
         }
 
     override fun updateElements(

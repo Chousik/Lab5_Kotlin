@@ -2,7 +2,7 @@ package collection
 
 import org.springframework.data.annotation.Id
 import java.io.Serializable
-import java.util.*
+import java.util.Objects
 
 class Location(val x: Double, val y: Int, val z: Int, val name: String) : Serializable {
     @Id

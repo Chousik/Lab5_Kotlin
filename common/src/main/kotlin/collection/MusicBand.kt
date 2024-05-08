@@ -19,11 +19,11 @@ class MusicBand(
                     "id=" + id +
                     ", name='" + name + '\'' +
                     ", coordinates=" + coordinates.toString()
-            ) +
+                ) +
                 ", numberOfParticipants=" + numberOfParticipants +
                 ", albumsCount=" + albumsCount +
                 ", genre=" + genre.toString()
-        ) +
+            ) +
             ", frontMan=" + frontMan.toString() +
             '}'
     }
