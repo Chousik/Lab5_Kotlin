@@ -6,15 +6,18 @@ import java.io.Serializable
 import java.nio.charset.StandardCharsets
 import java.security.MessageDigest
 
-class AuthorizationCommandMake: MakerArguments<AuthorizationData>(0), Serializable {
-    override fun make(arguments: Array<String>, scanner: MyScanners): AuthorizationData {
+class AuthorizationCommandMaker : MakerArguments<AuthorizationData>(0), Serializable {
+    override fun make(
+        arguments: Array<String>,
+        scanner: MyScanners,
+    ): AuthorizationData {
         var password = ""
         var login = ""
         var flag = true
         while (flag) {
             println("Введите ваш логин")
             login = scanner.nextLine()
-            if (login.isBlank()){
+            if (login.isBlank()) {
                 println("Логин не может быть пустым!")
                 continue
             }
@@ -24,7 +27,7 @@ class AuthorizationCommandMake: MakerArguments<AuthorizationData>(0), Serializab
         while (flag) {
             println("Введите ваш пароль")
             password = scanner.nextLine()
-            if (password.isBlank()){
+            if (password.isBlank()) {
                 println("Пароль не может быть пустым!")
                 continue
             }

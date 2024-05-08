@@ -18,23 +18,23 @@ class ClientUDP(private val ipNet: InetAddress = InetAddress.getByName("localhos
     }
 
     fun sendRequest(request: RequestClient) {
-        var baos = ByteArrayOutputStream()
-        var oos = ObjectOutputStream(baos)
+        val baos = ByteArrayOutputStream()
+        val oos = ObjectOutputStream(baos)
         oos.writeObject(request)
         oos.flush()
-        var data = baos.toByteArray()
-        var packet = DatagramPacket(data, data.size, ipNet, port)
+        val data = baos.toByteArray()
+        val packet = DatagramPacket(data, data.size, ipNet, port)
         datagramSocket.send(packet)
     }
 
     fun readResponse(): CommandResponse {
         val buffer = ByteArray(2048)
-        var responsePacket = DatagramPacket(buffer, buffer.size)
+        val responsePacket = DatagramPacket(buffer, buffer.size)
         datagramSocket.receive(responsePacket)
-        var data = responsePacket.data
+        val data = responsePacket.data
         val bais = ByteArrayInputStream(data)
         val ols = ObjectInputStream(bais)
-        var response = ols.readObject() as CommandResponse
+        val response = ols.readObject() as CommandResponse
         ols.close()
         return response
     }

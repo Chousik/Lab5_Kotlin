@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS music_band (
     album_count INTEGER NOT NULL CONSTRAINT positive_album_count CHECK (album_count >= 0),
     genre music_genre NOT NULL,
     person_name VARCHAR(40) NOT NULL CONSTRAINT not_empty_name_person CHECK(length(person_name) > 0),
-    pasport_id VARCHAR(40) NOT NULL CHECK(length(pasport_id) > 6),
+    passport_id VARCHAR(40) NOT NULL CHECK(length(passport_id) > 6),
     hair_color color NOT NULL,
     nationality country NOT NULL,
     x_coordinates FLOAT NOT NULL CONSTRAINT positive_x CHECK (x_coordinates >= -645),

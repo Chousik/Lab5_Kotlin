@@ -8,7 +8,7 @@ import exeption.ArgumentError
 import scanners.MainScanner
 import java.io.IOException
 import java.time.LocalDateTime
-import java.util.*
+import java.util.LinkedList
 import java.util.stream.Collectors
 
 class CollectionControllerMusicBand(
@@ -26,7 +26,10 @@ class CollectionControllerMusicBand(
         collection = linkedList.filterNotNullTo(sqlDB.load())
     }
 
-    override fun add(t: MusicBand, id: Int) {
+    override fun add(
+        t: MusicBand,
+        id: Int,
+    ) {
         val band = sqlDB.addBand(t, id)
         collection.add(band)
     }
@@ -58,7 +61,7 @@ class CollectionControllerMusicBand(
                 return "Пустая коллекция!"
             }
             return collection.stream().map<Any>
-            { value: MusicBand? -> value.toString() }.toList().joinToString("\n")
+                { value: MusicBand? -> value.toString() }.toList().joinToString("\n")
         }
 
     override fun updateElements(
@@ -73,7 +76,10 @@ class CollectionControllerMusicBand(
         BuilderMusicBand(MainScanner()).reBuild(musicBand, musicBandNew)
     }
 
-    override fun removeElements(index: Int, userId: Int) {
+    override fun removeElements(
+        index: Int,
+        userId: Int,
+    ) {
         if (index > collection.size - 1 || index < 0) {
             throw ArgumentError("Неверное id: " + index + ". Длина коллекции: " + collection.size)
         }
@@ -85,7 +91,6 @@ class CollectionControllerMusicBand(
 
     override fun clear(id: Int) {
         val result = sqlDB.clear(id)
-        System.out.println(result)
         collection = collection.stream().filter { x -> x.id !in result }.collect(Collectors.toCollection { LinkedList<MusicBand>() })
         lastInitTime = LocalDateTime.now()
     }
@@ -98,7 +103,10 @@ class CollectionControllerMusicBand(
         collection.reverse()
     }
 
-    override fun removeElementByID(id: Int, userId: Int) {
+    override fun removeElementByID(
+        id: Int,
+        userId: Int,
+    ) {
         sqlDB.removeById(id, userId)
         val musicBand: MusicBand =
             collection.stream().filter { x: MusicBand -> x.id == id }.findFirst()
@@ -106,11 +114,15 @@ class CollectionControllerMusicBand(
         collection.remove(musicBand)
     }
 
-    override fun removeByFrontMan(person: Person) {
+    override fun removeByFrontMan(
+        person: Person,
+        userId: Int,
+    ) {
         val musicBand: MusicBand =
             collection.stream().filter { x: MusicBand ->
                 x.frontMan === person
             }.findFirst().get()
+        sqlDB.removeById(musicBand.id, userId)
         collection.remove(musicBand)
     }
 

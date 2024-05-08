@@ -34,7 +34,10 @@ class ServerUDP(port: Int = 1488) {
         return request to inetSocketAddress
     }
 
-    fun sendResponse(response: CommandResponse, inetSocketAddress: InetSocketAddress) {
+    fun sendResponse(
+        response: CommandResponse,
+        inetSocketAddress: InetSocketAddress,
+    ) {
         logger.info("Сервер отправил ответ: $response")
         val baos = ByteArrayOutputStream()
         val oos = ObjectOutputStream(baos)

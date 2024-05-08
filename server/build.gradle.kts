@@ -21,7 +21,7 @@ dependencies {
     implementation(project(":common"))
     implementation("org.apache.poi:poi:5.2.0")
     implementation("org.apache.poi:poi-ooxml:5.2.0")
-    implementation ("org.postgresql:postgresql:42.3.1")
+    implementation("org.postgresql:postgresql:42.3.1")
     implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib")

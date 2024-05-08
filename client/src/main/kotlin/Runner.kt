@@ -7,16 +7,18 @@ import exeption.ArgumentCountError
 import exeption.ArgumentError
 import exeption.InvalidCommandError
 import exeption.ScriptExecutionError
-import org.chousik.commands.validators.ScriptFileValidator
 import request.Request
 import request.RequestClient
 import response.ResponseStatus
 import scanners.FileScanner
 import scanners.MainScanner
 import scanners.MyScanners
+import validators.ScriptFileValidator
+import validators.ScriptRecursionValid
 import java.io.File
 import java.net.SocketTimeoutException
-import java.util.*
+import java.util.Arrays
+import java.util.Stack
 import kotlin.system.exitProcess
 
 class Runner {
@@ -25,21 +27,24 @@ class Runner {
     private val commandsType = CommandByType()
     private val udp = ClientUDP()
     private val scriptFileValidator = ScriptFileValidator()
-    private val scriptRecursionValid = ScriptFileValidator()
+    private val scriptRecursionValid = ScriptRecursionValid()
     private lateinit var authorizationData: AuthorizationData
-    fun start(){
+
+    fun start() {
         var flag = true
-        while (flag){
-        authorizationData = CommandType.Authorization.maker.make(arrayOf(), mainScanner) as AuthorizationData
-        udp.sendRequest(RequestClient(Request(CommandType.Authorization, null), authorizationData))
-        var response = udp.readResponse()
+        while (flag) {
+            authorizationData = CommandType.Authorization.maker.make(arrayOf(), mainScanner) as AuthorizationData
+            udp.sendRequest(RequestClient(Request(CommandType.Authorization, null), authorizationData))
+            val response = udp.readResponse()
             if (response.status == ResponseStatus.Successfully) {
                 flag = false
             }
             println(response.message)
         }
+        println("Для выхода из профиля используйте команду log_out.")
         consoleRun()
     }
+
     private fun consoleRun() {
         while (true) try {
             print("${System.getProperty("user.name")}> ")
@@ -90,7 +95,7 @@ class Runner {
                 scriptRecursionValid.valid(argument[0])
                 scriptsRun(argument[0])
             }
-            "unlogin" -> {
+            "log_out" -> {
                 println("Вы успешно вышли из профиля ${authorizationData.login}")
                 start()
             }

@@ -8,16 +8,20 @@ import response.ResponseStatus
 
 class RequestProcessor(
     private val commandExecutor: CommandExecutor,
-    private val sqlDB: SqlDB
+    private val sqlDB: SqlDB,
 ) {
     fun process(requestClient: RequestClient): CommandResponse {
         val (response, id) = sqlDB.login(requestClient.authorizationData)
-        if (requestClient.request.type == CommandType.Authorization || response.status == ResponseStatus.ExecutionError){
+        if (requestClient.request.type == CommandType.Authorization || response.status == ResponseStatus.ExecutionError) {
             return response
         }
         return process(requestClient.request, id)
     }
-    private fun process(request: Request, id: Int): CommandResponse {
+
+    fun process(
+        request: Request,
+        id: Int,
+    ): CommandResponse {
         val response = commandExecutor.execute(request, id)
         when (response.status) {
             ResponseStatus.ExecutionError -> {

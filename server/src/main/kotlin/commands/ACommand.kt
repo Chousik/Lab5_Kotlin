@@ -9,7 +9,10 @@ abstract class ACommand(private val nameValue: String, private val info: String,
             return nameValue
         }
 
-    fun execute(arg: Any?, id: Int): CommandResponse {
+    fun execute(
+        arg: Any?,
+        id: Int,
+    ): CommandResponse {
         try {
             doIt(arg, id)
             return CommandResponse(ResponseStatus.Successfully, successfullyInfo)
@@ -18,7 +21,10 @@ abstract class ACommand(private val nameValue: String, private val info: String,
         }
     }
 
-    abstract fun doIt(arg: Any?, id: Int)
+    abstract fun doIt(
+        arg: Any?,
+        id: Int,
+    )
 
     override fun toString(): String {
         return "${this.nameValue}: ${this.info}"
