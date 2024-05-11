@@ -22,7 +22,7 @@ class UserSql {
             connection = DriverManager.getConnection(jdbcUrl, username, password)
         } catch (e: SQLException) {
             throw RuntimeException(e)
-        }
+        }g
     }
 
     private fun register(data: AuthorizationData): Pair<CommandResponse, Int> {
