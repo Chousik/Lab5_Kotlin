@@ -1,62 +1,14 @@
 package database
 
-import collection.AuthorizationData
-import collection.Color
-import collection.Coordinates
-import collection.Country
-import collection.Location
-import collection.MusicBand
-import collection.MusicGenre
-import collection.Person
+import collection.*
 import exeption.AcceptError
-import response.CommandResponse
-import response.ResponseStatus
 import java.sql.Connection
-import java.sql.DriverManager
 import java.sql.SQLException
 import java.sql.Types
-import java.util.LinkedList
+import java.util.*
+import java.util.concurrent.atomic.AtomicLong
 
-class SqlDB {
-    private var connection: Connection
-
-    init {
-        Class.forName("org.postgresql.Driver")
-        val jdbcUrl = "jdbc:postgresql://localhost:5432/postgres_furry_bot"
-        val username = "postgres"
-        val password = "postgres"
-        try {
-            connection = DriverManager.getConnection(jdbcUrl, username, password)
-        } catch (e: SQLException) {
-            throw RuntimeException(e)
-        }
-    }
-
-    private fun register(data: AuthorizationData): Pair<CommandResponse, Int> {
-        val regSql = "INSERT INTO users(login, password_digest) VALUES (?, ?) RETURNING id"
-        val stmt = connection.prepareStatement(regSql)
-        try {
-            stmt.setString(1, data.login)
-            stmt.setString(2, data.password)
-            stmt.execute()
-            val res = stmt.resultSet
-            if (res.next()) {
-                return CommandResponse(
-                    ResponseStatus.Successfully,
-                    "Вы успешно зарегистрированы.",
-                ) to stmt.resultSet.getInt("id")
-            }
-            return CommandResponse(
-                ResponseStatus.ExecutionError,
-                "Упс, регистраций провалена((. Попробуйте снова!",
-            ) to 0
-        } catch (e: SQLException) {
-            throw RuntimeException(e)
-        } finally {
-            stmt.close()
-        }
-    }
-
+class DataSql(private val connection: Connection) {
     fun addBand(
         band: MusicBand,
         id: Int,
@@ -84,31 +36,13 @@ class SqlDB {
             stmt.setString(++i, band.frontMan.location.name)
             stmt.setInt(++i, id)
             stmt.execute()
+            val x = AtomicLong()
             val res = stmt.resultSet
             if (res.next()) {
                 band.id = res.getInt(1)
                 return band
             }
             throw RuntimeException("Ошибка добавления в коллекцию!")
-        } catch (e: SQLException) {
-            throw RuntimeException(e)
-        } finally {
-            stmt.close()
-        }
-    }
-
-    fun clear(id: Int): HashSet<Int> {
-        val clearSql = "DELETE FROM music_band WHERE create_by = (?) RETURNING id"
-        val stmt = connection.prepareStatement(clearSql)
-        try {
-            val result = HashSet<Int>()
-            stmt.setInt(1, id)
-            stmt.execute()
-            val res = stmt.resultSet
-            while (res.next()) {
-                result.add(res.getInt("id"))
-            }
-            return result
         } catch (e: SQLException) {
             throw RuntimeException(e)
         } finally {
@@ -242,21 +176,18 @@ class SqlDB {
         }
     }
 
-    fun login(data: AuthorizationData): Pair<CommandResponse, Int> {
-        val loginSql = "SELECT * FROM users WHERE users.login = ?"
-        val stmt = connection.prepareStatement(loginSql)
+    fun clear(id: Int): HashSet<Int> {
+        val clearSql = "DELETE FROM music_band WHERE create_by = (?) RETURNING id"
+        val stmt = connection.prepareStatement(clearSql)
         try {
-            stmt.setString(1, data.login)
+            val result = HashSet<Int>()
+            stmt.setInt(1, id)
             stmt.execute()
-            if (stmt.resultSet.next()) {
-                val res = stmt.resultSet
-                val pass = res.getString("password_digest")
-                if (pass.equals(data.password)) {
-                    return CommandResponse(ResponseStatus.Successfully, "Вы успешно вошли.") to res.getInt("id")
-                }
-                return CommandResponse(ResponseStatus.ExecutionError, "Вы ввели неверный пароль((.") to 0
+            val res = stmt.resultSet
+            while (res.next()) {
+                result.add(res.getInt("id"))
             }
-            return register(data)
+            return result
         } catch (e: SQLException) {
             throw RuntimeException(e)
         } finally {

@@ -1,6 +1,6 @@
 
 import commands.CommandType
-import database.SqlDB
+import database.UserSql
 import request.Request
 import request.RequestClient
 import response.CommandResponse
@@ -8,7 +8,7 @@ import response.ResponseStatus
 
 class RequestProcessor(
     private val commandExecutor: CommandExecutor,
-    private val sqlDB: SqlDB,
+    private val sqlDB: UserSql,
 ) {
     fun process(requestClient: RequestClient): CommandResponse {
         val (response, id) = sqlDB.login(requestClient.authorizationData)

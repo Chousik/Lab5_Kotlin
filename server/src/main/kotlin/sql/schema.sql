@@ -15,7 +15,8 @@ CREATE TYPE music_genre AS ENUM (
 CREATE TABLE IF NOT EXISTS users (
                                      id SERIAL PRIMARY KEY,
                                      login VARCHAR(40) UNIQUE NOT NULL,
-    password_digest VARCHAR(64) NOT NULL
+    password_digest VARCHAR(64) NOT NULL,
+    salt VARCHAR(64) NOT NULL
     );
 
 CREATE TABLE IF NOT EXISTS music_band (

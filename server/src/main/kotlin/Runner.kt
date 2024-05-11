@@ -3,7 +3,8 @@ import builders.CommandHandlerBuilder
 import collection.MusicBand
 import commands.*
 import database.AltJsonDB
-import database.SqlDB
+import database.DataSql
+import database.UserSql
 import java.io.File
 import java.util.*
 import java.util.concurrent.Executors
@@ -12,14 +13,15 @@ import java.util.concurrent.locks.ReentrantLock
 fun main() {
     val readRequestThread = Executors.newFixedThreadPool(3)
     val responseThreadPool = Executors.newCachedThreadPool()
-    val sqlDB = SqlDB()
+    val sqlDB = UserSql()
+    val dataSql = DataSql(sqlDB.connection)
     val filename = "data.json"
     val file = File(filename)
     if (!file.exists()) {
         file.createNewFile()
     }
     val server = ServerUDP()
-    val collectionH = CollectionControllerMusicBand(AltJsonDB(filename), sqlDB, LinkedList<MusicBand>())
+    val collectionH = CollectionControllerMusicBand(AltJsonDB(filename), dataSql, LinkedList<MusicBand>())
     val lock = ReentrantLock()
     val commandList =
         mapOf(
