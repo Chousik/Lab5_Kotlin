@@ -7,9 +7,9 @@ class CountByNumbersOfParticipantsCommand(
     private val collectionController: ICollectionController<*>,
     private val lock: ReentrantLock,
 ) : ACommand(
-        "count_by_number_of_participants",
-        "команда позволяет вывести количество элементов, с кол-вом участников равному введенному.",
-    ) {
+    "count_by_number_of_participants",
+    "команда позволяет вывести количество элементов, с кол-вом участников равному введенному.",
+) {
     override fun doIt(
         arg: Any?,
         id: Int,
