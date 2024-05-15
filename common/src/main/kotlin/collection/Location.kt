@@ -1,7 +1,7 @@
 package collection
 
 import java.io.Serializable
-import java.util.*
+import java.util.Objects
 
 class Location(val x: Double, val y: Int, val z: Int, val name: String) : Serializable {
     companion object {

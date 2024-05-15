@@ -17,7 +17,9 @@ import validators.ScriptFileValidator
 import validators.ScriptRecursionValid
 import java.io.File
 import java.net.SocketTimeoutException
-import java.util.*
+import java.util.Arrays
+import java.util.Stack
+import kotlin.NoSuchElementException
 import kotlin.system.exitProcess
 
 class Runner {

@@ -6,6 +6,7 @@ import collection.Country
 import collection.Location
 import collection.MusicBand
 import collection.MusicGenre
+import collection.Person
 import exeption.AcceptError
 import java.sql.Connection
 import java.sql.SQLException
