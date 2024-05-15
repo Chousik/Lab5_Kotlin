@@ -1,4 +1,4 @@
-package org.chousik.commands.validators
+package validators
 
 import exeption.ArgumentError
 import java.io.File

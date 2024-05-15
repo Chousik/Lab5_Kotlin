@@ -3,7 +3,11 @@ package collection
 import java.io.Serializable
 import java.util.Objects
 
-class Location(private val x: Double, private val y: Int, private val z: Int, private val name: String) : Serializable {
+class Location(val x: Double, val y: Int, val z: Int, val name: String) : Serializable {
+    companion object {
+        const val serialVersionUID = 6157220399850999705
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null || javaClass != other.javaClass) return false

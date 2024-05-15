@@ -1,35 +1,36 @@
-import kotlinx.coroutines.channels.Channel
-import request.FullRequest
-import request.RequestContext
+
+import commands.CommandType
+import database.UserSql
+import request.Request
+import request.RequestClient
 import response.CommandResponse
 import response.ResponseStatus
 
 class RequestProcessor(
     private val commandExecutor: CommandExecutor,
-    private val requestChannel: Channel<FullRequest>,
-    private val clientChannel: Channel<CommandResponse>,
-    private val serverChannel: Channel<CommandResponse>,
+    private val sqlDB: UserSql,
 ) {
-    suspend fun run() {
-        while (true) {
-            val fullRequest = requestChannel.receive()
-            val response = commandExecutor.execute(fullRequest.request)
-            when (response.status) {
-                ResponseStatus.ExecutionError -> {
-                    ServerUDP.logger.error("Команда ${fullRequest.request.type} завершена с ошибкой")
-                }
-                ResponseStatus.Successfully -> {
-                    ServerUDP.logger.info("Команда ${fullRequest.request.type} успешно обработана")
-                }
+    fun process(requestClient: RequestClient): CommandResponse {
+        val (response, id) = sqlDB.login(requestClient.authorizationData)
+        if (requestClient.request.type == CommandType.Authorization || response.status == ResponseStatus.ExecutionError) {
+            return response
+        }
+        return process(requestClient.request, id)
+    }
+
+    fun process(
+        request: Request,
+        id: Int,
+    ): CommandResponse {
+        val response = commandExecutor.execute(request, id)
+        when (response.status) {
+            ResponseStatus.ExecutionError -> {
+                ServerUDP.logger.error("Команда ${request.type} завершена с ошибкой")
             }
-            when (fullRequest.context) {
-                RequestContext.SERVER -> {
-                    serverChannel.send(response)
-                }
-                RequestContext.CLIENT -> {
-                    clientChannel.send(response)
-                }
+            ResponseStatus.Successfully -> {
+                ServerUDP.logger.info("Команда ${request.type} успешно обработана")
             }
         }
+        return response
     }
 }
