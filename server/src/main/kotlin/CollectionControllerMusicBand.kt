@@ -8,7 +8,7 @@ import exeption.ArgumentError
 import scanners.MainScanner
 import java.io.IOException
 import java.time.LocalDateTime
-import java.util.*
+import java.util.LinkedList
 import java.util.stream.Collectors
 
 class CollectionControllerMusicBand(

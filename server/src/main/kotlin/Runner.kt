@@ -1,12 +1,27 @@
 
 import builders.CommandHandlerBuilder
 import collection.MusicBand
-import commands.*
+import commands.AddCommand
+import commands.ClearCommand
+import commands.CommandType
+import commands.CountByNumbersOfParticipantsCommand
+import commands.ExecuteCommand
+import commands.ExitCommand
+import commands.FilterByAlbumsCountCommand
+import commands.HelpCommand
+import commands.InfoCommand
+import commands.RemoveAnyByFrontManCommand
+import commands.RemoveAtCommand
+import commands.RemoveByIdCommand
+import commands.ReorderCommand
+import commands.ShowCommand
+import commands.ShuffleCommand
+import commands.UpdateCommand
 import database.AltJsonDB
 import database.DataSql
 import database.UserSql
 import java.io.File
-import java.util.*
+import java.util.LinkedList
 import java.util.concurrent.Executors
 import java.util.concurrent.locks.ReentrantLock
 

@@ -10,7 +10,7 @@ import java.net.DatagramPacket
 import java.net.DatagramSocket
 import java.net.InetAddress
 
-class ClientUDP(private val ipNet: InetAddress = InetAddress.getByName("localhost"), private val port: Int = 1488) {
+class ClientUDP(private val ipNet: InetAddress = InetAddress.getByName("192.168.31.79"), private val port: Int = 1488) {
     private val datagramSocket = DatagramSocket()
 
     init {

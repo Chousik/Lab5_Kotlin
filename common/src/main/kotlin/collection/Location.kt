@@ -1,12 +1,12 @@
 package collection
 
-import org.springframework.data.annotation.Id
 import java.io.Serializable
-import java.util.Objects
+import java.util.*
 
 class Location(val x: Double, val y: Int, val z: Int, val name: String) : Serializable {
-    @Id
-    val id: Long = 0
+    companion object {
+        const val serialVersionUID = 6157220399850999705
+    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
